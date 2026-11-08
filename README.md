@@ -1,12 +1,12 @@
 # Lerhyllan
 
-Ett bibliotek för glasyrer, kombinationer och keramikprojekt. Data sparas i Firebase (Firestore) och man loggar in med en länk som skickas till ens e-post.
+Ett bibliotek för glasyrer, kombinationer och keramikprojekt. Data sparas i Firebase (Firestore) och man loggar in med e-post och lösenord.
 
 ## Kom igång
 
 1. Skapa ett projekt på https://console.firebase.google.com
 2. **Build → Firestore Database → Create database** (välj `eur3` eller `europe-north1`).
-3. **Authentication → Sign-in method → Email/Password → slå på "Email link (passwordless sign-in)".**
+3. **Authentication → Sign-in method → Email/Password → slå på.**
 4. **Projektinställningar → Lägg till webbapp.** Kopiera config-värdena till `public/firebase-config.js`.
 5. Lägg in `firestore.rules` under Firestore → Rules → Publish.
 

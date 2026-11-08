@@ -1667,42 +1667,38 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       }
     };
   }
-  function showLogin(msg) {
+  function showLogin(msg, mode) {
+    mode = mode || "in";
     $("#counts").textContent = msg || "Logga in för att se ditt bibliotek.";
     var v = $("#view"); v.textContent = "";
     var saved = ""; try { saved = localStorage.getItem("lh-email") || ""; } catch (e) {}
-    var email = h("input", { type: "email", class: "search", placeholder: "din@epost.se", value: saved, autocomplete: "email", "aria-label": "E-post" });
-    var btn = h("button", { class: "btn", type: "submit" }, "Skicka inloggningslänk");
-    var form = h("form", { style: "display:flex;flex-direction:column;gap:12px;margin-top:16px" }, email, btn);
+    var isNew = mode === "new";
+    var email = h("input", { type: "email", class: "search", placeholder: "E-post", value: saved, autocomplete: "email", "aria-label": "E-post", required: true });
+    var pw = h("input", { type: "password", class: "search", placeholder: isNew ? "Välj ett lösenord (minst 6 tecken)" : "Lösenord", autocomplete: isNew ? "new-password" : "current-password", "aria-label": "Lösenord", required: true });
+    var btn = h("button", { class: "btn", type: "submit" }, isNew ? "Skapa konto" : "Logga in");
+    var ERR = {
+      "auth/invalid-credential": "Fel e-post eller lösenord.", "auth/wrong-password": "Fel lösenord.", "auth/user-not-found": "Det finns inget konto med den e-posten.",
+      "auth/email-already-in-use": "Det finns redan ett konto med den e-posten. Logga in i stället.", "auth/weak-password": "Lösenordet måste vara minst 6 tecken.",
+      "auth/invalid-email": "Skriv en giltig e-postadress.", "auth/too-many-requests": "För många försök. Vänta en stund.", "auth/operation-not-allowed": "E-post och lösenord är inte påslaget i Firebase."
+    };
+    var form = h("form", { style: "display:flex;flex-direction:column;gap:12px;margin-top:16px" }, email, pw, btn);
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      var addr = email.value.trim();
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) { toast("Skriv en giltig e-postadress."); return; }
+      var addr = email.value.trim(), auth = firebase.auth();
       btn.disabled = true;
-      firebase.auth().sendSignInLinkToEmail(addr, { url: location.origin + location.pathname, handleCodeInApp: true }).then(function () {
+      (isNew ? auth.createUserWithEmailAndPassword(addr, pw.value) : auth.signInWithEmailAndPassword(addr, pw.value)).then(function () {
         try { localStorage.setItem("lh-email", addr); } catch (e) {}
-        v.textContent = "";
-        v.append(h("div", { class: "empty" }, h("b", null, "Kolla din e-post"), "Vi har skickat en länk till " + addr + ". Öppna den på den här enheten för att logga in. Hittar du inget mejl, titta i skräpposten."));
-      }, function (e) {
-        btn.disabled = false;
-        toast("Det gick inte att skicka länken: " + ({ "auth/operation-not-allowed": "e-postlänk är inte påslagen i Firebase", "auth/unauthorized-continue-uri": "adressen är inte godkänd i Firebase (Authorized domains)", "auth/quota-exceeded": "för många försök, vänta en stund" }[e && e.code] || (e && e.code) || "okänt fel"));
-      });
+      }, function (e) { btn.disabled = false; toast(ERR[e && e.code] || "Det gick inte: " + ((e && e.code) || "okänt fel")); });
     });
-    v.append(h("div", { class: "empty" }, h("b", null, "Biblioteket är privat"), "Skriv din e-post så får du en inloggningslänk. Använd samma adress varje gång, så hittar du alltid dina projekt.", form));
-  }
-  function finishEmailLink() {
-    var auth = firebase.auth(), href = location.href;
-    if (!auth.isSignInWithEmailLink(href)) return Promise.resolve();
-    var addr = ""; try { addr = localStorage.getItem("lh-email") || ""; } catch (e) {}
-    if (!addr) addr = (window.prompt("Bekräfta din e-postadress") || "").trim();
-    if (!addr) return Promise.resolve();
-    return auth.signInWithEmailLink(addr, href).then(function () {
-      try { localStorage.setItem("lh-email", addr); } catch (e) {}
-      history.replaceState(null, "", location.pathname);
-    }, function (e) {
-      history.replaceState(null, "", location.pathname);
-      toast(e && (e.code === "auth/invalid-action-code" || e.code === "auth/expired-action-code") ? "Länken har gått ut eller redan använts. Be om en ny." : "Inloggningen misslyckades: " + ((e && e.code) || "okänt fel"));
-    });
+    var swap = h("button", { type: "button", class: "link", onclick: function () { try { localStorage.setItem("lh-email", email.value.trim()); } catch (e) {} showLogin(msg, isNew ? "in" : "new"); } }, isNew ? "Har du redan ett konto? Logga in" : "Ny här? Skapa konto");
+    var forgot = isNew ? null : h("button", { type: "button", class: "link", onclick: function () {
+      var addr = email.value.trim();
+      if (!addr) { toast("Skriv din e-post först."); email.focus(); return; }
+      firebase.auth().sendPasswordResetEmail(addr).then(function () { toast("Om kontot finns har vi skickat ett mejl för att byta lösenord."); }, function (e) { toast(ERR[e && e.code] || "Det gick inte att skicka mejlet."); });
+    } }, "Glömt lösenordet?");
+    v.append(h("div", { class: "empty" }, h("b", null, isNew ? "Skapa konto" : "Logga in"),
+      isNew ? "Ditt bibliotek är privat. Använd samma e-post och lösenord varje gång så hittar du alltid dina projekt." : "Biblioteket är privat. Logga in med din e-post och ditt lösenord.",
+      form, h("div", { style: "display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px" }, swap, forgot)));
   }
   function start() {
     if (!window.firebase || !window.LERHYLLAN_FIREBASE || !window.LERHYLLAN_FIREBASE.apiKey) { $("#counts").textContent = "Firebase är inte inställt. Fyll i firebase-config.js."; return; }
@@ -1711,7 +1707,6 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     try { fs.settings({ ignoreUndefinedProperties: true }); } catch (e) {}
     try { fs.enablePersistence({ synchronizeTabs: true }).catch(function () {}); } catch (e) {}
     var unsubs = [];
-    finishEmailLink();
     firebase.auth().onAuthStateChanged(function (u) {
       unsubs.forEach(function (f) { f(); }); unsubs = [];
       if (!u) { db = null; assets = null; showLogin(); return; }
