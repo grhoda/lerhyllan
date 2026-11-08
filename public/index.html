@@ -1514,23 +1514,33 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     if (!canWrite || !db) { toast("Du kan inte importera här."); return; }
     file.text().then(function (txt) {
       var j; try { j = JSON.parse(txt); } catch (e) { toast("Filen gick inte att läsa."); return; }
-      var keys = Object.keys(j.docs || {}).filter(function (k) { return k.indexOf("projects/") === 0; });
-      if (!keys.length) { toast("Hittade inga projekt i filen."); return; }
-      toast("Importerar…");
-      var map = {}, bids = Object.keys(j.blobs || {}), chain = Promise.resolve();
+      var COLS = ["glazes", "combos", "projects"];
+      var keys = Object.keys(j.docs || {}).filter(function (k) { var c = k.split("/")[0]; return COLS.indexOf(c) >= 0 && k.split("/").length === 2; });
+      if (!keys.length) { toast("Hittade inget att importera i filen."); return; }
+      var bids = Object.keys(j.blobs || {}), map = {}, done = 0, chain = Promise.resolve();
+      toast("Importerar… (" + bids.length + " bilder)");
       bids.forEach(function (bid) {
         chain = chain.then(function () {
           if (!assets) return;
-          return fetch(j.blobs[bid]).then(function (r) { return r.blob(); }).then(function (b) { return assets.upload(b); }).then(function (r) { map[bid] = r.id; }).catch(function () {});
+          return fetch(j.blobs[bid]).then(function (r) { return r.blob(); }).then(function (b) { return assets.upload(b); }).then(function (r) { map[bid] = r.id; }).catch(function () {}).then(function () {
+            done++; if (done % 5 === 0) toast("Importerar bilder… " + done + " av " + bids.length);
+          });
         });
       });
       chain.then(function () {
+        var n = { glazes: 0, combos: 0, projects: 0 };
         return Promise.all(keys.map(function (k) {
-          var d = j.docs[k];
-          if (bids.length) { d.images = (d.images || []).map(function (i) { return map[i]; }).filter(Boolean); d.cover = d.cover && map[d.cover] ? map[d.cover] : (d.images.length ? d.images[d.images.length - 1] : ""); }
-          return db.collection("projects").doc(k.slice(9)).set(d);
-        }));
-      }).then(function () { toast("Importerade " + keys.length + (keys.length === 1 ? " projekt" : " projekt")); }, function () { toast("Importen misslyckades."); });
+          var parts = k.split("/"), d = j.docs[k];
+          if (d.images) {
+            d.images = d.images.map(function (i) { return map[i]; }).filter(Boolean);
+            if ("cover" in d) d.cover = d.cover && map[d.cover] ? map[d.cover] : (d.images.length ? d.images[d.images.length - 1] : "");
+          }
+          n[parts[0]]++;
+          return db.collection(parts[0]).doc(parts[1]).set(d);
+        })).then(function () { return n; });
+      }).then(function (n) {
+        toast("Importerade " + n.glazes + " glasyrer, " + n.combos + " kombinationer och " + n.projects + " projekt.");
+      }, function () { toast("Importen misslyckades."); });
     });
   }
   var collapsed = new Set();
@@ -1729,7 +1739,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
   }
   function TOOLS_ITEMS(menu, fileIn, close) {
     menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); exportProjects(); } }, "Exportera projekt"));
-    if (canWrite) menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); fileIn.click(); } }, "Importera projekt"));
+    if (canWrite) menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); fileIn.click(); } }, "Importera från fil"));
     fileIn.addEventListener("change", function () { var f = fileIn.files && fileIn.files[0]; fileIn.value = ""; if (f) importProjects(f); });
   }
   (function () {
