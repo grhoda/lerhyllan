@@ -1,7 +1,8 @@
 // Firebase-inställningar för Lerhyllan (inte hemliga – skyddas av firestore.rules).
 window.LERHYLLAN_FIREBASE = {
   apiKey: "AIzaSyAuy7aHPAc0sK8ny_uUBs017-9opqghOws",
-  authDomain: "lerhyllan.firebaseapp.com",
+  // På egen domän sköts inloggningen via /__/auth (se src/worker.js).
+  authDomain: location.hostname === "lerhyllan.rhoda.se" ? location.host : "lerhyllan.firebaseapp.com",
   projectId: "lerhyllan",
   storageBucket: "lerhyllan.firebasestorage.app",
   messagingSenderId: "357106337147",
