@@ -1614,6 +1614,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     tab = t;
     ["projects", "glazes", "learn"].forEach(function (k) { $("#tab-" + k).setAttribute("aria-selected", String(k === t)); });
     drawSeg();
+    if (!db) { showLogin(); return; }
     if (t === "glazes") { if (sub !== "glazes") mountCombos(); else mountGlazes(); } else if (t === "learn") mountLearn(); else mountProjects();
   }
   ["projects", "glazes", "learn"].forEach(function (k) { $("#tab-" + k).addEventListener("click", function () { setTab(k); }); });
@@ -1666,40 +1667,81 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       }
     };
   }
-  function libKey() {
-    var m = /[#&]k=([A-Za-z0-9]{20,})/.exec(location.hash), k = m ? m[1] : "";
-    if (!k) { try { k = localStorage.getItem("lh-lib") || ""; } catch (e) {} }
-    if (!k) { var a = new Uint8Array(18); crypto.getRandomValues(a); k = Array.from(a, function (x) { return "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789"[x % 57]; }).join("") + "lh"; }
-    try { localStorage.setItem("lh-lib", k); } catch (e) {}
-    if (!m) history.replaceState(null, "", location.pathname + location.search + "#k=" + k);
-    return k;
+  // Inloggning med namn + kod. Varken namn eller kod sparas: de blir en SHA-256-nyckel
+  // som pekar ut biblioteket i databasen (libraries/{nyckel}).
+  function makeKey(name, code) {
+    var txt = "lerhyllan|" + name.trim().toLowerCase().replace(/\s+/g, " ") + "|" + code;
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(txt)).then(function (buf) {
+      return Array.from(new Uint8Array(buf), function (x) { return x.toString(16).padStart(2, "0"); }).join("");
+    });
   }
-  function libLink() { return location.origin + location.pathname + "#k=" + libKey(); }
-  function start() {
-    if (!window.firebase || !window.LERHYLLAN_FIREBASE || !window.LERHYLLAN_FIREBASE.apiKey) { $("#counts").textContent = "Firebase är inte inställt. Fyll i firebase-config.js."; return; }
-    firebase.initializeApp(window.LERHYLLAN_FIREBASE);
-    var fs = firebase.firestore();
-    try { fs.settings({ ignoreUndefinedProperties: true }); } catch (e) {}
-    try { fs.enablePersistence({ synchronizeTabs: true }).catch(function () {}); } catch (e) {}
-    // Inget inlogg: biblioteket nås med en hemlig nyckel i adressen (#k=…), som Kvitt.
-    var root = fs.collection("libraries").doc(libKey());
+  function getKey() { try { return localStorage.getItem("lh-key") || ""; } catch (e) { return ""; } }
+  function showLogin(msg) {
+    $("#counts").textContent = msg || "Skriv ditt namn och din kod för att öppna din lerhylla.";
+    var v = $("#view"); v.textContent = "";
+    var name = h("input", { type: "text", class: "search", placeholder: "Namn", autocomplete: "username", "aria-label": "Namn", required: true });
+    var code = h("input", { type: "password", class: "search", placeholder: "Kod (minst 8 tecken)", autocomplete: "current-password", "aria-label": "Kod", minlength: "8", required: true });
+    var show = h("input", { type: "checkbox" });
+    show.addEventListener("change", function () { code.type = show.checked ? "text" : "password"; });
+    var btn = h("button", { class: "btn", type: "submit" }, "Öppna min lerhylla");
+    var form = h("form", { style: "display:flex;flex-direction:column;gap:12px;margin-top:16px" }, name, code,
+      h("label", { class: "check" }, show, "Visa koden"), btn);
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (!name.value.trim()) { toast("Skriv ditt namn."); name.focus(); return; }
+      if (code.value.length < 8) { toast("Koden måste vara minst 8 tecken."); code.focus(); return; }
+      btn.disabled = true;
+      makeKey(name.value, code.value).then(function (k) {
+        try { localStorage.setItem("lh-key", k); } catch (e) {}
+        openLibrary(k, true);
+      }, function () { btn.disabled = false; toast("Det gick inte att öppna lerhyllan i den här webbläsaren."); });
+    });
+    v.append(h("div", { class: "empty" }, h("b", null, "Din lerhylla"),
+      "Första gången hittar du på ett namn och en kod. Skriv samma namn och kod på en annan telefon eller dator, så kommer allt fram igen. Koden sparas ingenstans, så skriv upp den.",
+      form));
+    name.focus();
+  }
+  var fs = null, unsubs = [];
+  function openLibrary(k, fresh) {
+    unsubs.forEach(function (f) { f(); }); unsubs = [];
+    var root = fs.collection("libraries").doc(k);
     db = { collection: function (n) { return root.collection(n); } };
-    imgCol = root.collection("images");
+    imgCol = root.collection("images"); imgCache = new Map();
     assets = makeAssets(); sample = null; canWrite = true;
+    loaded = { glazes: false, combos: false, projects: false };
+    glazes = new Map(); combos = new Map(); projects = new Map();
+    $("#counts").textContent = "Hämtar biblioteket…";
     setTab(tab);
     var fail = function (e) {
       $("#counts").textContent = "Kunde inte nå databasen" + (e && e.code ? " (" + e.code + ")" : "") + ".";
       toast(e && e.code === "permission-denied" ? "Databasen nekade åtkomst. Kontrollera reglerna i Firestore." : "Anslutningen till biblioteket bröts. Ladda om sidan.");
     };
-    db.collection("glazes").onSnapshot(function (s) { glazes = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.glazes = true; refresh(); }, fail);
-    db.collection("combos").onSnapshot(function (s) { combos = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.combos = true; refresh(); }, fail);
-    db.collection("projects").onSnapshot(function (s) { projects = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.projects = true; refresh(); }, fail);
+    var told = !fresh;
+    function check() {
+      if (told || !(loaded.glazes && loaded.combos && loaded.projects)) return;
+      told = true;
+      if (!glazes.size && !combos.size && !projects.size) toast("Det här är en ny, tom lerhylla. Stämmer namn och kod?");
+    }
+    unsubs.push(db.collection("glazes").onSnapshot(function (s) { glazes = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.glazes = true; refresh(); check(); }, fail));
+    unsubs.push(db.collection("combos").onSnapshot(function (s) { combos = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.combos = true; refresh(); check(); }, fail));
+    unsubs.push(db.collection("projects").onSnapshot(function (s) { projects = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.projects = true; refresh(); check(); }, fail));
+  }
+  function start() {
+    if (!window.firebase || !window.LERHYLLAN_FIREBASE || !window.LERHYLLAN_FIREBASE.apiKey) { $("#counts").textContent = "Firebase är inte inställt. Fyll i firebase-config.js."; return; }
+    firebase.initializeApp(window.LERHYLLAN_FIREBASE);
+    fs = firebase.firestore();
+    try { fs.settings({ ignoreUndefinedProperties: true }); } catch (e) {}
+    try { fs.enablePersistence({ synchronizeTabs: true }).catch(function () {}); } catch (e) {}
     var menu = $(".tools-menu");
     if (menu) menu.append(h("button", { type: "button", role: "menuitem", onclick: function () {
       menu.hidden = true;
-      var link = libLink();
-      (navigator.clipboard ? navigator.clipboard.writeText(link) : Promise.reject()).then(function () { toast("Länken till ditt bibliotek är kopierad. Spara den!"); }, function () { window.prompt("Spara den här länken till ditt bibliotek:", link); });
-    } }, "Kopiera länk till biblioteket"));
+      if (!window.confirm("Logga ut? Du behöver ditt namn och din kod för att komma in igen.")) return;
+      unsubs.forEach(function (f) { f(); }); unsubs = []; db = null;
+      try { localStorage.removeItem("lh-key"); } catch (e) {}
+      showLogin();
+    } }, "Logga ut"));
+    var k = getKey();
+    if (k) openLibrary(k, false); else showLogin();
   }
   function TOOLS_ITEMS(menu, fileIn, close) {
     menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); exportProjects(); } }, "Exportera projekt"));

@@ -1,6 +1,6 @@
 # Lerhyllan
 
-Ett bibliotek för glasyrer, kombinationer och keramikprojekt. Data sparas i Firebase (Firestore) utan inloggning: biblioteket nås med en hemlig nyckel i adressen (`#k=…`), precis som Kvitt.
+Ett bibliotek för glasyrer, kombinationer och keramikprojekt. Data sparas i Firebase (Firestore) och man öppnar sin lerhylla med namn + kod (minst 8 tecken). Varken namn eller kod sparas; de blir en SHA-256-nyckel som pekar ut biblioteket.
 
 ## Kom igång
 
