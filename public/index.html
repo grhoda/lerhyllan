@@ -445,7 +445,6 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
 <div id="toast" class="toast" hidden></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js"></script>
 <script>
@@ -1667,65 +1666,40 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       }
     };
   }
-  function showLogin(msg, mode) {
-    mode = mode || "in";
-    $("#counts").textContent = msg || "Logga in för att se ditt bibliotek.";
-    var v = $("#view"); v.textContent = "";
-    var saved = ""; try { saved = localStorage.getItem("lh-email") || ""; } catch (e) {}
-    var isNew = mode === "new";
-    var email = h("input", { type: "email", class: "search", placeholder: "E-post", value: saved, autocomplete: "email", "aria-label": "E-post", required: true });
-    var pw = h("input", { type: "password", class: "search", placeholder: isNew ? "Välj ett lösenord (minst 6 tecken)" : "Lösenord", autocomplete: isNew ? "new-password" : "current-password", "aria-label": "Lösenord", required: true });
-    var btn = h("button", { class: "btn", type: "submit" }, isNew ? "Skapa konto" : "Logga in");
-    var ERR = {
-      "auth/invalid-credential": "Fel e-post eller lösenord.", "auth/wrong-password": "Fel lösenord.", "auth/user-not-found": "Det finns inget konto med den e-posten.",
-      "auth/email-already-in-use": "Det finns redan ett konto med den e-posten. Logga in i stället.", "auth/weak-password": "Lösenordet måste vara minst 6 tecken.",
-      "auth/invalid-email": "Skriv en giltig e-postadress.", "auth/too-many-requests": "För många försök. Vänta en stund.", "auth/operation-not-allowed": "E-post och lösenord är inte påslaget i Firebase."
-    };
-    var form = h("form", { style: "display:flex;flex-direction:column;gap:12px;margin-top:16px" }, email, pw, btn);
-    form.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      var addr = email.value.trim(), auth = firebase.auth();
-      btn.disabled = true;
-      (isNew ? auth.createUserWithEmailAndPassword(addr, pw.value) : auth.signInWithEmailAndPassword(addr, pw.value)).then(function () {
-        try { localStorage.setItem("lh-email", addr); } catch (e) {}
-      }, function (e) { btn.disabled = false; toast(ERR[e && e.code] || "Det gick inte: " + ((e && e.code) || "okänt fel")); });
-    });
-    var swap = h("button", { type: "button", class: "link", onclick: function () { try { localStorage.setItem("lh-email", email.value.trim()); } catch (e) {} showLogin(msg, isNew ? "in" : "new"); } }, isNew ? "Har du redan ett konto? Logga in" : "Ny här? Skapa konto");
-    var forgot = isNew ? null : h("button", { type: "button", class: "link", onclick: function () {
-      var addr = email.value.trim();
-      if (!addr) { toast("Skriv din e-post först."); email.focus(); return; }
-      firebase.auth().sendPasswordResetEmail(addr).then(function () { toast("Om kontot finns har vi skickat ett mejl för att byta lösenord."); }, function (e) { toast(ERR[e && e.code] || "Det gick inte att skicka mejlet."); });
-    } }, "Glömt lösenordet?");
-    v.append(h("div", { class: "empty" }, h("b", null, isNew ? "Skapa konto" : "Logga in"),
-      isNew ? "Ditt bibliotek är privat. Använd samma e-post och lösenord varje gång så hittar du alltid dina projekt." : "Biblioteket är privat. Logga in med din e-post och ditt lösenord.",
-      form, h("div", { style: "display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px" }, swap, forgot)));
+  function libKey() {
+    var m = /[#&]k=([A-Za-z0-9]{20,})/.exec(location.hash), k = m ? m[1] : "";
+    if (!k) { try { k = localStorage.getItem("lh-lib") || ""; } catch (e) {} }
+    if (!k) { var a = new Uint8Array(18); crypto.getRandomValues(a); k = Array.from(a, function (x) { return "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789"[x % 57]; }).join("") + "lh"; }
+    try { localStorage.setItem("lh-lib", k); } catch (e) {}
+    if (!m) history.replaceState(null, "", location.pathname + location.search + "#k=" + k);
+    return k;
   }
+  function libLink() { return location.origin + location.pathname + "#k=" + libKey(); }
   function start() {
     if (!window.firebase || !window.LERHYLLAN_FIREBASE || !window.LERHYLLAN_FIREBASE.apiKey) { $("#counts").textContent = "Firebase är inte inställt. Fyll i firebase-config.js."; return; }
     firebase.initializeApp(window.LERHYLLAN_FIREBASE);
     var fs = firebase.firestore();
     try { fs.settings({ ignoreUndefinedProperties: true }); } catch (e) {}
     try { fs.enablePersistence({ synchronizeTabs: true }).catch(function () {}); } catch (e) {}
-    var unsubs = [];
-    firebase.auth().onAuthStateChanged(function (u) {
-      unsubs.forEach(function (f) { f(); }); unsubs = [];
-      if (!u) { db = null; assets = null; showLogin(); return; }
-      var root = fs.collection("users").doc(u.uid);
-      db = { collection: function (n) { return root.collection(n); } };
-      imgCol = root.collection("images"); imgCache = new Map();
-      assets = makeAssets(); sample = null; canWrite = true;
-      loaded = { glazes: false, combos: false, projects: false };
-      setTab(tab);
-      var fail = function (e) {
-        if (e && e.code === "permission-denied") { showLogin("Ditt konto har inte tillgång till biblioteket."); return; }
-        toast("Anslutningen till biblioteket bröts. Ladda om sidan.");
-      };
-      unsubs.push(db.collection("glazes").onSnapshot(function (s) { glazes = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.glazes = true; refresh(); }, fail));
-      unsubs.push(db.collection("combos").onSnapshot(function (s) { combos = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.combos = true; refresh(); }, fail));
-      unsubs.push(db.collection("projects").onSnapshot(function (s) { projects = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.projects = true; refresh(); }, fail));
-    });
+    // Inget inlogg: biblioteket nås med en hemlig nyckel i adressen (#k=…), som Kvitt.
+    var root = fs.collection("libraries").doc(libKey());
+    db = { collection: function (n) { return root.collection(n); } };
+    imgCol = root.collection("images");
+    assets = makeAssets(); sample = null; canWrite = true;
+    setTab(tab);
+    var fail = function (e) {
+      $("#counts").textContent = "Kunde inte nå databasen" + (e && e.code ? " (" + e.code + ")" : "") + ".";
+      toast(e && e.code === "permission-denied" ? "Databasen nekade åtkomst. Kontrollera reglerna i Firestore." : "Anslutningen till biblioteket bröts. Ladda om sidan.");
+    };
+    db.collection("glazes").onSnapshot(function (s) { glazes = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.glazes = true; refresh(); }, fail);
+    db.collection("combos").onSnapshot(function (s) { combos = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.combos = true; refresh(); }, fail);
+    db.collection("projects").onSnapshot(function (s) { projects = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.projects = true; refresh(); }, fail);
     var menu = $(".tools-menu");
-    if (menu) menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { menu.hidden = true; firebase.auth().signOut(); } }, "Logga ut"));
+    if (menu) menu.append(h("button", { type: "button", role: "menuitem", onclick: function () {
+      menu.hidden = true;
+      var link = libLink();
+      (navigator.clipboard ? navigator.clipboard.writeText(link) : Promise.reject()).then(function () { toast("Länken till ditt bibliotek är kopierad. Spara den!"); }, function () { window.prompt("Spara den här länken till ditt bibliotek:", link); });
+    } }, "Kopiera länk till biblioteket"));
   }
   function TOOLS_ITEMS(menu, fileIn, close) {
     menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); exportProjects(); } }, "Exportera projekt"));
