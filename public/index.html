@@ -1675,7 +1675,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
         var p = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(p).catch(function (e) {
           if (e && (e.code === "auth/popup-blocked" || e.code === "auth/operation-not-supported-in-this-environment")) return firebase.auth().signInWithRedirect(p);
-          if (!e || e.code !== "auth/popup-closed-by-user") toast("Inloggningen misslyckades.");
+          if (!e || e.code !== "auth/popup-closed-by-user") toast("Inloggningen misslyckades: " + ({ "auth/unauthorized-domain": "adressen är inte godkänd i Firebase (Authorized domains)", "auth/operation-not-allowed": "Google-inloggning är inte påslagen i Firebase", "auth/configuration-not-found": "Authentication är inte startat i Firebase" }[e && e.code] || (e && e.code) || "okänt fel"));
         });
       } }, "Logga in med Google"))));
   }
