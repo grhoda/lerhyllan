@@ -1713,6 +1713,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
   function start() {
     if (!window.firebase || !window.LERHYLLAN_FIREBASE || !window.LERHYLLAN_FIREBASE.apiKey) { $("#counts").textContent = "Firebase är inte inställt. Fyll i firebase-config.js."; return; }
     firebase.initializeApp(window.LERHYLLAN_FIREBASE);
+    try { firebase.auth().languageCode = "sv"; } catch (e) {} // mejl från Firebase på svenska
     var fs = firebase.firestore();
     try { fs.settings({ ignoreUndefinedProperties: true }); } catch (e) {}
     try { fs.enablePersistence({ synchronizeTabs: true }).catch(function () {}); } catch (e) {}
