@@ -1670,14 +1670,39 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
   function showLogin(msg) {
     $("#counts").textContent = msg || "Logga in för att se ditt bibliotek.";
     var v = $("#view"); v.textContent = "";
-    v.append(h("div", { class: "empty" }, h("b", null, "Biblioteket är privat"), "Logga in med ditt Google-konto.",
-      h("div", { style: "margin-top:16px" }, h("button", { class: "btn", type: "button", onclick: function () {
-        var p = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(p).catch(function (e) {
-          if (e && (e.code === "auth/popup-blocked" || e.code === "auth/operation-not-supported-in-this-environment")) return firebase.auth().signInWithRedirect(p);
-          if (!e || e.code !== "auth/popup-closed-by-user") toast("Inloggningen misslyckades: " + ({ "auth/unauthorized-domain": "adressen är inte godkänd i Firebase (Authorized domains)", "auth/operation-not-allowed": "Google-inloggning är inte påslagen i Firebase", "auth/configuration-not-found": "Authentication är inte startat i Firebase" }[e && e.code] || (e && e.code) || "okänt fel"));
-        });
-      } }, "Logga in med Google"))));
+    var saved = ""; try { saved = localStorage.getItem("lh-email") || ""; } catch (e) {}
+    var email = h("input", { type: "email", class: "search", placeholder: "din@epost.se", value: saved, autocomplete: "email", "aria-label": "E-post" });
+    var btn = h("button", { class: "btn", type: "submit" }, "Skicka inloggningslänk");
+    var form = h("form", { style: "display:flex;flex-direction:column;gap:12px;margin-top:16px" }, email, btn);
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var addr = email.value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) { toast("Skriv en giltig e-postadress."); return; }
+      btn.disabled = true;
+      firebase.auth().sendSignInLinkToEmail(addr, { url: location.origin + location.pathname, handleCodeInApp: true }).then(function () {
+        try { localStorage.setItem("lh-email", addr); } catch (e) {}
+        v.textContent = "";
+        v.append(h("div", { class: "empty" }, h("b", null, "Kolla din e-post"), "Vi har skickat en länk till " + addr + ". Öppna den på den här enheten för att logga in. Hittar du inget mejl, titta i skräpposten."));
+      }, function (e) {
+        btn.disabled = false;
+        toast("Det gick inte att skicka länken: " + ({ "auth/operation-not-allowed": "e-postlänk är inte påslagen i Firebase", "auth/unauthorized-continue-uri": "adressen är inte godkänd i Firebase (Authorized domains)", "auth/quota-exceeded": "för många försök, vänta en stund" }[e && e.code] || (e && e.code) || "okänt fel"));
+      });
+    });
+    v.append(h("div", { class: "empty" }, h("b", null, "Biblioteket är privat"), "Skriv din e-post så får du en inloggningslänk. Använd samma adress varje gång, så hittar du alltid dina projekt.", form));
+  }
+  function finishEmailLink() {
+    var auth = firebase.auth(), href = location.href;
+    if (!auth.isSignInWithEmailLink(href)) return Promise.resolve();
+    var addr = ""; try { addr = localStorage.getItem("lh-email") || ""; } catch (e) {}
+    if (!addr) addr = (window.prompt("Bekräfta din e-postadress") || "").trim();
+    if (!addr) return Promise.resolve();
+    return auth.signInWithEmailLink(addr, href).then(function () {
+      try { localStorage.setItem("lh-email", addr); } catch (e) {}
+      history.replaceState(null, "", location.pathname);
+    }, function (e) {
+      history.replaceState(null, "", location.pathname);
+      toast(e && (e.code === "auth/invalid-action-code" || e.code === "auth/expired-action-code") ? "Länken har gått ut eller redan använts. Be om en ny." : "Inloggningen misslyckades: " + ((e && e.code) || "okänt fel"));
+    });
   }
   function start() {
     if (!window.firebase || !window.LERHYLLAN_FIREBASE || !window.LERHYLLAN_FIREBASE.apiKey) { $("#counts").textContent = "Firebase är inte inställt. Fyll i firebase-config.js."; return; }
@@ -1686,6 +1711,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     try { fs.settings({ ignoreUndefinedProperties: true }); } catch (e) {}
     try { fs.enablePersistence({ synchronizeTabs: true }).catch(function () {}); } catch (e) {}
     var unsubs = [];
+    finishEmailLink();
     firebase.auth().onAuthStateChanged(function (u) {
       unsubs.forEach(function (f) { f(); }); unsubs = [];
       if (!u) { db = null; assets = null; showLogin(); return; }
