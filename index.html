@@ -1,0 +1,1732 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Lerhyllan</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22112%22%20fill%3D%22%232b4de0%22/%3E%3Crect%20x%3D%2288%22%20y%3D%22352%22%20width%3D%22336%22%20height%3D%2226%22%20rx%3D%2213%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M186%20352c-42%200-52-62-22-102%2015-20%2020-34%2018-60v-16h44v16c-2%2026%203%2040%2018%2060%2030%2040%2020%20102-22%20102z%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M160%20284q42%2022%2084%200%22%20fill%3D%22none%22%20stroke%3D%22%232b4de0%22%20stroke-width%3D%2212%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.35%22/%3E%3Cpath%20d%3D%22M290%20300h132c0%2032-24%2052-66%2052s-66-20-66-52z%22%20fill%3D%22%23dfe4ff%22/%3E%3Cpath%20d%3D%22M290%20300h132%22%20stroke%3D%22%2393a8ff%22%20stroke-width%3D%2210%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAANJklEQVR4AeydC3BU1RnHQ5J9JCTkBYFAQII8JYAQolCBtgTG1MrDKlRkqFMdiwJSW8d2HGilyKt0RkemY6GUotIpg5TXVB5VIiG8kxAFUkhEEkJCApsHMY+9+8rGL7MhQLK72XP3nHvPufdzzqx3957zne/7/3977mN3Q+joWdexoQJeFQgNwf9QAR8KIBw+hMGXQ0IQDqTApwIIh09pcAfCgQz4VADh8CkN7kA4ZDCglyEIh16cllEnwiFDNL0MQTj04rSMOhEOGaLpZQjCoRenZdSJcMgQTS9DEA69OC2jTqpwyJgfh3CsAMLBsTlqp4ZwqO0Ax/MjHBybo3ZqCIfaDnA8P8LBsTlqp4ZwqO0Ax/MjHGqbw/H8CAfH5qidGsKhtgMcz49wcGyO2qkhHGo7wPH8CAfH5qidGsKhtgMcz49wcGyO2qnxC4fayuD8+FtZZMC3Arhy+NZG93sQDt0j4FsAhMO3Nrrfg3DoHgHfAiAcvrXR/R6EQ1MI0C0G4aCrp6aiIRyaspNuMQgHXT01FQ3h0JSddItBOOjqqaloCIem7KRbDMJBV09NRdMJHJryTLFiEA7FpBZvIoRDPM8UyxjhUExq8SZCOMTzTLGMEQ7FpBZvIoRDPM8UyxjhUExq4SbCb5+LZ5lyGePKoZzWws2EcAhnmXIJIxzKaS3cTAiHcJYplzDCoZzWws2EcAhnmXIJIxzkWutmhPBwbF/XL/CWOSVSN85SKFRsOMJCQ9JTTYG3fn3CKWimmxBiw6Ebm9QpFOFQR3chZkU4hLBJnSTFhqPFTaZaaytZf533FhsOMM/VQmC43UHQGYLrvNGEQxUpJRvBtFaJcKkhiK3BruLDYSfw22rDlYMAYuHhIDqNcBOARCCiVrsKD0eEqUfg3piMBJ0DD6vVnsLDQeS3EeEgAVlsOCLMPYjgiO8ldr0kzlLoK7ZYKQMMRBoMTCLrTxRce50FhyOZzOzB/bn74I1npMSGI220mUjccSNN8EEu0RA9dxYbjvQxZHDACcroYSY9+01Uu8BwDEgMSxlAfJj4UXoEkUB67iwwHM/MjJbh3Kwf95QxSp9DBIZjzvQoGZ4l9QlPTyU7GMmYRRtDRIVjfmZ0Up8weR4sfSFG3kC9jRISDjivXLJAvsETU81T0vDMo3vUuYXDX+qvPR/TO07msuGJu2JxXHhQATxhNP4oHhzJfcNfnNsrSFsG9jMsmh1skCBz4H+4eHCsfj3BEE7hw9UlC2Jln7Xw7yuVDAWD42czox4bS+daAz602/hmbyoiajWISHDEx4S+9VIcRSfGP2LGg4sfPUWC452lCdE9KSf860UxA5OIb7P6EVRLuyhrzU6azCmRGZPo/9LVbArFg4sv18SAIyY6dOVrCb5qCPL1McNNC56Scyc+yHkZDKccUgw4lr0QGxvNMNXli2KjIilcAVE2R+1wDBWnVVr/xLD5mXI+Rgk8ATiVeWVebOD9ddJTADje+EVcWBjzt/XLz/aCqyGduB5gmbzDAUeTmT+gfx7qVZ25GWzXJ6+T8vwi73DMyYiicj80EA/mzkA4HtCJdzieUdCwIcmGMcOND8ij7ydcw9EnPmzooLbvl9sdrY3NTH7K2GRtheAdDPwwXaFDWMeMPG9wDYfnrlelxZV11nrivHTsnPTNdYdkJ/8xdBcHbPbWq2WOY+esOflWCF5x2+npMmUCfs/Do0TbI9dwTH607TO2iluutkxDQiS7+9sbTnA0r9B+q6aF6CfUnggw5FaNK6/QdixXulrmlO5yVl7VPkXqMCNc1no64yPXcIwe2vYzgq4LRXWdq+Cy7egZa1GJI8A/uQHdiksdsEgUXLZX1wFYD0S9/8moIXja0f6+4BeO6J49+vVu+7bWoyNNXt/NTldrSYUzO0/6/JQ1O1c6/bUES8LFYgcQU1TqgA14evorKTvX2tYhT7pW7nQ478egXYKoyNAJo9qWKM/zYQ+1neV4tnX+yC8cQwe1v4NNxh5T0yImppoTYttY6WqYq6XVanPXN7hhSYCzByCmpNwJG/C0vtFttbVCh66j4BW465U22jxtYoTZdO8m28N354UOOm/8wtHpW6KJ8WGPjzVPTYsc1N9gNNzzUoZ/MHxQUvgTEyImjYvom9AZOCDGT8wIc1j/RDMnLS6G7SLHLxyx3v5cAhxrUocaZ0yOnDTOnDLAAE/9GNlpFxybUpINMBCGpw4zxUR5rz02ujMuHXFGPRz14rPJs2f25aT9/On+mdMSO9KjvuFdIOrTyAjYq6dPkyBafEzYqIeNsJA8Na3nE+MjwGw4HAxMCk/qEw5LDjTYgKdDBhpgF3SAbnBsgpNNGAjD/TRgyNfe1BHcfSf5oWRzryg2X1YK4fgfAGyF605fLj34ekx0KBwmRgw2jBlmGj/K9NgYMzTYgKcjU4ywCzo8OMLfsxa3l5NWz4DC4gbPBj+PZRW2hqb263DqWfG7crhaqBcbUECvVzSekVeuNX28p2LogJbJY0J4aNlnLEdyLJ7cWDzyC4dE8jckKUoj+f1zlJKtxel0JcSE8NDKb9kpFt41FL9wVFWrs3TctHSzSldWt99r76qmkq80NLubrUw+b+qogl84yqvU8aDbeS8UkfzR5A6laW/kXZRoh+wcj184yipd/lf4zqVQel5U2g2UeZesVhvbt2wgpRw/3xxIt2D68AsHVJX/f6Xfoy0trbndvSMle2t+odKJgRr3N6DzwhUdrxygxcnzzOuHWe5v5y7Znd2ccoRA//1Z38Gjiu1QThPpPyciI1uuV45DOc1u33cdZFTb7ZBDxwNaq7+57sg6E1DPbmeU0aG6zrXrUL2MgaRDuIbjToP7ZIFyCzis1QePNwWo4La9ddA/wM50u23fVw+HNroxvUbjGg7IePte5W5K7jzYFMgxBbKC1tDk/tvOOthQuGWda87JV2jR4h2OvELbZ9lKaHG71vXhTrK1+lhu85rNFqe374gwIuZQTuP7H9UwCt41LO9wQMYbttZZ6pjfEHvrLzV28n/k6+wF6d3NFmUuufdnNXyo7FolABz1je7frLf4+sIO0BN8e//j+oLLdnlxCi7blq2t/LqI4YVVbb3rnb/e/sd/7sjLUPYoAeCA2i4UO95+rxY2WLRPDjRs2xPUpentGtfKDyxbd99xkK893VZ0sqB5yerK84rf8oHEKMIB0Ri2wyean3+zivrx5Q+bajduo/OOPPBlw0srK7bsqispdwQvBFyp7Tva8Praqg1ba5oln98iCH4iPxGEgQNqKLzq+OmrN/+5t8EVwH0q6O+/fXHamvHLin1HA7129R/NsxeOgP/Nbly+rgpM3f2/7wqv2knPY8oqnYdPNK3ZXL3o9+Xb9twpraDAmSc3GY8KwdE3IWz8KFN6qjnIljrUdCJfWrbGAm/33UeavjxrzS+0F5U4ikud3baLxfacfGn/0aZNO+qXr7X8+7PGQUmGIPPxNbx3bOjlb217Pq/fsNWyZVftweyGUwXNuZes8KHdlWv2azccJRWO4hL7xWJbfqF06ivrF6ebPtl/Z90Wy0f76nIvNre0uH1FBhlBTBlOyxjCHI7hgw17PkjK2p6848/9tq/rS6VtXpX4u5fj5mVGTZ8UOTHVNHKIcUSKods2doRp2sSIuTOili+K3bQikUomgQRZ/9uEpQt7LZzVc35m5JwM80+mmTImG6c/bnxyqmn2dPNzT0YsfDrylXlRf1wa9/fV3WcFMoKYIOlg8n8xgpQPtnD0jgv718Z+I1KMpGlhf/8KgKSfvpeUGO/va7b+IwSyly0cKxbHR5rZThFIkZrsExkR+vav4pmWxta5CY/c+yUZ0zL0GZy1vAzh6J8YnhDLML4mgAiqCJA3wcevAIOKe3cwQ/MqLa7SmzQuOu/miv/vpABcoNXWM/xggSEcUMmOA8p9pgrT6a3tOtzItGS2cHx6pPF4npVpAboNfqpAAnmZls8WDkh96bvVb6yvPnleIr1XCGOxdVUAZDxVYANJF69i+HMmz7zM4YBpjp6xvvonS9pzN1Jnl2ELUgGQcfGq2yApCMu6KQEH6xowPiMFEA5GwmohLK9waEFb4WtAOIS3kF0BCAc7bYWPjHAIbyG7AhAOdtoKHxnhEN5CdgUgHOy0FT4ywiG8hfcKoL2FcNBWVEPxEA4NmUm7FISDtqIaiodwaMhM2qUgHLQV1VA8hENDZtIuBeGgraiG4ukCDg35pWgpCIeicos1GcIhll+KZotwKCq3WJMhHGL5pWi2CIeicos1GcIhll+KZotwKCq3QJNBqggHiIDNuwIIh3dd8FVQAOEAEbB5VwDh8K4LvgoKIBwgAjbvCiAc3nXBV0EBhANEwOZdAYTDuy6+X9XRHoRDR2aTlopwkCqmo/4Ih47MJi0V4SBVTEf9EQ4dmU1aKsJBqpiO+iMcOjKbtFR6cJDOjP25VwDh4N4i9RJEONTTnvuZEQ7uLVIvQYRDPe25nxnh4N4i9RL8HgAA//8Tj6w/AAAABklEQVQDAHy9l5STb1KJAAAAAElFTkSuQmCC">
+<meta name="apple-mobile-web-app-title" content="Lerhyllan">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Figtree:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: airy single column, big colour swatches as the visual hook, a ribbon of the user's own glaze colours under the title, pill tabs. */
+:root {
+  --bg: #efeef3;
+  --surface: #ffffff;
+  --surface-2: #f6f5f9;
+  --ink: #1d1a2b;
+  --muted: #615d73;
+  --line: #dcd9e6;
+  --accent: #2b4de0;
+  --accent-ink: #ffffff;
+  --accent-soft: #dfe4ff;
+  --warn: #9a4a14;
+  --shadow: 0 1px 2px rgba(29, 26, 43, .06), 0 8px 24px -12px rgba(29, 26, 43, .18);
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14121d; --surface: #1f1c2c; --surface-2: #272336; --ink: #f0eef8; --muted: #a29eb6; --line: #343047;
+    --accent: #93a8ff; --accent-ink: #0f1230; --accent-soft: #2a3166; --warn: #e0a56e;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 28px -12px rgba(0, 0, 0, .6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14121d; --surface: #1f1c2c; --surface-2: #272336; --ink: #f0eef8; --muted: #a29eb6; --line: #343047;
+  --accent: #93a8ff; --accent-ink: #0f1230; --accent-soft: #2a3166; --warn: #e0a56e;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 28px -12px rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.5; padding-inline: 18px; padding-block: 0 120px; -webkit-text-size-adjust: 100%; }
+.wrap { max-width: 1040px; margin-inline: auto; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.top { padding-block: 34px 6px; }
+.top h1 { display: flex; align-items: center; gap: 14px; }
+.top h1 .logo { flex: none; width: 1em; height: 1em; min-width: 44px; min-height: 44px; }
+.top h1 { font-size: clamp(40px, 9vw, 64px); font-weight: 800; line-height: 1; }
+.counts { font-size: 17px; color: var(--muted); margin-top: 10px; }
+.ribbon { display: flex; height: 16px; border-radius: 999px; overflow: hidden; margin-top: 18px; background: var(--surface-2); }
+.ribbon i { flex: 1; background: var(--c); display: block; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); display: flex; gap: 0; padding-block: 6px 0; margin-bottom: 18px; overflow-x: auto; border-bottom: 2px solid var(--line); }
+.tab { flex: 1 0 auto; background: var(--surface); border: 0; padding: 13px 20px; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--muted); border-radius: 999px; cursor: pointer; box-shadow: var(--shadow); }
+.tab { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: none; box-shadow: none; border-radius: 0; padding: 10px 12px 12px; margin-bottom: -2px; border-bottom: 4px solid transparent; white-space: nowrap; }
+.tab .ico { flex: none; }
+.tab[aria-selected="true"] { background: none; color: var(--accent); border-bottom-color: var(--accent); }
+
+.toolbar { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+.search { width: 100%; background: var(--surface); border: 2px solid transparent; box-shadow: var(--shadow); border-radius: 16px; padding: 14px 16px; font-size: 17px; }
+.search:focus-visible { outline: none; border-color: var(--accent); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 2px solid transparent; box-shadow: var(--shadow); border-radius: 999px; padding: 10px 16px; font-size: 16px; font-weight: 500; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.chip .n { font-size: 14px; opacity: .6; }
+.fdot { width: 14px; height: 14px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgba(0,0,0,.18); flex: none; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.glist { display: flex; flex-direction: column; gap: 8px; }
+.grow { display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; background: var(--surface); box-shadow: var(--shadow); border-radius: 16px; padding: 8px 10px 8px 8px; border: 2px solid transparent; }
+.grow[data-on="1"] { border-color: var(--accent); }
+.grow .sw { width: 54px; height: 54px; border-radius: 12px; }
+.grow .mid { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.grow .gname { font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; }
+.grow .code { font-size: 13px; overflow-wrap: anywhere; }
+.grow .pill { font-size: 12px; margin-top: 2px; }
+.grow .acts { display: flex; gap: 6px; }
+.grow .btn { min-height: 40px; padding: 8px 16px; font-size: 15px; font-weight: 600; border-radius: 999px; border: 1.5px solid var(--accent); background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.grow .btn.soft { background: var(--accent-soft); color: var(--accent); }
+.grow .btn.ghost { background: transparent; color: var(--accent); }
+@media (max-width: 460px) { .grow { grid-template-columns: 54px 1fr; } .grow .acts { grid-column: 1 / -1; } .grow .btn { flex: 1; } }
+.gcard { background: var(--surface); border-radius: 14px; padding: 5px 5px 8px; display: flex; flex-direction: column; gap: 5px; min-width: 0; cursor: pointer; position: relative; box-shadow: var(--shadow); border: 3px solid transparent; }
+.gcard[aria-pressed="true"] { border-color: var(--accent); }
+.gcard .pick { position: absolute; top: 18px; left: 18px; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 16px; display: grid; place-items: center; }
+.sw { display: block; background-color: var(--c); border-radius: 14px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12), inset 0 14px 18px -12px rgba(255,255,255,.45); }
+.sw.speck { background-image: radial-gradient(rgba(0,0,0,.4) 1px, transparent 1.6px), radial-gradient(rgba(255,255,255,.45) 1px, transparent 1.6px); background-size: 8px 8px, 13px 13px; background-position: 0 0, 4px 5px; }
+.gcard .sw { height: 40px; border-radius: 9px; }
+.gcard > div { padding-inline: 3px; }
+.gcard .gname { font-size: 13px; line-height: 1.15; }
+.gcard .code { font-size: 11px; margin-top: 0; }
+.gcard .pill { font-size: 10px; padding: 1px 7px; }
+.gcard .link { font-size: 12px; padding: 4px 10px; border: 1.5px solid var(--accent); border-radius: 999px; background: var(--accent-soft); display: inline-flex; align-items: center; gap: 4px; }
+.gcard .link::before { content: "i"; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font: 700 10px/14px Georgia, serif; text-align: center; }
+.gcard .pick { top: 9px; left: 9px; width: 22px; height: 22px; font-size: 12px; }
+.gname { font-family: var(--font-display); font-weight: 700; font-size: 20px; line-height: 1.15; overflow-wrap: anywhere; }
+.code { font-size: 15px; color: var(--muted); margin-top: 2px; }
+.meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; }
+.pill { font-size: 14px; background: var(--surface-2); border-radius: 999px; padding: 3px 12px; color: var(--muted); white-space: nowrap; font-weight: 500; }
+.gcard .meta { flex-wrap: wrap; gap: 6px 8px; }
+.gcard .pill { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }
+.gcard .code, .gcard .gname { overflow-wrap: anywhere; }
+.gsel { position: relative; }
+.gsel-btn { width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; font: inherit; font-size: 17px; padding: 14px 16px; border-radius: 16px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.gsel-btn .gsel-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gsel-caret { opacity: .6; }
+.gsel-panel { margin-top: 8px; border: 2px solid var(--line); border-radius: 18px; background: var(--surface); padding: 10px; box-shadow: var(--shadow); }
+.gsel-panel[hidden] { display: none; }
+.gsel-search { width: 100%; margin-bottom: 8px; }
+.gsel-list { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
+.gsel-opt { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; font: inherit; font-size: 16px; padding: 10px 12px; border-radius: 12px; border: 0; background: none; color: var(--ink); cursor: pointer; }
+.gsel-opt:hover { background: var(--surface-2); }
+.gsel-opt.on { background: var(--accent-soft); color: var(--accent); }
+.gsel-opt .gsel-name { flex: 1; min-width: 0; }
+.gsel-sub { font-size: 13px; color: var(--muted); }
+.gsel .dot { display: inline-block; width: 18px; height: 18px; border-radius: 50%; flex: none; }
+.gsel .dot.none { box-shadow: inset 0 0 0 2px var(--line); }
+.pill.tile { color: var(--warn); }
+.link { background: none; border: 0; padding: 8px 4px; color: var(--accent); font-size: 16px; font-weight: 600; cursor: pointer; }
+
+.bar { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 6; background: var(--ink); color: var(--bg); padding: 14px 18px; border-radius: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; justify-content: center; box-shadow: var(--shadow); max-width: 640px; margin-inline: auto; }
+.bar .stack { display: flex; gap: 6px; }
+.bar .sw { width: 36px; height: 36px; border-radius: 12px; }
+.bar .txt { font-size: 16px; font-weight: 500; }
+
+.btn { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 999px; padding: 13px 22px; font-weight: 700; font-size: 16px; cursor: pointer; }
+.btn.soft { background: transparent; color: var(--accent); border: 2px solid var(--accent); border-radius: 14px; box-shadow: none; padding: 9px 16px; font-weight: 600; }
+.btn.soft:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.btn.ghost { background: transparent; color: inherit; border: 2px solid currentColor; padding: 11px 20px; }
+.btn.danger { background: transparent; color: var(--warn); border: 2px solid var(--warn); padding: 11px 20px; }
+.btn:disabled { opacity: .5; cursor: default; }
+.bar .btn { background: var(--bg); color: var(--ink); }
+.bar .btn.ghost { background: transparent; color: var(--bg); }
+
+.section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.section-head h2 { font-size: 34px; font-weight: 800; }
+.list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border-radius: 22px; padding: 16px; display: flex; gap: 16px; min-width: 0; position: relative; box-shadow: var(--shadow); }
+.cardbody { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.cardbody h3 { font-size: 21px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
+.cardbody p { margin: 0; color: var(--muted); font-size: 16px; overflow-wrap: anywhere; }
+.layers { display: flex; flex-direction: row; gap: 8px; flex: none; }
+.layers i { width: 44px; height: 44px; border-radius: 14px; background-color: var(--c); display: block; box-shadow: inset 0 0 0 1px rgba(0,0,0,.14); }
+.dots { display: inline-flex; gap: 4px; vertical-align: middle; }
+.dots b { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--muted); display: block; }
+.dots b.on { background: var(--accent); border-color: var(--accent); }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 15px; color: var(--muted); }
+.gl-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.gl-chip { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; background: var(--surface-2); border-radius: 999px; padding: 4px 12px 4px 5px; }
+.gl-chip .sw { width: 20px; height: 20px; border-radius: 50%; }
+
+.ask { background: var(--surface); border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow); }
+.ask h3 { font-size: 22px; }
+.ask textarea { width: 100%; min-height: 72px; resize: vertical; background: var(--surface-2); border: 2px solid transparent; border-radius: 16px; padding: 14px 16px; font-size: 17px; }
+.ask .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.hint { font-size: 16px; color: var(--muted); margin: 0; }
+.sugg { display: grid; gap: 12px; margin-top: 12px; }
+.sugg .card { background: var(--surface-2); box-shadow: none; }
+
+.status-group { margin-bottom: 12px; }
+.status-group h2 { font-size: 19px; font-weight: 700; margin-bottom: 10px; display: flex; gap: 10px; align-items: baseline; }
+.status-group h2 .n { font-size: 14px; color: var(--muted); font-weight: 500; }
+.empty { background: var(--surface); border-radius: 22px; padding: 28px 22px; color: var(--muted); font-size: 17px; box-shadow: var(--shadow); }
+.empty b { color: var(--ink); font-family: var(--font-display); font-size: 22px; display: block; margin-bottom: 6px; }
+
+dialog { background: var(--surface); color: var(--ink); border: 0; border-radius: 28px; padding: 0; width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); box-shadow: var(--shadow); }
+dialog::backdrop { background: rgba(14, 12, 24, .6); }
+.dlg-in { padding: 24px 20px 20px; display: flex; flex-direction: column; gap: 16px; }
+.dlg-in h2 { font-size: 28px; font-weight: 800; }
+.fld { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.fld > span { font-size: 15px; font-weight: 600; color: var(--muted); }
+.fld input[type="text"], .fld input[type="number"], .fld select, .fld textarea { width: 100%; background: var(--surface-2); border: 2px solid transparent; border-radius: 14px; padding: 13px 14px; font-size: 17px; }
+.fld input:focus-visible, .fld select:focus-visible, .fld textarea:focus-visible { outline: none; border-color: var(--accent); }
+.fld textarea { min-height: 90px; resize: vertical; }
+.fld input[type="color"] { width: 72px; height: 48px; padding: 3px; background: var(--surface-2); border: 0; border-radius: 14px; }
+.fld input[type="file"] { font-size: 16px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.check { display: flex; align-items: center; gap: 10px; font-size: 17px; }
+.check input { width: 22px; height: 22px; accent-color: var(--accent); }
+.picker { display: flex; flex-wrap: wrap; gap: 8px; max-height: 220px; overflow-y: auto; padding: 4px; }
+.picker .chip { box-shadow: none; background: var(--surface-2); }
+.picker .chip[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.dlg-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; margin-top: 6px; }
+.dlg-actions .spacer { flex: 1; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(100px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 14px 20px; border-radius: 999px; font-size: 16px; z-index: 20; max-width: calc(100vw - 32px); }
+
+.finder { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
+.finder .fld select { width: 100%; background: var(--surface); border: 2px solid transparent; box-shadow: var(--shadow); border-radius: 16px; padding: 14px 16px; font-size: 17px; }
+.finder .fld > span { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--ink); }
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
+.links a { display: inline-block; background: var(--surface); color: var(--ink); border-radius: 999px; padding: 12px 20px; font-weight: 700; text-decoration: none; box-shadow: var(--shadow); }
+.links a:hover { background: var(--accent-soft); }
+a.btn { display: inline-block; text-decoration: none; text-align: center; }
+.prodlink { align-self: flex-start; }
+.src { font-size: 15px; color: var(--accent); font-weight: 600; }
+.card { position: relative; }
+.card a.cl { color: inherit; text-decoration: none; }
+.card a.cl::after { content: ""; position: absolute; inset: 0; border-radius: 22px; }
+.card a.cl:focus-visible { outline: none; }
+.card a.cl:focus-visible::after { outline: 3px solid var(--accent); outline-offset: 2px; }
+.card .edit { position: relative; z-index: 1; margin-left: auto; }
+.photos { display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1; }
+.ph { border: 0; padding: 0; background: none; cursor: zoom-in; }
+.ph img { width: 88px; height: 88px; object-fit: cover; border-radius: 16px; display: block; }
+.thumbs { display: flex; flex-wrap: wrap; gap: 10px; }
+.thumb { position: relative; }
+.thumb img { width: 96px; height: 96px; object-fit: cover; border-radius: 16px; display: block; }
+.thumb .x { position: absolute; top: -8px; right: -8px; width: 32px; height: 32px; border-radius: 50%; border: 0; background: var(--ink); color: var(--bg); cursor: pointer; font-size: 20px; line-height: 1; }
+.detail { display: flex; flex-direction: column; gap: 18px; }
+.steps { display: flex; flex-direction: column; gap: 10px; }
+.step { display: flex; align-items: center; gap: 14px; }
+.step .sw { width: 56px; height: 56px; flex: none; border-radius: 16px; }
+.note { margin: 0; font-size: 18px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.card[role="button"] { cursor: pointer; }
+.lb { display: flex; flex-direction: column; gap: 12px; max-height: 62dvh; overflow-y: auto; }
+.lb img { max-width: 100%; border-radius: 16px; display: block; }
+.more { margin-top: 12px; }
+.finderbox { margin-bottom: 18px; }
+.finderbox .finder { margin-bottom: 0; }
+.more summary { cursor: pointer; font-family: var(--font-display); font-weight: 700; font-size: 20px; padding-block: 8px; }
+.card.pcard { flex-direction: column; padding: 0; gap: 0; overflow: hidden; }
+.card.pcard .cardbody { padding: 16px; }
+.drop { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; margin-top: 12px; padding: 26px 16px; min-height: 120px; border: 2.5px dashed var(--accent); border-radius: 22px; background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--accent); cursor: pointer; text-align: center; }
+.drop b { font-size: 19px; }
+.drop .plus { font-size: 38px; line-height: 1; font-weight: 300; }
+.drop .sub { font-size: 14px; opacity: .75; }
+.drop.over { background: color-mix(in srgb, var(--accent) 22%, transparent); border-style: solid; }
+.plist { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.plist .card { padding: 12px; border-radius: 18px; }
+.plist .card.pcard { padding: 0; }
+.plist .card.pcard .cardbody { padding: 12px; gap: 6px; }
+.plist .cardbody h3 { font-size: 17px; }
+.plist .cardbody p { font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.usebox { display: flex; flex-direction: column; gap: 12px; margin: -4px 0 4px; padding: 14px; background: var(--surface-2); border-radius: 18px; }
+.usehead { font-weight: 700; font-size: 15px; color: var(--accent); }
+.uselbl { font-size: 13px; opacity: .7; margin-top: 2px; }
+.userow { padding-bottom: 12px; border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent); }
+.userow:last-child { border-bottom: 0; padding-bottom: 0; }
+.chip .ck { width: 0; overflow: hidden; font-weight: 700; display: inline-block; }
+.chip[aria-pressed="true"] .ck { width: auto; }
+.learn { display: flex; flex-direction: column; gap: 12px; max-width: 720px; }
+.learn .lead { font-size: 17px; line-height: 1.5; opacity: .85; margin: 0 0 4px; }
+.learn details { background: var(--surface); border-radius: 22px; box-shadow: var(--shadow); padding: 4px 18px; }
+.learn summary { cursor: pointer; font-weight: 700; font-size: 18px; padding: 14px 0; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.learn summary::-webkit-details-marker { display: none; }
+.learn summary::after { content: "+"; font-size: 24px; color: var(--accent); font-weight: 500; }
+.learn details[open] summary::after { content: "–"; }
+.learn .lbody { padding-bottom: 16px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.55; }
+.learn .lbody p { margin: 0; }
+.learn .lbody ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.learn .tip { background: var(--accent-soft); color: var(--accent); border-radius: 14px; padding: 10px 14px; font-weight: 600; }
+.learn .fine { font-size: 14px; opacity: .65; }
+.gfigs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.gfig { margin: 0; background: var(--surface-2); border-radius: 16px; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.gfig svg { width: 100%; height: auto; max-height: 150px; }
+.gfig figcaption { font-size: 13px; line-height: 1.35; }
+.gfig figcaption b { display: block; font-size: 15px; }
+.learn a { color: var(--accent); font-weight: 600; }
+@media (max-width: 420px) { .gfigs { grid-template-columns: 1fr; } .gfig { flex-direction: row; align-items: center; } .gfig svg { width: 80px; flex: none; } }
+.useacts { display: flex; gap: 8px; margin-top: 2px; }
+.usesum { background: var(--accent-soft); color: var(--accent); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.45; }
+.usesum p { margin: 0; }
+.usebox .fine { font-size: 14px; opacity: .7; margin: 0; }
+.sg-head { width: 100%; display: flex; align-items: center; gap: 10px; background: var(--surface); border: 0; box-shadow: var(--shadow); border-radius: 22px; padding: 4px 18px; min-height: 63px; cursor: pointer; text-align: left; margin-bottom: 0; }
+.sg-head[aria-expanded="true"] { margin-bottom: 10px; }
+.sg-head .sg-title { font-family: var(--font-display); font-weight: 700; font-size: 18px; flex: 1; }
+.sg-head .n { font-size: 14px; background: var(--surface-2); border-radius: 999px; padding: 2px 10px; color: var(--muted); font-weight: 600; }
+.sg-head .sg-chev { color: var(--accent); font-size: 22px; line-height: 1; transition: transform .15s; }
+.sg-head[aria-expanded="false"] .sg-chev { transform: rotate(-90deg); }
+.sg-head:hover { background: var(--accent-soft); }
+.list[hidden] { display: none; }
+body { position: relative; }
+:root { --speck: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22120%22%20height%3D%22120%22%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2222%22%20r%3D%221.6%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2210%22%20r%3D%221.1%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3Ccircle%20cx%3D%2288%22%20cy%3D%2230%22%20r%3D%221.8%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3Ccircle%20cx%3D%22106%22%20cy%3D%2264%22%20r%3D%221.2%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2258%22%20r%3D%221.3%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2276%22%20r%3D%221.7%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%22100%22%20r%3D%221.1%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3Ccircle%20cx%3D%2258%22%20cy%3D%22108%22%20r%3D%221.5%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3Ccircle%20cx%3D%2296%22%20cy%3D%22104%22%20r%3D%221.2%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2288%22%20r%3D%221.0%22%20fill%3D%22rgba%2829%2C26%2C43%2C.10%29%22/%3E%3C/svg%3E"); --blob1: rgba(43,77,224,.13); --blob2: rgba(224,120,80,.13); --blob3: rgba(63,167,160,.13); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --speck: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22120%22%20height%3D%22120%22%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2222%22%20r%3D%221.6%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2210%22%20r%3D%221.1%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2288%22%20cy%3D%2230%22%20r%3D%221.8%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%22106%22%20cy%3D%2264%22%20r%3D%221.2%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2258%22%20r%3D%221.3%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2276%22%20r%3D%221.7%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%22100%22%20r%3D%221.1%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2258%22%20cy%3D%22108%22%20r%3D%221.5%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2296%22%20cy%3D%22104%22%20r%3D%221.2%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2288%22%20r%3D%221.0%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3C/svg%3E"); --blob1: rgba(147,168,255,.13); --blob2: rgba(224,140,100,.10); --blob3: rgba(63,167,160,.10); } }
+:root[data-theme="dark"] { --speck: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22120%22%20height%3D%22120%22%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2222%22%20r%3D%221.6%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2210%22%20r%3D%221.1%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2288%22%20cy%3D%2230%22%20r%3D%221.8%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%22106%22%20cy%3D%2264%22%20r%3D%221.2%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2258%22%20r%3D%221.3%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2276%22%20r%3D%221.7%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%22100%22%20r%3D%221.1%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2258%22%20cy%3D%22108%22%20r%3D%221.5%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2296%22%20cy%3D%22104%22%20r%3D%221.2%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2288%22%20r%3D%221.0%22%20fill%3D%22rgba%28240%2C238%2C248%2C.09%29%22/%3E%3C/svg%3E"); --blob1: rgba(147,168,255,.13); --blob2: rgba(224,140,100,.10); --blob3: rgba(63,167,160,.10); }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: var(--speck), radial-gradient(70vmax 55vmax at -5% -5%, var(--blob1), transparent 70%), radial-gradient(55vmax 50vmax at 105% 25%, var(--blob2), transparent 70%), radial-gradient(65vmax 55vmax at 15% 105%, var(--blob3), transparent 70%);
+  background-size: 120px 120px, auto, auto, auto; }
+/* Målad bakgrund. Mörkare grå text för bättre kontrast mot färgfälten. */
+:root { --m1: rgba(60,106,166,.30); --m2: rgba(217,161,168,.42); --m3: rgba(201,144,47,.22); --m4: rgba(143,184,176,.38); --m5: rgba(122,79,109,.22); --muted: #4b4760; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --m1: rgba(147,168,255,.16); --m2: rgba(224,140,160,.12); --m3: rgba(224,165,110,.08); --m4: rgba(63,167,160,.12); --m5: rgba(160,110,200,.12); } }
+:root[data-theme="dark"] { --m1: rgba(147,168,255,.16); --m2: rgba(224,140,160,.12); --m3: rgba(224,165,110,.08); --m4: rgba(63,167,160,.12); --m5: rgba(160,110,200,.12); }
+body::before { background-image: radial-gradient(ellipse 80vmax 36vmax at 8% 2%, var(--m1), transparent 70%), radial-gradient(ellipse 70vmax 32vmax at 98% 12%, var(--m2), transparent 70%), radial-gradient(ellipse 75vmax 30vmax at 70% 40%, var(--m3), transparent 70%), radial-gradient(ellipse 80vmax 32vmax at 0% 66%, var(--m4), transparent 70%), radial-gradient(ellipse 70vmax 34vmax at 100% 86%, var(--m5), transparent 70%); background-size: auto; }
+.tabs { background: color-mix(in srgb, var(--bg) 90%, transparent); }
+.tab { color: color-mix(in srgb, var(--ink) 80%, var(--bg)); }
+.tab[aria-selected="true"] { color: var(--accent); }
+.tabs { background: color-mix(in srgb, var(--bg) 82%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.pbox { position: relative; border: 2px solid var(--line); border-radius: 18px; background: var(--surface-2); overflow: hidden; }
+.pbox .picker { max-height: 190px; overflow-y: auto; padding: 10px 10px 40px; scrollbar-width: thin; scrollbar-color: var(--accent) transparent; -webkit-overflow-scrolling: touch; }
+.pbox .picker::-webkit-scrollbar { width: 8px; }
+.pbox .picker::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 8px; }
+.pbox .picker .chip { background: var(--surface); }
+.pbox .picker .chip[aria-pressed="true"] { background: var(--accent-soft); }
+.pfade { position: absolute; left: 0; right: 0; bottom: 0; height: 46px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; font-size: 14px; font-weight: 700; color: var(--accent); pointer-events: none; background: linear-gradient(transparent, var(--surface-2) 70%); transition: opacity .15s; }
+.pfade[hidden] { display: none; }
+.top { position: relative; }
+.top h1 { padding-right: 58px; }
+.tools-btn { position: absolute; top: 34px; right: 0; width: 40px; height: 40px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); opacity: .6; box-shadow: none; display: grid; place-items: center; cursor: pointer; }
+.tools-btn svg { width: 20px; height: 20px; }
+.tools-btn:hover, .tools-btn:focus-visible, .tools-btn[aria-expanded="true"] { opacity: 1; background: var(--surface); }
+.tools-menu { position: absolute; top: 78px; right: 0; z-index: 30; background: var(--surface); border-radius: 18px; box-shadow: var(--shadow); padding: 8px; min-width: 230px; display: flex; flex-direction: column; gap: 2px; }
+.tools-menu[hidden] { display: none; }
+.tools-menu button { text-align: left; background: none; border: 0; border-radius: 12px; padding: 13px 14px; font-size: 16px; font-weight: 600; cursor: pointer; color: var(--ink); }
+.tools-menu button:hover, .tools-menu button:focus-visible { background: var(--accent-soft); color: var(--accent); }
+.seg { display: flex; gap: 4px; padding: 4px; background: var(--surface); border-radius: 999px; box-shadow: var(--shadow); margin-bottom: 18px; }
+.seg[hidden] { display: none; }
+.seg button { flex: 1; border: 0; background: none; padding: 11px 12px; border-radius: 999px; font-weight: 700; font-size: 16px; color: var(--muted); cursor: pointer; font-family: inherit; }
+.seg button .n { font-weight: 500; opacity: .7; margin-left: 4px; }
+.seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); }
+.ccard { padding: 14px; border-radius: 20px; gap: 12px; }
+.ccard .cardbody { gap: 8px; }
+.ccard .cardbody h3 { font-size: 18px; }
+.ccard .layers { gap: 6px; }
+.ccard .layers i { width: 34px; height: 34px; border-radius: 11px; }
+.ccard .ph img { width: 62px; height: 62px; border-radius: 12px; }
+.ccard .photos { gap: 6px; }
+.ccard .row { font-size: 14px; gap: 6px 10px; }
+.ccard .pill { font-size: 13px; padding: 2px 10px; }
+.ccard .cardbody p { font-size: 15px; }
+.list.clist { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.ccard.cm { padding: 0; gap: 0; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; }
+.cphoto { position: relative; aspect-ratio: 1 / 1; display: flex; overflow: hidden; }
+.cphoto .cband { flex: 1; display: block; background-color: var(--c); }
+.cphoto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cphoto.hasimg .cband { visibility: hidden; }
+.cphoto .cst { position: absolute; top: 8px; left: 8px; }
+.cphoto .cst .pill { font-size: 11px; padding: 1px 8px; background: var(--surface); }
+.cphoto .cst .pill.ok { background: var(--accent-soft); color: var(--accent); }
+.cphoto .cmore { position: absolute; right: 8px; bottom: 8px; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: rgba(20,18,29,.72); color: #fff; }
+.cmbody { padding: 9px 11px 12px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.cmbody h3 { font-size: 16px; line-height: 1.2; overflow-wrap: anywhere; }
+.cmbody .row { font-size: 12px; gap: 4px 8px; }
+.cmbody .pill { font-size: 11px; padding: 1px 7px; }
+.cmbody .fine { font-size: 12px; color: var(--muted); }
+#dlg .cphoto { aspect-ratio: 4 / 1; }
+.cnote { font-size: 13px; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+@media (max-width: 440px) { .list.clist { grid-template-columns: 1fr 1fr; gap: 10px; } }
+.photo-stage { display: flex; flex-direction: column; gap: 14px; }
+.usebox[hidden] { display: none; }
+.userow { display: flex; flex-direction: column; gap: 8px; }
+.usename { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; }
+.usename .dot { width: 16px; height: 16px; border-radius: 50%; display: inline-block; flex: none; }
+.usebox .picker .chip { background: var(--surface); padding: 7px 13px; font-size: 15px; }
+.usebox .picker .chip[aria-pressed="true"] { background: var(--accent-soft); }
+.plist .pcover { height: auto; aspect-ratio: 1 / 1; border-radius: 18px 18px 0 0; }
+.plist .pill { font-size: 12px; padding: 2px 9px; }
+.plist .dates { font-size: 12px; margin-top: 2px; }
+.plist .row { flex-wrap: wrap; gap: 4px 8px; font-size: 14px; }
+@media (max-width: 560px) { .plist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.pcover { width: 100%; height: 200px; object-fit: cover; display: block; border-radius: 22px 22px 0 0; }
+.thumb .ph { cursor: pointer; border-radius: 16px; }
+.thumb.cover img { outline: 3px solid var(--accent); outline-offset: 2px; }
+.thumb .badge { position: absolute; left: 6px; bottom: 6px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; pointer-events: none; }
+.dates { font-size: 14px; color: var(--muted, #777); margin-top: 6px; }
+.tl { display: flex; flex-direction: column; gap: 6px; }
+.tl-row { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; padding: 8px 12px; background: var(--surface-2); border-radius: 12px; }
+.tl-row span { opacity: .7; }
+.chip .dot { display: inline-block; width: 16px; height: 16px; border-radius: 50%; }
+@media (max-width: 440px) { .tab { font-size: 15px; padding: 10px 10px; gap: 3px; } .tab .ico { width: 24px; height: 24px; } }
+@media (max-width: 420px) { .two { grid-template-columns: 1fr; } .card { padding: 14px; gap: 14px; } .layers i { width: 38px; height: 38px; border-radius: 12px; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+/* Designstil: Där emellan. Tunna linjer i stället för tunga skuggor, mjuka hörn, ljus yta. */
+:root { --font-body: "Instrument Sans", "DM Sans", "Helvetica Neue", Arial, sans-serif; --bg: #f6f5f3; --line: #e3e1dd; --shadow: 0 0 0 1px var(--line); --seg-bg: #ebe9e5; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --seg-bg: #272336; --shadow: 0 0 0 1px var(--line); } }
+:root[data-theme="dark"] { --seg-bg: #272336; --shadow: 0 0 0 1px var(--line); }
+.top h1 { font-size: clamp(34px, 8vw, 48px); font-weight: 700; }
+.tabs { border-bottom: 1px solid var(--line); }
+.tab { font-size: 15px; font-weight: 600; border-bottom-width: 2px; margin-bottom: -1px; }
+.seg { background: var(--seg-bg); box-shadow: none; border-radius: 12px; padding: 3px; gap: 3px; }
+.seg button { border-radius: 9px; font-size: 15px; padding: 9px 10px; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.seg button[aria-pressed="true"] .n { color: var(--accent); opacity: 1; }
+.search { border-radius: 12px; box-shadow: 0 0 0 1px var(--line); background: var(--surface); }
+.search:focus-visible { box-shadow: none; }
+.chip { background: transparent; box-shadow: none; border: 1px solid var(--line); padding: 7px 14px; font-size: 15px; }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.chip[aria-pressed="true"] .n { opacity: .85; }
+.btn.soft { border: 1px solid var(--line); color: var(--ink); background: var(--surface); border-radius: 999px; }
+.card, .sg-head { border-radius: 14px; }
+.sg-head .sg-title { font-weight: 700; }
+.ccard.cm { border-radius: 14px; }
+.grow { border-radius: 14px; padding: 10px; }
+.grow .sw { border-radius: 9px; }
+.grow .pill { background: none; padding: 0; font-size: 12px; margin-top: 2px; }
+.grow .pill::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-right: 6px; vertical-align: 1px; }
+.grow .btn.ghost { border-color: transparent; padding-inline: 8px; }
+.grow .btn.soft { border-color: var(--line); color: var(--ink); background: var(--surface); }
+/* Menyer: flikar med ikon bredvid text (A), undermeny som chips (B). */
+.tab { flex-direction: row; gap: 8px; padding: 12px 6px 12px; }
+.tab .ico { width: 20px; height: 20px; }
+@media (max-width: 440px) { .tab { font-size: 15px; padding: 12px 4px; gap: 6px; } .tab .ico { width: 20px; height: 20px; } }
+@media (max-width: 360px) { .tab .ico { display: none; } }
+.seg { background: none; box-shadow: none; padding: 0; border-radius: 0; gap: 8px; }
+.seg button { flex: 0 0 auto; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-weight: 600; font-size: 15px; }
+.seg button .n { color: var(--muted); opacity: 1; margin-left: 6px; font-weight: 600; }
+.seg button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); box-shadow: none; }
+.seg button[aria-pressed="true"] .n { color: var(--accent); }
+.cphoto .favbtn { position: absolute; top: 6px; right: 6px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: #6b6580; font-size: 22px; line-height: 1; display: grid; place-items: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.25); z-index: 2; }
+.favbtn[aria-pressed="true"] { color: #d6336c; }
+.favbtn:disabled { opacity: .6; cursor: default; }
+.favbtn.withtext { position: static; width: auto; height: auto; border-radius: 999px; padding: 10px 16px; gap: 8px; display: inline-flex; align-items: center; font-size: 15px; font-weight: 600; background: var(--surface); border: 1px solid var(--line); color: var(--ink); box-shadow: none; }
+.favbtn.withtext span:first-child { font-size: 20px; color: #6b6580; }
+.favbtn.withtext[aria-pressed="true"] span:first-child { color: #d6336c; }
+.acts2 { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+/* Flikmeny som kort, mer luft under rubriken, undermeny som rad som går att svepa. */
+.top { padding-block: 28px 22px; }
+.tabs { background: color-mix(in srgb, var(--bg) 22%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 0; border-bottom: 1px solid var(--line); border-radius: 0; overflow: visible; padding-block: 0; margin-bottom: 14px; }
+.tab { border-bottom-width: 2px; margin-bottom: -1px; }
+.seg { overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; margin-inline: 0; padding: 2px 0 4px; }
+.seg::-webkit-scrollbar { display: none; }
+.seg button { flex: none; white-space: nowrap; font-size: 14px; padding: 8px 12px; }
+/* Taggar med lite mörkare ram */
+.pill { border: 1px solid color-mix(in srgb, var(--muted) 45%, var(--line)); }
+.grow .pill { padding: 1px 8px; border: 1px solid color-mix(in srgb, var(--muted) 45%, var(--line)); }
+.grow .pill::before { display: none; }
+.pill.tile { border-color: currentColor; }
+/* Flikmenyn utan egen bakgrund */
+.tabs { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; }
+.tab, .tab.on, .tab[aria-selected="true"] { background: transparent !important; }
+/* Rubriker: Bricolage i medelfet vikt, h1 i logons blå, kortens namn i Figtree. */
+:root { --font-card: "Figtree", "Instrument Sans", "Helvetica Neue", Arial, sans-serif; }
+h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
+.top h1 { font-weight: 600; color: var(--accent); }
+.cardbody h3, .cmbody h3, .gname, .sg-head .sg-title, .step .gname, .pcard h3 { font-family: var(--font-card); font-weight: 600; letter-spacing: -.01em; }
+.status-group h2, .section-head h2 { font-weight: 600; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1><svg class="logo" width="56" height="56" role="img" aria-label="Lerhyllan" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#2b4de0"/><rect x="88" y="352" width="336" height="26" rx="13" fill="#fff"/><path d="M186 352c-42 0-52-62-22-102 15-20 20-34 18-60v-16h44v16c-2 26 3 40 18 60 30 40 20 102-22 102z" fill="#fff"/><path d="M160 284q42 22 84 0" fill="none" stroke="#2b4de0" stroke-width="12" stroke-linecap="round" opacity=".35"/><path d="M290 300h132c0 32-24 52-66 52s-66-20-66-52z" fill="#dfe4ff"/><path d="M290 300h132" stroke="#93a8ff" stroke-width="10" stroke-linecap="round"/></svg>Lerhyllan</h1>
+    <div class="counts" id="counts">Hämtar biblioteket…</div>
+  </header>
+  <nav class="tabs" role="tablist" aria-label="Avdelningar">
+    <button class="tab" role="tab" id="tab-projects" aria-selected="true"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"/><path d="M9.4 3.2c0 2.3-2.4 3.4-2.4 6.6 0 2.8 1.9 3.9 2 5.9h6c.1-2 2-3.1 2-5.9 0-3.2-2.4-4.3-2.4-6.6" fill="currentColor" fill-opacity=".14"/><path d="M7.6 11.2c3.1 1.4 5.7 1.4 8.8 0" /><rect x="6.5" y="18" width="11" height="3" rx="1.5" fill="currentColor" fill-opacity=".14"/></svg><span>Projekt</span></button>
+    <button class="tab" role="tab" id="tab-glazes" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.8" width="10" height="3.2" rx="1.3"/><path d="M6.2 8.2c0-.7.5-1.2 1.2-1.2h9.2c.7 0 1.2.5 1.2 1.2v10.2a3.2 3.2 0 0 1-3.2 3.2H9.4a3.2 3.2 0 0 1-3.2-3.2z" fill="currentColor" fill-opacity=".14"/><path d="M6.2 11.2h11.6v1.4c-1.2 0-1.4 1.3-1.4 2.4a1.1 1.1 0 0 1-2.2 0c0-.9-.2-2.4-1.3-2.4s-1.3 1.2-1.3 3.2a1.1 1.1 0 0 1-2.2 0c0-1.4-.3-3.2-1.4-3.2l-1.8.1z" fill="currentColor" fill-opacity=".55" stroke="none"/></svg><span>Glasyrer</span></button>
+    <button class="tab" role="tab" id="tab-learn" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3h5"/><path d="M10.2 3v6.2L5.4 18a2.2 2.2 0 0 0 1.9 3.3h9.4a2.2 2.2 0 0 0 1.9-3.3l-4.8-8.8V3" fill="currentColor" fill-opacity=".1"/><path d="M7.6 15.2c1.6-.9 3-.9 4.4 0s2.8.9 4.4 0" fill="none"/><circle cx="11" cy="18.4" r=".9" fill="currentColor" stroke="none"/><circle cx="14" cy="17" r=".7" fill="currentColor" stroke="none"/></svg><span>Lär dig</span></button>
+  </nav>
+  <div id="seg" class="seg" role="group" aria-label="Visa" hidden></div>
+  <main id="view" aria-live="polite"></main>
+</div>
+<div id="bar" class="bar" hidden></div>
+<dialog id="dlg"></dialog>
+<div id="toast" class="toast" hidden></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+(function () {
+  "use strict";
+  var GROUPS = ["Blå", "Turkos", "Grön", "Gul", "Orange", "Röd", "Rosa", "Lila", "Brun", "Beige", "Vit", "Grå", "Svart"];
+  var FORMS = [["burk", "Burk"], ["pulver", "Pulver"], ["flytande", "Flytande"], ["bricka", "Bara bricka"], ["onskelista", "Finns ej"]];
+  var CSTATUS = [["idé", "Att testa"], ["testad", "Testad"]];
+  var TECH = [["drejat", "Drejat"], ["kavlat", "Kavlat/ringlat"]];
+  var LAYERS = [["underst", "Lager 1"], ["mellan", "Lager 2"], ["overst", "Lager 3"]];
+  var KINDS = [["glasyr", "Glasyr"], ["dekor", "Dekor"]];
+  var TYPES = [["dopp", "Doppglasyr"], ["pensel", "Penselglasyr"], ["engobe", "Engobe"], ["ovrigt", "Övrigt"]];
+  var PLACES = [["hela", "Hela"], ["insida", "Insida"], ["utsida", "Utsida"], ["kant", "Kant"], ["botten", "Botten"], ["annat", "Annat"]];
+  var PSTATUS = [["inspiration", "Inspiration"], ["drejat", "Drejat"], ["torkar", "Torkar"], ["beskickat", "Beskickat"], ["skrojbrant", "Skröjbränt"], ["glaserad", "Glaserad"], ["klar", "Klar"]];
+
+  var FAMILY_HEX = { "Blå": "#3c6aa6", "Turkos": "#3fa7a0", "Grön": "#6c9a52", "Gul": "#e0b83a", "Orange": "#e0762a", "Röd": "#bf2f35", "Rosa": "#e58aa8", "Lila": "#8a6fb0", "Brun": "#7a5232", "Beige": "#d3bf98", "Vit": "#f1efe9", "Grå": "#8b8f94", "Svart": "#25252a" };
+  function fdot(name) { return FAMILY_HEX[name] ? h("span", { class: "fdot", style: "--c:" + FAMILY_HEX[name] }) : null; }
+  var db = null, canWrite = true, sample = null, assets = null;
+  var glazes = new Map(), combos = new Map(), projects = new Map();
+  var loaded = { glazes: false, combos: false, projects: false };
+  var tab = "projects", sub = "mine", group = "Alla", typeFilter = "Alla", query = "";
+  var picked = [];
+  var current = { update: function () {} };
+  var toastTimer = null;
+
+  function $(s, r) { return (r || document).querySelector(s); }
+  function h(tag, props) {
+    var el = document.createElement(tag);
+    var p = props || {};
+    Object.keys(p).forEach(function (k) {
+      var v = p[k];
+      if (v === false || v == null) return;
+      if (k === "class") el.className = v;
+      else if (k === "style") el.style.cssText = v;
+      else if (k.indexOf("on") === 0) el.addEventListener(k.slice(2), v);
+      else if (v === true) el.setAttribute(k, "");
+      else el.setAttribute(k, v);
+    });
+    for (var i = 2; i < arguments.length; i++) append(el, arguments[i]);
+    return el;
+  }
+  function append(el, kid) {
+    if (kid == null || kid === false) return;
+    if (Array.isArray(kid)) { kid.forEach(function (k) { append(el, k); }); return; }
+    el.append(kid.nodeType ? kid : document.createTextNode(String(kid)));
+  }
+  function clickable(el, fn) {
+    el.setAttribute("role", "button"); el.tabIndex = 0;
+    el.addEventListener("click", fn);
+    el.addEventListener("keydown", function (e) { if ((e.key === "Enter" || e.key === " ") && e.target === el) { e.preventDefault(); fn(); } });
+    return el;
+  }
+  function toast(msg) {
+    var t = $("#toast"); t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.hidden = true; }, 3200);
+  }
+  function slug(s) { return String(s).toLowerCase().replace(/[åä]/g, "a").replace(/ö/g, "o").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "glasyr"; }
+  function gGroups(g) { return g && g.groups && g.groups.length ? g.groups : (g && g.group ? [g.group] : []); }
+  function cResults(c) { return c && c.results && c.results.length ? c.results : (c && c.result ? [c.result] : []); }
+  function singlePicker(options, current) {
+    var val = current;
+    var el = h("div", { class: "picker" });
+    Object.defineProperty(el, "value", { get: function () { return val; } });
+    options.forEach(function (o) {
+      var b = h("button", { type: "button", class: "chip", "aria-pressed": String(o[0] === val) }, o[1]);
+      b.addEventListener("click", function () {
+        val = o[0];
+        Array.prototype.forEach.call(el.children, function (x, i) { x.setAttribute("aria-pressed", String(options[i][0] === val)); });
+      });
+      el.append(b);
+    });
+    return el;
+  }
+  function fldDiv(text, control) { return h("div", { class: "fld" }, h("span", null, text), control); }
+  function multiPicker(options, selected) {
+    var sel = new Set(selected || []);
+    var el = h("div", { class: "picker" });
+    options.forEach(function (o) {
+      var b = h("button", { type: "button", class: "chip", "aria-pressed": String(sel.has(o)) }, fdot(o), o);
+      b.addEventListener("click", function () { if (sel.has(o)) sel.delete(o); else sel.add(o); b.setAttribute("aria-pressed", String(sel.has(o))); });
+      el.append(b);
+    });
+    return { el: el, get: function () { return options.filter(function (o) { return sel.has(o); }); } };
+  }
+  function glazeList() {
+    var out = [];
+    glazes.forEach(function (g, id) { out.push(Object.assign({ id: id }, g)); });
+    out.sort(function (a, b) { var ga = GROUPS.indexOf(gGroups(a)[0]), gb = GROUPS.indexOf(gGroups(b)[0]); return ga - gb || String(a.name).localeCompare(String(b.name), "sv"); });
+    return out;
+  }
+  function byCreated(m) {
+    var out = [];
+    m.forEach(function (d, id) { out.push(Object.assign({ id: id }, d)); });
+    out.sort(function (a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
+    return out;
+  }
+  function swatch(g, cls) {
+    return h("span", { class: "sw" + (g && g.speckle ? " speck" : "") + (cls ? " " + cls : ""), style: "--c:" + ((g && g.hex) || "#999999") });
+  }
+  function label(id) { var g = glazes.get(id); return g ? g.name : "Okänd glasyr"; }
+  function glazeChip(id) {
+    var g = glazes.get(id);
+    return h("span", { class: "gl-chip" }, swatch(g), g ? g.name : "Okänd");
+  }
+  function opt(value, text, sel) { return h("option", { value: value, selected: sel }, text); }
+  function fld(text, control) { return h("label", { class: "fld" }, h("span", null, text), control); }
+  function dots(n) {
+    var d = h("span", { class: "dots", "aria-label": "Betyg " + n + " av 5" });
+    for (var i = 1; i <= 5; i++) d.append(h("b", { class: i <= n ? "on" : "" }));
+    return d;
+  }
+  function labelOf(list, v) { var f = list.filter(function (x) { return x[0] === v; })[0]; return f ? f[1] : v; }
+
+  // ---------- dialog ----------
+  function openDlg(title, body, o) {
+    o = o || {};
+    var dlg = $("#dlg"); dlg.textContent = "";
+    var confirming = false;
+    var del = o.onDelete ? h("button", { type: "button", class: "btn danger" }, "Radera") : null;
+    if (del) del.addEventListener("click", function () {
+      if (!confirming) { confirming = true; del.textContent = "Bekräfta radering"; return; }
+      o.onDelete().then(function () { dlg.close(); });
+    });
+    var form = h("form", { class: "dlg-in", onsubmit: function (e) {
+      e.preventDefault();
+      var r = o.onSave ? o.onSave() : null;
+      Promise.resolve(r).then(function (ok) { if (ok !== false) dlg.close(); });
+    } },
+      h("h2", null, title), body,
+      h("div", { class: "dlg-actions" }, del, h("span", { class: "spacer" }), o.actions || null,
+        h("button", { type: "button", class: "btn ghost", onclick: function () { dlg.close(); } }, o.onSave ? "Avbryt" : "Stäng"),
+        o.onSave ? h("button", { type: "submit", class: "btn" }, o.saveLabel || "Spara") : null));
+    dlg.append(form);
+    dlg.showModal();
+  }
+  function write(promise, okMsg) {
+    return promise.then(function () { if (okMsg) toast(okMsg); return true; }, function (e) {
+      toast(e && e.code === "invalid_argument" ? "Du har inte rätt att ändra här." : "Det gick inte att spara. Försök igen."); return false;
+    });
+  }
+
+  // ---------- glaze dialog ----------
+  function glazeDialog(id) {
+    var g = id ? glazes.get(id) : { name: "", code: "", brand: "Mayco Stoneware", form: "burk", group: "Blå", hex: "#6a8caf", cone: "", note: "", speckle: false };
+    var name = h("input", { id: "g-name", type: "text", value: g.name, required: true });
+    var code = h("input", { id: "g-code", type: "text", value: g.code || "" });
+    var brand = h("input", { id: "g-brand", type: "text", value: g.brand || "", list: "brands" });
+    var brands = h("datalist", { id: "brands" }, ["Mayco Stoneware", "Mayco pulver", "Botz", "Duncan Renaissance", "Welte"].map(function (b) { return h("option", { value: b }); }));
+    var form = singlePicker(FORMS, g.form || "burk");
+    var gtype = singlePicker(TYPES.concat([["", "Vet ej"]]), g.type || "");
+    var grpPick = multiPicker(GROUPS, gGroups(g));
+    var hex = h("input", { id: "g-hex", type: "color", value: g.hex || "#999999" });
+    var cone = h("input", { id: "g-cone", type: "text", value: g.cone || "", placeholder: "t.ex. 5–10" });
+    var speck = h("input", { id: "g-speck", type: "checkbox", checked: !!g.speckle });
+    var note = h("textarea", { id: "g-note" }); note.value = g.note || "";
+    var purl = h("input", { id: "g-url", type: "url", value: g.productUrl || "", placeholder: "https://…" });
+    var prodLink = null;
+    if (id) {
+      var q = [g.brand, g.code, g.name, "glaze"].filter(Boolean).join(" ");
+      prodLink = g.productUrl
+        ? h("a", { class: "btn soft prodlink", href: g.productUrl, target: "_blank", rel: "noopener" }, "Öppna produktsidan ↗")
+        : h("a", { class: "btn soft prodlink", href: "https://www.google.com/search?q=" + encodeURIComponent(q), target: "_blank", rel: "noopener" }, "Sök produktsidan på Google ↗");
+    }
+    var body = h("div", { class: "dlg-in", style: "padding:0" },
+      prodLink,
+      fld("Namn", name),
+      h("div", { class: "two" }, fld("Kod", code), fld("Märke", brand)),
+      brands,
+      fldDiv("Form", form),
+      fldDiv("Typ", gtype),
+      h("div", { class: "fld" }, h("span", null, "Färger (välj en eller flera)"), grpPick.el),
+      h("div", { class: "two" }, fld("Kon / temperatur", cone), fld("Provfärg", hex)),
+      h("label", { class: "check" }, speck, "Spräcklig yta"),
+      fld("Länk till produktsidan", purl),
+      fld("Anteckning", note),
+      (function () {
+        if (!id) return null;
+        var withG = byCreated(combos).filter(function (c) { return (c.glazes || []).indexOf(id) >= 0; });
+        if (!withG.length) return null;
+        return h("div", { class: "fld" }, h("span", null, "Kombinationer med den här (" + withG.length + ")"),
+          h("div", { class: "list", style: "grid-template-columns:1fr" }, withG.map(function (c) { return comboCard(c, function () { $("#dlg").close(); comboDialog(c.id); }); })));
+      })());
+    openDlg(id ? g.name : "Lägg till glasyr", body, {
+      onDelete: id && canWrite ? function () { picked = picked.filter(function (x) { return x !== id; }); return write(db.collection("glazes").doc(id).delete(), "Glasyren raderades"); } : null,
+      onSave: canWrite ? function () {
+        if (!name.value.trim()) { name.focus(); return false; }
+        var data = { name: name.value.trim(), code: code.value.trim(), brand: brand.value.trim(), form: form.value, type: gtype.value, group: grpPick.get()[0] || "", groups: grpPick.get(), hex: hex.value, cone: cone.value.trim(), productUrl: purl.value.trim(), note: note.value.trim(), speckle: speck.checked };
+        var ref = db.collection("glazes").doc(id || slug(code.value || name.value) + "-" + Date.now().toString(36).slice(-3));
+        return write(ref.set(data), "Sparad");
+      } : null
+    });
+  }
+
+  // ---------- images ----------
+  function shrink(f) {
+    return new Promise(function (res) {
+      var url = URL.createObjectURL(f), im = new Image();
+      im.onload = function () {
+        var k = Math.min(1, 1600 / Math.max(im.width, im.height));
+        var cv = document.createElement("canvas");
+        cv.width = Math.round(im.width * k); cv.height = Math.round(im.height * k);
+        cv.getContext("2d").drawImage(im, 0, 0, cv.width, cv.height);
+        URL.revokeObjectURL(url);
+        cv.toBlob(function (b) { res(b || f); }, "image/jpeg", 0.85);
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); res(f); };
+      im.src = url;
+    });
+  }
+  function lightbox(c) {
+    var body = h("div", { class: "lb" }, (c.images || []).map(function (id) { return h("img", { src: blobUrl(id), alt: "Bild på kombinationen" }); }));
+    openDlg((c.glazes || []).map(label).join(" + "), body, {});
+  }
+
+  // ---------- combo dialog ----------
+  function glazePicker(current, noneText, onChange) {
+    var val = current || "";
+    var wrap = h("div", { class: "gsel" });
+    var trigger = h("button", { type: "button", class: "gsel-btn", "aria-expanded": "false" });
+    var panel = h("div", { class: "gsel-panel", hidden: true });
+    function dotOf(g) { return h("span", { class: "dot", style: "background:" + (g && g.hex ? g.hex : "transparent") + ";box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)" }); }
+    function drawTrigger() {
+      var g = val ? glazes.get(val) : null;
+      trigger.textContent = "";
+      trigger.append(g ? dotOf(g) : h("span", { class: "dot none" }), h("span", { class: "gsel-name" }, g ? g.name + (g.code ? " (" + g.code + ")" : "") : noneText), h("span", { class: "gsel-caret" }, "▾"));
+    }
+    function choose(v) { val = v; drawTrigger(); close(); if (onChange) onChange(v); }
+    function close() { panel.hidden = true; trigger.setAttribute("aria-expanded", "false"); }
+    function drawList(q) {
+      list.textContent = "";
+      var items = glazeList().slice().sort(function (a, b) { return String(a.name).localeCompare(String(b.name), "sv"); });
+      var t = (q || "").trim().toLowerCase();
+      list.append(h("button", { type: "button", class: "gsel-opt" + (!val ? " on" : ""), onclick: function () { choose(""); } }, h("span", { class: "dot none" }), noneText));
+      items.forEach(function (g) {
+        if (t && (g.name + " " + (g.code || "") + " " + (g.brand || "")).toLowerCase().indexOf(t) < 0) return;
+        list.append(h("button", { type: "button", class: "gsel-opt" + (g.id === val ? " on" : ""), onclick: function () { choose(g.id); } },
+          dotOf(g), h("span", { class: "gsel-name" }, g.name), h("span", { class: "gsel-sub" }, [g.code, g.form === "onskelista" ? "finns ej" : ""].filter(Boolean).join(" · "))));
+      });
+    }
+    var search = h("input", { type: "search", placeholder: "Sök glasyr…", class: "gsel-search" });
+    var list = h("div", { class: "gsel-list" });
+    search.addEventListener("input", function () { drawList(search.value); });
+    panel.append(search, list);
+    trigger.addEventListener("click", function () {
+      if (panel.hidden) { search.value = ""; drawList(""); panel.hidden = false; trigger.setAttribute("aria-expanded", "true"); } else close();
+    });
+    wrap.append(trigger, panel);
+    Object.defineProperty(wrap, "value", { get: function () { return val; }, set: function (v) { val = v || ""; drawTrigger(); } });
+    drawTrigger();
+    return wrap;
+  }
+  function glazeSelect(idAttr, current, optional) {
+    return glazePicker(current, optional ? "Ingen" : "Välj glasyr…");
+  }
+  function comboDialog(id, preset) {
+    var c = id ? combos.get(id) : (preset || { glazes: picked.slice(), coats: 2, status: "idé", rating: 0, note: "" });
+    var gl = c.glazes || [];
+    var s1 = glazeSelect("c-g1", gl[0], false), s2 = glazeSelect("c-g2", gl[1], true), s3 = glazeSelect("c-g3", gl[2], true);
+    var coats = h("input", { id: "c-coats", type: "number", min: "1", max: "6", value: c.coats || 2 });
+    var status = singlePicker(CSTATUS, c.status || "idé");
+    var rating = singlePicker([["0", "Inget"], ["1", "★"], ["2", "★★"], ["3", "★★★"], ["4", "★★★★"], ["5", "★★★★★"]], String(c.rating || 0));
+    var resPick = multiPicker(GROUPS, cResults(c));
+    var imgs = (c.images || []).slice();
+    var thumbs = h("div", { class: "thumbs" });
+    var upStatus = h("p", { class: "hint" });
+    function drawThumbs() {
+      thumbs.textContent = "";
+      imgs.forEach(function (id) {
+        thumbs.append(h("div", { class: "thumb" }, h("img", { src: blobUrl(id), alt: "Bild på kombinationen" }),
+          h("button", { type: "button", class: "x", "aria-label": "Ta bort bilden", onclick: function () { imgs = imgs.filter(function (x) { return x !== id; }); drawThumbs(); persistImgs(); } }, "×")));
+      });
+    }
+    function persistImgs() {
+      if (id && canWrite && db) write(db.collection("combos").doc(id).update({ images: imgs }), null);
+    }
+    drawThumbs();
+    var file = h("input", { id: "c-file", type: "file", accept: "image/*", multiple: true });
+    file.addEventListener("change", function () {
+      var files = Array.prototype.slice.call(file.files || []); file.value = "";
+      if (!files.length || !assets) return;
+      upStatus.textContent = "Laddar upp…";
+      var failed = 0, chain = Promise.resolve();
+      files.forEach(function (f) {
+        chain = chain.then(function () {
+          return shrink(f).then(function (blob) { return assets.upload(blob); }).then(function (r) { imgs.push(r.id); drawThumbs(); persistImgs(); }).catch(function () { failed++; });
+        });
+      });
+      chain.then(function () { upStatus.textContent = failed ? failed + " bild(er) gick inte att ladda upp. Prova en JPEG eller PNG." : (id ? "Bilden är sparad och visas på kortet." : "Bilden visas på kortet när du trycker Spara."); });
+    });
+    var note = h("textarea", { id: "c-note", placeholder: "Hur blev det? Bränning, lera, antal strykningar…" }); note.value = c.note || "";
+    var body = h("div", { class: "dlg-in", style: "padding:0" },
+      fld("Första lagret (närmast leran)", s1), fld("Andra lagret", s2), fld("Tredje lagret", s3),
+      fld("Strykningar per lager", coats),
+      fldDiv("Status", status),
+      fldDiv("Betyg", rating),
+      h("div", { class: "fld" }, h("span", null, "Resultatfärg (välj en eller flera)"), resPick.el), fld("Anteckning", note),
+      h("div", { class: "fld" }, h("span", null, "Bilder"), thumbs,
+        assets && canWrite ? dropzone(file) : (imgs.length ? null : h("p", { class: "hint" }, "Bilder kan bara läggas till av den som äger sidan.")), upStatus));
+    openDlg(id ? "Kombination" : "Ny kombination", body, {
+      onDelete: id && canWrite ? function () { return write(db.collection("combos").doc(id).delete(), "Kombinationen raderades"); } : null,
+      onSave: canWrite ? function () {
+        var ids = [s1.value, s2.value, s3.value].filter(Boolean);
+        if (ids.length < 2) { toast("Välj minst två glasyrer."); return false; }
+        var data = { glazes: ids, coats: Math.max(1, Number(coats.value) || 2), status: status.value, rating: Number(rating.value) || 0, result: resPick.get()[0] || "", results: resPick.get(), images: imgs, note: note.value.trim(), createdAt: (c && c.createdAt) || Date.now() };
+        ["by", "projectId", "place", "url", "srcLabel", "fav"].forEach(function (k) { if (c && c[k] !== undefined && c[k] !== "") data[k] = c[k]; });
+        if (c && c.by) data.by = c.by;
+        if (c && c.url) { data.url = c.url; if (c.srcLabel) data.srcLabel = c.srcLabel; }
+        var ref = db.collection("combos").doc(id || "k-" + Date.now().toString(36));
+        picked = [];
+        return write(ref.set(data), "Sparad");
+      } : null
+    });
+  }
+
+  // ---------- project dialog ----------
+  function dropzone(file, text) {
+    file.style.display = "none";
+    var z = h("label", { class: "drop", for: file.id }, h("span", { class: "plus" }, "+"), h("b", null, "Lägg till bilder"), h("span", { class: "sub" }, text || "Tryck här eller dra bilder hit"));
+    ["dragenter", "dragover"].forEach(function (ev) { z.addEventListener(ev, function (e) { e.preventDefault(); z.classList.add("over"); }); });
+    ["dragleave", "drop"].forEach(function (ev) { z.addEventListener(ev, function (e) { e.preventDefault(); z.classList.remove("over"); }); });
+    z.addEventListener("drop", function (e) {
+      var fl = e.dataTransfer && e.dataTransfer.files;
+      if (!fl || !fl.length) return;
+      try { file.files = fl; file.dispatchEvent(new Event("change")); } catch (err) {}
+    });
+    return h("div", null, file, z);
+  }
+  function fmtDT(t) {
+    try { return new Date(t).toLocaleString("sv-SE", { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; }
+  }
+  function histOf(p) {
+    var hs = (p.history || []).slice();
+    if (!hs.length && p.createdAt) hs.push({ status: p.status || "drejat", at: p.createdAt });
+    return hs;
+  }
+  function histBox(p) {
+    var box = h("div", { class: "tl" });
+    box.append(h("div", { class: "tl-row" }, h("b", null, "Skapad"), h("span", null, fmtDT(p.createdAt))));
+    histOf(p).forEach(function (e) {
+      box.append(h("div", { class: "tl-row" }, h("b", null, labelOf(PSTATUS, e.status)), h("span", null, fmtDT(e.at))));
+    });
+    return box;
+  }
+  function summarizeUse(entries) {
+    var lord = { underst: 0, mellan: 1, overst: 2 }, out = [];
+    PLACES.forEach(function (pl) {
+      var es = entries.filter(function (e) { return (e.place || "hela") === pl[0]; });
+      if (!es.length) return;
+      var layers = [];
+      ["underst", "mellan", "overst"].forEach(function (ly) {
+        var le = es.filter(function (e) { return (e.layer || "overst") === ly; });
+        if (!le.length) return;
+        var names = le.map(function (e) { return label(e.id) + (e.kind === "dekor" ? " (dekor)" : ""); });
+        layers.push({ ly: ly, ids: le.map(function (e) { return e.id; }), text: labelOf(LAYERS, ly) + ": " + names.join(" + ") + (le.length > 1 ? " (blandat)" : "") });
+      });
+      var ids = [];
+      layers.forEach(function (l) { l.ids.forEach(function (i) { if (ids.indexOf(i) < 0) ids.push(i); }); });
+      out.push({ place: pl[0], placeLabel: pl[1], ids: ids, text: layers.map(function (l) { return l.text; }).join(" → ") });
+    });
+    return out;
+  }
+  function projectDialog(id) {
+    var p = id ? projects.get(id) : { title: "", technique: "drejat", clay: "", status: "drejat", glazeIds: [], note: "" };
+    var title = h("input", { id: "p-title", type: "text", value: p.title, required: true });
+    var tech = singlePicker(TECH, p.technique || "drejat");
+    var clay = h("input", { id: "p-clay", type: "text", value: p.clay || "", placeholder: "Vilken lera?" });
+    var status = singlePicker(PSTATUS, p.status || "drejat");
+    var sel = new Set(p.glazeIds || []);
+    var uses = [], uidn = 0;
+    var newUse = function (gid, layer, place, kind) { return { uid: ++uidn, id: gid, layer: layer || "overst", place: place || "hela", kind: kind || "glasyr" }; };
+    var picker = h("div", { class: "picker", id: "p-glazes" });
+    var pickSearch = h("input", { type: "search", class: "search", placeholder: "Sök glasyr…", "aria-label": "Sök glasyr", style: "padding:11px 14px;font-size:16px" });
+    var pickMsg = h("p", { class: "hint" });
+    function drawChips() {
+      picker.textContent = "";
+      var q = pickSearch.value.trim().toLowerCase(), n = 0;
+      glazeList().filter(function (g) { return g.form !== "onskelista"; }).forEach(function (g) {
+        if (q && (g.name + " " + (g.code || "") + " " + (g.brand || "")).toLowerCase().indexOf(q) < 0) return;
+        n++;
+        var b = h("button", { type: "button", class: "chip", "aria-pressed": String(sel.has(g.id)) }, h("span", { class: "dot", style: "background:" + (g.hex || "#999") + ";box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)" }), g.name);
+        var mark = h("span", { class: "ck" }, sel.has(g.id) ? "✓" : ""); b.prepend(mark);
+        b.addEventListener("click", function () { if (sel.has(g.id)) { sel.delete(g.id); uses = uses.filter(function (x) { return x.id !== g.id; }); } else { sel.add(g.id); uses.push(newUse(g.id, sel.size === 1 ? "underst" : "overst", "hela", "glasyr")); } b.setAttribute("aria-pressed", String(sel.has(g.id))); mark.textContent = sel.has(g.id) ? "✓" : ""; drawUse(); });
+        picker.append(b);
+      });
+      pickMsg.textContent = n ? "" : (q ? "Ingen glasyr heter så. Lägg till den nedan." : "Inga glasyrer än. Lägg till din första nedan.");
+    }
+    pickSearch.addEventListener("input", function () { drawChips(); });
+    var addName = h("input", { type: "text", id: "p-newg-name", placeholder: "Namn, t.ex. Honey Flux" });
+    var addBrand = h("input", { type: "text", id: "p-newg-brand", placeholder: "Märke (valfritt)" });
+    var addGrp = multiPicker(GROUPS, []);
+    var addPanel = h("div", { class: "usebox", hidden: true },
+      h("div", { class: "usehead" }, "Lägg till ny glasyr"),
+      fldDiv("Namn", addName), fldDiv("Märke", addBrand), h("div", { class: "fld" }, h("span", null, "Färg (välj en eller flera)"), addGrp.el),
+      h("div", { class: "useacts" },
+        h("button", { type: "button", class: "btn", onclick: function () {
+          var nm = addName.value.trim();
+          if (!nm) { addName.focus(); return; }
+          var gs = addGrp.get();
+          var data = { name: nm, code: "", brand: addBrand.value.trim(), form: "burk", group: gs[0] || "", groups: gs, hex: FAMILY_HEX[gs[0]] || "#9aa5b1", cone: "", productUrl: "", note: "", speckle: false };
+          var gid = slug(nm) + "-" + Date.now().toString(36).slice(-3);
+          write(db.collection("glazes").doc(gid).set(data), "Glasyren lades också till under Glasyrer").then(function (ok) {
+            if (!ok) return;
+            glazes.set(gid, data); sel.add(gid); uses.push(newUse(gid, sel.size === 1 ? "underst" : "overst", "hela", "glasyr"));
+            addName.value = ""; addBrand.value = ""; pickSearch.value = ""; addPanel.hidden = true; addBtn.hidden = false;
+            drawChips(); drawUse();
+          });
+        } }, "Lägg till"),
+        h("button", { type: "button", class: "btn ghost", onclick: function () { addPanel.hidden = true; addBtn.hidden = false; } }, "Avbryt")));
+    var addBtn = h("button", { type: "button", class: "btn soft", style: "align-self:flex-start", onclick: function () { addName.value = pickSearch.value.trim().replace(/(^|\s)(\S)/g, function (m, a, b) { return a + b.toUpperCase(); }); addPanel.hidden = false; addBtn.hidden = true; addName.focus(); } }, "+ Hittar inte glasyren? Lägg till den");
+    if (!canWrite) { addBtn.hidden = true; }
+    var pickFade = h("div", { class: "pfade", "aria-hidden": "true" }, "↓ Scrolla för fler");
+    var pickBox = h("div", { class: "pbox" }, picker, pickFade);
+    function updFade() {
+      var more = picker.scrollHeight - picker.clientHeight > 8;
+      pickFade.hidden = !(more && picker.scrollTop + picker.clientHeight < picker.scrollHeight - 12);
+    }
+    picker.addEventListener("scroll", updFade);
+    var _dc = drawChips; drawChips = function () { _dc(); setTimeout(updFade, 0); };
+    var pickWrap = h("div", { style: "display:flex;flex-direction:column;gap:10px" }, pickSearch, pickBox, pickMsg, addBtn, addPanel);
+    drawChips();
+    setTimeout(updFade, 60);
+    var _unused = function (g) {
+      var b = h("button", { type: "button", class: "chip", "aria-pressed": String(sel.has(g.id)) }, h("span", { class: "dot", style: "background:" + (g.hex || "#999") + ";box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)" }), g.name);
+      var mark = h("span", { class: "ck" }, sel.has(g.id) ? "✓" : ""); b.prepend(mark);
+      b.addEventListener("click", function () { if (sel.has(g.id)) { sel.delete(g.id); uses = uses.filter(function (x) { return x.id !== g.id; }); } else { sel.add(g.id); uses.push(newUse(g.id, sel.size === 1 ? "underst" : "overst", "hela", "glasyr")); } b.setAttribute("aria-pressed", String(sel.has(g.id))); mark.textContent = sel.has(g.id) ? "✓" : ""; drawUse(); });
+      picker.append(b);
+    };
+    var useBox = h("div", { class: "usebox" });
+    function drawUse() {
+      useBox.textContent = "";
+      var chosen = glazeList().filter(function (g) { return sel.has(g.id); });
+      if (!chosen.length) { useBox.hidden = true; return; }
+      useBox.hidden = false;
+      useBox.append(h("div", { class: "usehead" }, "Valda glasyrer (" + chosen.length + ")"),
+        h("p", { class: "fine" }, "Välj lager och plats för varje glasyr. Samma lager och samma plats betyder att glasyrerna är blandade ihop. Behöver en glasyr användas på flera ställen, tryck på + Annan plats."));
+      chosen.forEach(function (g) {
+        var mine = uses.filter(function (x) { return x.id === g.id; });
+        mine.forEach(function (u, idx) {
+          var lp = singlePicker(LAYERS, u.layer), pp = singlePicker(PLACES, u.place), kp = singlePicker(KINDS, u.kind || "glasyr");
+          kp.addEventListener("click", function () { u.kind = kp.value; drawSum(); });
+          lp.addEventListener("click", function () { u.layer = lp.value; drawSum(); });
+          pp.addEventListener("click", function () { u.place = pp.value; drawSum(); });
+          var acts = h("div", { class: "useacts" });
+          if (idx === 0) acts.append(h("button", { type: "button", class: "btn soft", onclick: function () { uses.splice(uses.indexOf(mine[mine.length - 1]) + 1, 0, newUse(g.id, "overst", "insida", "glasyr")); drawUse(); } }, "+ Annan plats"));
+          else acts.append(h("button", { type: "button", class: "btn ghost", onclick: function () { uses = uses.filter(function (x) { return x !== u; }); drawUse(); } }, "Ta bort raden"));
+          useBox.append(h("div", { class: "userow" },
+            h("div", { class: "usename" }, h("span", { class: "dot", style: "background:" + (g.hex || "#999") + ";box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)" }), g.name),
+            h("div", { class: "uselbl" }, "Lager"), lp, h("div", { class: "uselbl" }, "Plats"), pp, h("div", { class: "uselbl" }, "Typ"), kp, acts));
+        });
+      });
+      useBox.append(sumBox); drawSum();
+    }
+    var sumBox = h("div", { class: "usesum" });
+    function drawSum() {
+      sumBox.textContent = "";
+      var sm = summarizeUse(uses.filter(function (x) { return sel.has(x.id); }));
+      if (!sm.length) return;
+      sumBox.append(h("div", { class: "usehead" }, "Så här blev det"));
+      sm.forEach(function (x) { sumBox.append(h("p", null, h("b", null, x.placeLabel + ": "), x.text)); });
+    }
+    (p.glazeUse || []).forEach(function (u) { uses.push(newUse(u.id, u.layer, u.place, u.kind)); });
+    (p.glazeIds || []).forEach(function (gid) { if (!uses.some(function (x) { return x.id === gid; })) uses.push(newUse(gid, "overst", "hela", "glasyr")); });
+    drawUse();
+    var note = h("textarea", { id: "p-note" }); note.value = p.note || "";
+    var imgs = (p.images || []).slice();
+    var cover = p.cover && imgs.indexOf(p.cover) >= 0 ? p.cover : (imgs.length ? imgs[imgs.length - 1] : "");
+    var thumbs = h("div", { class: "thumbs" });
+    var upStatus = h("p", { class: "hint" });
+    function persistImgs() {
+      if (id && canWrite && db) write(db.collection("projects").doc(id).update({ images: imgs, cover: cover }), null);
+    }
+    function drawThumbs() {
+      thumbs.textContent = "";
+      imgs.forEach(function (iid) {
+        var isCover = iid === cover;
+        thumbs.append(h("div", { class: "thumb" + (isCover ? " cover" : "") },
+          h("button", { type: "button", class: "ph", "aria-label": "Välj som kortbild", onclick: function () { cover = iid; drawThumbs(); persistImgs(); } },
+            h("img", { src: blobUrl(iid), alt: "Bild på projektet" })),
+          isCover ? h("span", { class: "badge" }, "Kortbild") : null,
+          h("button", { type: "button", class: "x", "aria-label": "Ta bort bilden", onclick: function () {
+            imgs = imgs.filter(function (x) { return x !== iid; });
+            if (cover === iid) cover = imgs.length ? imgs[imgs.length - 1] : "";
+            drawThumbs(); persistImgs(); } }, "×")));
+      });
+    }
+    drawThumbs();
+    var file = h("input", { id: "p-file", type: "file", accept: "image/*", multiple: true });
+    file.addEventListener("change", function () {
+      var files = Array.prototype.slice.call(file.files || []); file.value = "";
+      if (!files.length || !assets) return;
+      upStatus.textContent = "Laddar upp…";
+      var failed = 0, chain = Promise.resolve();
+      files.forEach(function (f) {
+        chain = chain.then(function () {
+          return shrink(f).then(function (blob) { return assets.upload(blob); }).then(function (r) { imgs.push(r.id); cover = r.id; drawThumbs(); persistImgs(); }).catch(function () { failed++; });
+        });
+      });
+      chain.then(function () { upStatus.textContent = failed ? failed + " bild(er) gick inte att ladda upp. Prova en JPEG eller PNG." : "Senaste bilden är kortbild. Tryck på en annan bild för att byta."; });
+    });
+    var body = h("div", { class: "dlg-in", style: "padding:0" },
+      h("div", { class: "fld" }, h("span", null, "Bilder"), thumbs,
+        assets && canWrite ? dropzone(file) : (imgs.length ? null : h("p", { class: "hint" }, "Bilder kan bara läggas till av den som äger sidan.")), upStatus),
+      fld("Titel", title), fldDiv("Teknik", tech), fld("Lera", clay),
+      fldDiv("Status", status), h("div", { class: "fld" }, h("span", null, "Välj glasyrer"), pickWrap), useBox, fld("Anteckning", note),
+      id ? fldDiv("Tidslinje", histBox(p)) : null);
+    openDlg(id ? p.title : "Vad ska du skapa?", body, {
+      onDelete: id && canWrite ? function () { return write(db.collection("projects").doc(id).delete(), "Projektet raderades"); } : null,
+      onSave: canWrite ? function () {
+        if (!title.value.trim()) { title.focus(); return false; }
+        var now = Date.now();
+        var hist = (p.history || []).slice();
+        if (!hist.length && id && p.status) hist.push({ status: p.status, at: p.createdAt || now });
+        if (!hist.length || hist[hist.length - 1].status !== status.value) hist.push({ status: status.value, at: now });
+        var data = { title: title.value.trim(), technique: tech.value, clay: clay.value.trim(), status: status.value, history: hist, glazeText: sel.size ? "" : (p.glazeText || ""), glazeIds: Array.from(sel), glazeUse: uses.filter(function (x) { return sel.has(x.id); }).map(function (u) { return { id: u.id, layer: u.layer, place: u.place, kind: u.kind }; }), images: imgs, cover: cover, note: note.value.trim(), createdAt: (p && p.createdAt) || now };
+        var pid = id || "p-" + Date.now().toString(36);
+        var cimgs = cover ? [cover].concat(imgs.filter(function (x) { return x !== cover; })) : imgs.slice();
+        var groups = summarizeUse(data.glazeUse);
+        var after = function () {
+          var base = "k-p-" + pid.replace(/^p-/, "");
+          if (combos.has(base)) write(db.collection("combos").doc(base).delete(), null);
+          groups.forEach(function (gr) {
+            if (gr.ids.length < 2) return;
+            var cid = base + "-" + gr.place, ref = db.collection("combos").doc(cid), gl = gr.ids.slice(0, 3);
+            if (combos.has(cid)) write(ref.update({ glazes: gl, images: cimgs }), null);
+            else write(ref.set({ glazes: gl, coats: 2, status: "testad", rating: 0, result: "", results: [], images: cimgs, note: "Från projektet " + data.title + (data.clay ? " (" + data.clay + ")" : "") + ". " + gr.placeLabel + ": " + gr.text + ".", by: "rhoda", projectId: pid, place: gr.place, createdAt: Date.now() }), null);
+          });
+        };
+        return write(db.collection("projects").doc(pid).set(data), "Sparad").then(function (ok) { if (ok) after(); return ok; });
+      } : null
+    });
+  }
+
+  // ---------- selection bar ----------
+  function renderBar() {
+    var bar = $("#bar");
+    if (tab !== "glazes" || sub !== "glazes" || !picked.length) { bar.hidden = true; return; }
+    bar.hidden = false; bar.textContent = "";
+    var stack = h("div", { class: "stack" }, picked.map(function (id) { return swatch(glazes.get(id)); }));
+    bar.append(stack,
+      h("span", { class: "txt" }, picked.map(label).join(" + ")),
+      picked.length >= 2 && canWrite ? h("button", { class: "btn", type: "button", onclick: function () { comboDialog(null); } }, "Skapa kombination") : h("span", { class: "txt" }, "Välj en till"),
+      h("button", { class: "btn ghost", type: "button", onclick: function () { picked = []; current.update(); renderBar(); } }, "Rensa"));
+  }
+
+  function productUrlFor(brand, code, name) {
+    var m = /^SW-?(\d{2,4})$/i.exec(String(code || "").trim());
+    if (m && /mayco/i.test(brand || "")) return "https://www.maycocolors.com/product/sw-" + m[1] + "-" + slug(name).replace(/-+$/, "") + "/";
+    return "";
+  }
+  function photoDialog() {
+    var stage = h("div", { class: "photo-stage" });
+    var status = h("p", { class: "hint" });
+    var file = h("input", { id: "ph-file", type: "file", accept: "image/*", multiple: true });
+    var items = [], ready = false;
+    var existing = new Set(); glazes.forEach(function (g) { existing.add(String(g.name || "").toLowerCase().trim()); });
+    function pickStage() {
+      stage.textContent = "";
+      stage.append(h("p", { class: "hint" }, "Ta en bild på en burk, eller på flera burkar bredvid varandra. Claude läser etiketterna och föreslår glasyrerna. Du får kolla innan något sparas."), dropzone(file, "Tryck här eller dra in bilder"), status);
+    }
+    function copyFor(code) {
+      return ({ not_granted: "Du har inte gett sidan tillåtelse att använda Claude.", rate_limited: "För många förfrågningar just nu. Vänta en stund och försök igen.", image_rejected: "Bilden gick inte att läsa. Prova en JPEG eller PNG.", refused: "Claude kunde inte läsa bilden. Prova en annan bild.", invalid_json: "Svaret gick inte att tolka. Försök igen.", images_unavailable: "Bildläsning fungerar inte här. Lägg till glasyren för hand." })[code] || "Det gick inte att läsa bilden. Försök igen.";
+    }
+    function norm(r) {
+      var name = String(r && r.name || "").trim(); if (!name) return null;
+      var groups = (Array.isArray(r.groups) ? r.groups : []).filter(function (x) { return GROUPS.indexOf(x) >= 0; }).slice(0, 2);
+      var hex = /^#[0-9a-f]{6}$/i.test(r.hex || "") ? r.hex : (FAMILY_HEX[groups[0]] || "#9aa5b1");
+      var type = TYPES.some(function (t) { return t[0] === r.type; }) ? r.type : "";
+      var brand = String(r.brand || "").trim(), code = String(r.code || "").trim();
+      return { name: name, brand: brand, code: code, cone: String(r.cone || "").trim(), type: type, groups: groups, hex: hex, speckle: !!r.speckle, conf: r.confidence || "medel", note: String(r.note || "").trim(), url: productUrlFor(brand, code, name), dup: existing.has(name.toLowerCase()), on: !existing.has(name.toLowerCase()) };
+    }
+    file.addEventListener("change", function () {
+      var files = Array.prototype.slice.call(file.files || []); file.value = "";
+      if (!files.length) return;
+      status.textContent = "Claude läser etiketterna. Det kan ta en halv minut…";
+      sample.limits().catch(function () { return null; }).then(function (lim) {
+        if (!lim || !lim.images) { status.textContent = copyFor("images_unavailable"); return null; }
+        if (files.length > lim.images.maxCount) { files = files.slice(0, lim.images.maxCount); toast("Använder de första " + lim.images.maxCount + " bilderna."); }
+        var prompt = "Du hjälper till att fylla i ett keramikbibliotek. Bilderna visar burkar eller etiketter med keramikglasyrer. Hitta varje glasyr som syns (en per burk). Svara ENDAST med en JSON-array. Varje objekt ska ha fälten:\n" +
+          "name: glasyrens namn exakt som på etiketten (inte en beskrivning),\n" +
+          "brand: tillverkare och serie, t.ex. \"Mayco Stoneware\", annars \"\",\n" +
+          "code: produktkod, t.ex. \"SW-118\", annars \"\",\n" +
+          "cone: kon eller temperaturområde som det står, t.ex. \"5–10\", annars \"\",\n" +
+          "type: \"dopp\" (doppglasyr), \"pensel\" (penselglasyr), \"engobe\" eller \"ovrigt\". Använd \"\" om det inte framgår av etiketten eller att du är säker på produkten,\n" +
+          "groups: en eller två av [" + GROUPS.join(", ") + "] som passar färgen glasyren får efter bränning,\n" +
+          "hex: ditt bästa förslag på den brända färgen som #rrggbb,\n" +
+          "speckle: true om glasyren är spräcklig, annars false,\n" +
+          "confidence: \"hög\", \"medel\" eller \"låg\" för hur säker du är på namnet,\n" +
+          "note: en kort mening på svenska om något är oklart, annars \"\".\n" +
+          "Hitta inte på. Om du inte kan läsa en etikett, utelämna burken. Ta med varje glasyr bara en gång.";
+        return Promise.all(files.map(shrink)).then(function (blobs) { return sample.json(prompt, { images: blobs, cache: false }); });
+      }).then(function (res) {
+        if (!res) return;
+        if (!Array.isArray(res)) res = res && Array.isArray(res.glazes) ? res.glazes : [];
+        items = res.map(norm).filter(Boolean);
+        if (!items.length) { status.textContent = "Hittade ingen glasyr som gick att läsa. Prova en tydligare bild på etiketten."; return; }
+        review();
+      }).catch(function (e) { status.textContent = copyFor(e && e.code); });
+    });
+    function review() {
+      ready = true; stage.textContent = "";
+      var sb = $("#dlg button[type=submit]"); if (sb) { sb.hidden = false; sb.textContent = "Lägg till valda"; }
+      stage.append(h("div", { class: "usehead" }, "Stämmer det här?"), h("p", { class: "hint" }, "Claude har gissat utifrån bilden. Rätta det som är fel, och avmarkera det du inte vill lägga till."));
+      items.forEach(function (it) {
+        var chk = h("input", { type: "checkbox", checked: it.on }); chk.addEventListener("change", function () { it.on = chk.checked; });
+        var name = h("input", { type: "text", value: it.name }), brand = h("input", { type: "text", value: it.brand, list: "brands" }), code = h("input", { type: "text", value: it.code }), cone = h("input", { type: "text", value: it.cone });
+        var typ = singlePicker(TYPES.concat([["", "Vet ej"]]), it.type), grp = multiPicker(GROUPS, it.groups);
+        var hex = h("input", { type: "color", value: it.hex }), speck = h("input", { type: "checkbox", checked: it.speckle });
+        var urlIn = h("input", { type: "url", value: it.url, placeholder: "https://… (valfritt)" });
+        var flags = h("div", { class: "row" });
+        if (it.dup) flags.append(h("span", { class: "pill tile" }, "Finns redan"));
+        if (it.conf === "låg" || it.conf === "medel") flags.append(h("span", { class: "pill tile" }, it.conf === "låg" ? "Osäker, kolla noga" : "Kolla namnet"));
+        if (it.note) flags.append(h("span", null, it.note));
+        var q = [it.brand, it.code, it.name, "glaze"].filter(Boolean).join(" ");
+        Object.assign(it, { f: { name: name, brand: brand, code: code, cone: cone, typ: typ, grp: grp, hex: hex, speck: speck, url: urlIn } });
+        stage.append(h("div", { class: "usebox" },
+          h("label", { class: "check" }, chk, h("b", null, it.name)), flags,
+          h("div", { class: "two" }, fldDiv("Namn", name), fldDiv("Märke", brand)),
+          h("div", { class: "two" }, fldDiv("Kod", code), fldDiv("Kon", cone)),
+          fldDiv("Typ", typ),
+          h("div", { class: "fld" }, h("span", null, "Färg"), grp.el),
+          h("div", { class: "two" }, h("div", { class: "fld" }, h("span", null, "Provfärg"), hex), h("label", { class: "check", style: "align-self:end" }, speck, "Spräcklig")),
+          fldDiv("Länk till produktsidan", urlIn),
+          h("a", { class: "src", href: "https://www.google.com/search?q=" + encodeURIComponent(q), target: "_blank", rel: "noopener" }, "Sök produktsidan på Google ↗")));
+      });
+    }
+    pickStage();
+    openDlg("Lägg till från bild", h("div", { class: "dlg-in", style: "padding:0" }, stage), {
+      saveLabel: "Lägg till valda",
+      onSave: function () {
+        if (!ready) return false;
+        var chosen = items.filter(function (it) { return it.on && it.f.name.value.trim(); });
+        if (!chosen.length) { toast("Inget är markerat."); return false; }
+        return Promise.all(chosen.map(function (it) {
+          var f = it.f, nm = f.name.value.trim(), gs = f.grp.get();
+          var data = { name: nm, code: f.code.value.trim(), brand: f.brand.value.trim(), form: "burk", type: f.typ.value, group: gs[0] || "", groups: gs, hex: f.hex.value, cone: f.cone.value.trim(), productUrl: f.url.value.trim(), note: "", speckle: f.speck.checked };
+          return db.collection("glazes").doc(slug(data.code || nm) + "-" + Date.now().toString(36).slice(-3) + Math.random().toString(36).slice(2, 4)).set(data);
+        })).then(function () { toast("Lade till " + chosen.length + (chosen.length === 1 ? " glasyr" : " glasyrer")); return true; }, function () { toast("Det gick inte att spara."); return false; });
+      }
+    });
+    var sb0 = $("#dlg button[type=submit]"); if (sb0) sb0.hidden = true;
+  }
+
+  // ---------- glazes view ----------
+  function mountGlazes() {
+    var view = $("#view"); view.textContent = "";
+    var search = h("input", { id: "search", class: "search", type: "text", placeholder: "Sök namn eller kod", value: query, "aria-label": "Sök glasyr" });
+    var chips = h("div", { class: "chips", id: "chips" });
+    var tchips = h("div", { class: "chips", id: "tchips" });
+    var photoBtn = canWrite && sample ? h("button", { class: "btn soft", type: "button", onclick: function () { photoDialog(); } }, "+ Lägg till från bild") : null;
+    var add = canWrite ? h("button", { class: "btn soft", type: "button", onclick: function () { glazeDialog(null); } }, "+ Lägg till glasyr") : null;
+    var grid = h("div", { class: "glist", id: "grid" });
+    view.append(h("div", { class: "section-head" }, h("h2", null, "Glasyrer"), h("div", { style: "display:flex;gap:8px;flex-wrap:wrap" }, photoBtn, add)), h("div", { class: "toolbar" }, search, chips, tchips), grid);
+    search.addEventListener("input", function () { query = search.value; paint(); });
+    function paint() {
+      var all = glazeList();
+      chips.textContent = "";
+      ["Alla"].concat(GROUPS).forEach(function (gname) {
+        var n = gname === "Alla" ? all.length : all.filter(function (g) { return gGroups(g).indexOf(gname) >= 0; }).length;
+        if (gname !== "Alla" && !n) return;
+        chips.append(h("button", { class: "chip", type: "button", "aria-pressed": String(group === gname), onclick: function () { group = gname; paint(); } }, fdot(gname), gname, h("span", { class: "n" }, n)));
+      });
+      tchips.textContent = "";
+      var haveTypes = TYPES.filter(function (t) { return all.some(function (g) { return g.type === t[0]; }); });
+      if (haveTypes.length) ["Alla"].concat(haveTypes.map(function (t) { return t[0]; })).forEach(function (tv) {
+        var tn = tv === "Alla" ? all.length : all.filter(function (g) { return g.type === tv; }).length;
+        tchips.append(h("button", { class: "chip", type: "button", "aria-pressed": String(typeFilter === tv), onclick: function () { typeFilter = tv; paint(); } }, tv === "Alla" ? "Alla typer" : labelOf(TYPES, tv), h("span", { class: "n" }, tn)));
+      });
+      var q = query.trim().toLowerCase();
+      var list = all.filter(function (g) { return (group === "Alla" || gGroups(g).indexOf(group) >= 0) && (typeFilter === "Alla" || g.type === typeFilter) && (!q || (g.name + " " + (g.code || "") + " " + (g.brand || "")).toLowerCase().indexOf(q) >= 0); });
+      grid.textContent = "";
+      if (!loaded.glazes) { grid.append(h("div", { class: "empty" }, h("b", null, "Hämtar glasyrer"), "Det tar en liten stund.")); return; }
+      if (!all.length) { grid.append(h("div", { class: "empty" }, h("b", null, "Inga glasyrer än"), "Lägg till din första med knappen Ny glasyr.")); return; }
+      if (!list.length) { grid.append(h("div", { class: "empty" }, h("b", null, "Ingen träff"), "Prova ett annat sökord eller en annan färgfamilj.")); return; }
+      list.forEach(function (g) {
+        var pos = picked.indexOf(g.id);
+        var sub = [g.form === "bricka" ? "Bara bricka" : g.form === "onskelista" ? "Finns ej" : (g.brand || labelOf(FORMS, g.form)), g.code, g.cone ? "kon " + g.cone : ""].filter(Boolean).join(" · ");
+        function toggle() {
+          var i = picked.indexOf(g.id);
+          if (i >= 0) picked.splice(i, 1); else if (picked.length < 3) picked.push(g.id); else toast("Max tre lager.");
+          paint(); renderBar();
+        }
+        grid.append(h("div", { class: "grow", "data-on": pos >= 0 ? "1" : "0" },
+          swatch(g),
+          h("div", { class: "mid" }, h("div", { class: "gname" }, g.name), h("div", { class: "code" }, sub),
+            g.type ? h("span", { class: "pill" }, labelOf(TYPES, g.type)) : null),
+          h("div", { class: "acts" },
+            h("button", { class: "btn ghost", type: "button", onclick: function () { glazeDialog(g.id); }, "aria-label": "Visa info om " + g.name }, "Info"),
+            h("button", { class: "btn " + (pos >= 0 ? "" : "soft"), type: "button", "aria-pressed": String(pos >= 0), onclick: toggle, "aria-label": (pos >= 0 ? "Ta bort " : "Välj ") + g.name }, pos >= 0 ? "Vald " + (pos + 1) : "Välj"))));
+      });
+    }
+    current = { update: function () { paint(); renderBar(); } };
+    paint(); renderBar();
+  }
+
+  // ---------- combos view ----------
+  function layersEl(ids) {
+    var el = h("span", { class: "layers" });
+    ids.forEach(function (id) { var g = glazes.get(id); el.append(h("i", { class: g && g.speckle ? "sw speck" : "", style: "--c:" + ((g && g.hex) || "#999") })); });
+    return el;
+  }
+  function comboLink(c) {
+    if (c.url) return { href: c.url, label: c.srcLabel || "källan" };
+    var ids = (c.glazes || []).slice().reverse();
+    var names = ids.map(function (id) { var g = glazes.get(id); return g ? g.name : ""; }).filter(Boolean);
+    var first = glazes.get((c.glazes || [])[0]);
+    var q = (first && first.brand && first.brand.indexOf("Mayco") === 0 ? "Mayco " : "") + names.join(" over ") + " glaze combination";
+    return { href: "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(q), label: "Google Bilder" };
+  }
+  function favBtn(c, withText) {
+    var on = !!c.fav;
+    var b = h("button", { class: "favbtn" + (withText ? " withtext" : ""), type: "button", "aria-pressed": String(on), "aria-label": on ? "Ta bort från favoriter" : "Markera som favorit", disabled: !canWrite,
+      onclick: function (e) {
+        e.stopPropagation();
+        b.disabled = true;
+        write(db.collection("combos").doc(c.id).update({ fav: !on }), on ? "Borttagen från favoriter" : "Tillagd i favoriter").then(function (ok) {
+          if (ok) { c.fav = !on; var cc = combos.get(c.id); if (cc) cc.fav = !on; on = !on; b.setAttribute("aria-pressed", String(on)); b.firstChild.textContent = on ? "♥" : "♡"; if (withText) b.lastChild.textContent = on ? "Favorit" : "Markera som favorit"; }
+          b.disabled = !canWrite;
+        });
+      } }, h("span", { "aria-hidden": "true" }, on ? "♥" : "♡"), withText ? h("span", null, on ? "Favorit" : "Markera som favorit") : null);
+    return b;
+  }
+  function comboCard(c, onopen) {
+    var lk = comboLink(c);
+    var simple = !onopen;
+    if (simple) return comboCardSimple(c, lk);
+    var gl = (c.glazes || []).map(function (id) { return glazes.get(id); });
+    var photo = h("div", { class: "cphoto" });
+    var cov = (c.images || [])[0];
+    if (cov) {
+      var im = h("img", { src: blobUrl(cov), alt: "Bild på kombinationen" });
+      photo.append(im);
+      im.addEventListener("error", function () { im.remove(); photo.classList.remove("hasimg"); });
+      photo.classList.add("hasimg");
+    }
+    gl.forEach(function (g) { photo.append(h("i", { class: "cband" + (g && g.speckle ? " sw speck" : ""), style: "--c:" + ((g && g.hex) || "#999") })); });
+    if (c.id && db) photo.append(favBtn(c, false));
+    photo.append(h("span", { class: "cst" }, h("span", { class: "pill" + (c.status === "testad" ? " ok" : "") }, labelOf(CSTATUS, c.status))));
+    if ((c.images || []).length > 1) photo.append(h("span", { class: "cmore" }, "+" + (c.images.length - 1)));
+    var res = cResults(c);
+    var card = h("div", { class: "card ccard cm" },
+      photo,
+      h("div", { class: "cmbody" },
+        h("h3", null, (c.glazes || []).map(label).join(" + ")),
+        h("div", { class: "row" },
+          c.rating ? dots(c.rating) : null,
+          res.length ? h("span", { class: "pill" }, res.map(function (x) { return x.toLowerCase(); }).join(" / ")) : null,
+          c.by === "claude" ? h("span", { class: "pill" }, "Förslag") : null,
+          c.by === "mayco" ? h("span", { class: "pill" }, "Mayco") : null),
+        c.coats ? h("span", { class: "fine" }, c.coats + " strykningar") : null,
+        c.note ? h("span", { class: "cnote" }, c.note) : null));
+    return clickable(card, onopen);
+  }
+  function comboCardSimple(c, lk) {
+    var card = h("div", { class: "card ccard" },
+      h("div", { class: "cardbody" },
+        layersEl(c.glazes || []),
+        h("h3", null, (c.glazes || []).map(label).join(" + ")),
+        h("div", { class: "row" },
+          h("span", { class: "pill" }, labelOf(CSTATUS, c.status)),
+          c.rating ? dots(c.rating) : null,
+          c.coats ? h("span", null, c.coats + " strykningar") : null,
+          cResults(c).length ? h("span", { class: "pill" }, "Ger " + cResults(c).map(function (x) { return x.toLowerCase(); }).join(" / ")) : null,
+          c.by === "claude" ? h("span", { class: "pill" }, "Förslag") : null),
+        c.note ? h("p", null, c.note) : null,
+        h("a", { class: "src", href: lk.href, target: "_blank", rel: "noopener" }, "Se resultat: " + lk.label)));
+    return card;
+  }
+  function comboDetail(id) {
+    var c = combos.get(id);
+    if (!c) return;
+    var lk = comboLink(c);
+    var order = ["Första lagret", "Andra lagret", "Tredje lagret"];
+    var steps = h("div", { class: "steps" }, (c.glazes || []).map(function (gid, i) {
+      var g = glazes.get(gid);
+      return h("div", { class: "step" }, swatch(g), h("div", null, h("div", { class: "gname" }, g ? g.name : "Okänd glasyr"), h("div", { class: "code" }, order[i] || "Lager " + (i + 1))));
+    }));
+    var facts = h("div", { class: "row" },
+      h("span", { class: "pill" }, labelOf(CSTATUS, c.status)),
+      c.rating ? dots(c.rating) : null,
+      c.coats ? h("span", null, c.coats + " strykningar per lager") : null,
+      cResults(c).length ? h("span", { class: "pill" }, "Ger " + cResults(c).map(function (x) { return x.toLowerCase(); }).join(" / ")) : null);
+    var note = c.note ? h("p", { class: "note" }, c.note) : h("p", { class: "hint" }, "Ingen anteckning än. Tryck Redigera för att skriva en.");
+    var pics = (c.images || []).length ? h("div", { class: "lb" }, c.images.map(function (iid) { return h("img", { src: blobUrl(iid), alt: "Bild på kombinationen" }); })) : null;
+    var links = h("div", { class: "links" },
+      c.url ? h("a", { href: c.url, target: "_blank", rel: "noopener" }, "Öppna källan: " + (c.srcLabel || "länk")) : null,
+      h("a", { href: "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent((function () { var f = glazes.get((c.glazes || [])[0]); return (f && f.brand && f.brand.indexOf("Mayco") === 0 ? "Mayco " : "") + (c.glazes || []).slice().reverse().map(label).join(" over ") + " glaze combination"; })()), target: "_blank", rel: "noopener" }, "Bilder på Google"));
+    var body = h("div", { class: "detail" }, steps, facts, note, pics, links);
+    var dlg = $("#dlg");
+    var edit = canWrite ? h("button", { type: "button", class: "btn", onclick: function () { dlg.close(); comboDialog(id); } }, "Redigera") : null;
+    var fav = db ? favBtn(Object.assign({ id: id }, c), true) : null;
+    openDlg((c.glazes || []).map(label).join(" + "), body, { actions: h("span", { class: "acts2" }, fav, edit) });
+  }
+  function buildAsk(out, focusFn) {
+    var ask = null;
+    if (!(sample && canWrite)) return null;
+    {
+      var vibe = h("textarea", { id: "vibe", placeholder: "Vad vill du ha? Till exempel: havsblått och matt, till muggar" });
+      var go = h("button", { class: "btn", type: "button", id: "ask-go" }, "Föreslå kombinationer");
+      var stop = h("button", { class: "btn ghost", type: "button", hidden: true, style: "color:var(--ink)" }, "Stoppa");
+      var status = h("p", { class: "hint" }, "Förslagen bygger på glasyrerna du har. Provbränn alltid på bricka först.");
+      var ctl = null;
+      stop.addEventListener("click", function () { if (ctl) ctl.abort(); });
+      go.addEventListener("click", function () {
+        var gl = glazeList();
+        if (gl.length < 2) { toast("Lägg in glasyrer först."); return; }
+        var lines = gl.map(function (g) { return g.id + " | " + g.name + " | " + (g.code || "") + " | " + gGroups(g).join("/") + " | " + g.form; }).join("\n");
+        var tested = byCreated(combos).filter(function (c) { return c.status === "testad"; }).map(function (c) { return (c.glazes || []).map(label).join(" + ") + " (betyg " + (c.rating || 0) + "/5)" + (c.note ? ": " + c.note : ""); }).join("\n");
+        var prompt = "Du hjälper en keramiker att välja glasyrkombinationer med penselglasyrer (Mayco Stoneware, kon 5-10, plus några andra märken).\n\nGlasyrer hon har (id | namn | kod | färgfamilj | form):\n" + lines + "\n\nKombinationer hon redan testat:\n" + (tested || "(inga ännu)") + "\n\nHennes önskemål: " + (vibe.value.trim() || "överraskande men fina kombinationer") + (focusFn && focusFn() ? "\nUtgå från: " + focusFn() : "") + "\n\nFöreslå 3 kombinationer med 2 eller 3 glasyrer. Första id:t i listan läggs närmast leran. Använd bara id:n från listan. Skriv inte att ett resultat är säkert, glasyrer beter sig olika på olika lera. Svara bara med en JSON-array av objekt på formen {\"glazes\":[\"id1\",\"id2\"],\"why\":\"högst 25 ord på svenska\"}.";
+        ctl = new AbortController(); go.disabled = true; stop.hidden = false; status.textContent = "Tänker…"; out.textContent = "";
+        sample.json(prompt, { signal: ctl.signal }).then(function (res) {
+          var arr = Array.isArray(res) ? res : [];
+          var n = 0;
+          arr.slice(0, 3).forEach(function (s) {
+            var ids = (s && s.glazes || []).filter(function (id) { return glazes.has(id); });
+            if (ids.length < 2) return;
+            n++;
+            var card = comboCard({ glazes: ids, status: "idé", note: String(s.why || "") });
+            var body = card.querySelector(".cardbody");
+            body.append(h("div", null, h("button", { class: "link", type: "button", onclick: function (e) {
+              var b = e.currentTarget; b.disabled = true;
+              write(db.collection("combos").doc("k-" + Date.now().toString(36)).set({ glazes: ids, coats: 2, status: "idé", rating: 0, note: String(s.why || ""), by: "claude", createdAt: Date.now() }), "Sparad som idé").then(function (ok) { b.textContent = ok ? "Sparad" : "Spara som idé"; b.disabled = !!ok; });
+            } }, "Spara som idé")));
+            out.append(card);
+          });
+          status.textContent = n ? "Förslagen bygger på glasyrerna du har. Provbränn alltid på bricka först." : "Inga användbara förslag den här gången. Försök igen med andra ord.";
+        }).catch(function (e) {
+          var code = e && e.code;
+          status.textContent = code === "cancelled" ? "Stoppad." : code === "rate_limited" ? "För många förfrågningar just nu. Vänta en stund och försök igen." : code === "not_granted" ? "Förslag är avstängt för den här sidan." : "Det gick inte att få förslag. Försök igen.";
+        }).then(function () { go.disabled = false; stop.hidden = true; ctl = null; });
+      });
+      ask = h("section", { class: "ask" }, h("h3", null, "Få förslag"), vibe, h("div", { class: "actions" }, go, stop), status);
+    }
+    return ask;
+  }
+
+  // ---------- find view ----------
+  var FAMILY_EN = { "Blå": "blue", "Turkos": "turquoise teal", "Grön": "green", "Gul": "yellow", "Orange": "orange", "Röd": "red", "Rosa": "pink", "Lila": "purple", "Brun": "brown", "Beige": "sand beige", "Vit": "white", "Grå": "grey", "Svart": "black" };
+  var findFamily = "", findGlaze = "", comboOpen = { "Inspiration och förslag": false }, finderOpen = false;
+  function glazeShareUrl(g) {
+    var m = /^SW-?(\d+)$/i.exec(g.code || "");
+    return m ? "https://www.glazeshare.com/glaze/sw" + m[1] + "-" + slug(g.name) : null;
+  }
+  function mountCombos() {
+    var view = $("#view"); view.textContent = "";
+    var chips = h("div", { class: "chips", id: "fam" });
+    var sel = glazePicker(findGlaze, "Ingen vald", function (v) { findGlaze = v; if (findGlaze) findFamily = ""; paint(); });
+    var links = h("div", { class: "links", id: "find-links" });
+    var results = h("div", { id: "find-results" });
+    var out = h("div", { class: "sugg", id: "sugg" });
+    var focusText = function () {
+      if (findGlaze && glazes.get(findGlaze)) { var g = glazes.get(findGlaze); return g.name + (g.code ? " (" + g.code + ")" : ""); }
+      return findFamily ? "färgfamiljen " + findFamily : "";
+    };
+    var ask = buildAsk(out, focusText);
+    var more = h("details", { class: "more" }, h("summary", null, "Hitta mer inspiration"),
+      h("div", { style: "margin-top:12px; display:flex; flex-direction:column; gap:14px" }, links, ask ? h("div", null, ask, out) : null));
+    var finderEl = h("details", { class: "more finderbox" },
+      h("summary", null, "Hitta efter färg eller glasyr"),
+      h("div", { class: "finder", style: "margin-top:12px" },
+        h("div", { class: "fld" }, h("span", null, "1. Vilken färg vill du ha?"), chips),
+        fld("2. Eller vilken glasyr vill du använda?", sel)));
+    finderEl.open = finderOpen || !!(findFamily || findGlaze);
+    finderEl.addEventListener("toggle", function () { finderOpen = finderEl.open; });
+    view.append(
+      h("div", { class: "section-head" }, h("h2", null, sub === "fav" ? "Favoriter" : sub === "insp" ? "Inspiration" : "Mina kombinationer"),
+        canWrite ? h("button", { class: "btn soft", type: "button", onclick: function () { comboDialog(null, { glazes: [], coats: 2, status: "idé", rating: 0, note: "" }); } }, "+ Ny kombination") : null),
+      finderEl,
+      results);
+    if (sub === "insp") view.append(more);
+    function paint() {
+      chips.textContent = "";
+      GROUPS.forEach(function (gn) {
+        chips.append(h("button", { class: "chip", type: "button", "aria-pressed": String(findFamily === gn && !findGlaze), onclick: function () { findFamily = findFamily === gn ? "" : gn; findGlaze = ""; paint(); } }, fdot(gn), gn));
+      });
+      var keep = findGlaze;
+      sel.value = keep;
+      var g0 = findGlaze ? glazes.get(findGlaze) : null;
+      var q = g0 ? "Mayco " + (g0.brand && g0.brand.indexOf("Mayco") === 0 ? "" : g0.brand + " ") + (g0.code ? g0.code + " " : "") + g0.name + " glaze combination" : findFamily ? "Mayco Stoneware " + FAMILY_EN[findFamily] + " glaze combinations" : "";
+      links.textContent = "";
+      if (q) {
+        var enc = encodeURIComponent(q);
+        links.append(h("div", { class: "links" },
+          h("a", { href: "https://www.pinterest.com/search/pins/?q=" + enc, target: "_blank", rel: "noopener" }, "Pinterest"),
+          h("a", { href: "https://www.google.com/search?tbm=isch&q=" + enc, target: "_blank", rel: "noopener" }, "Google Bilder"),
+          h("a", { href: "https://www.maycocolors.com/?s=" + encodeURIComponent(g0 ? (g0.code || g0.name) : "stoneware " + FAMILY_EN[findFamily]), target: "_blank", rel: "noopener" }, "Mayco"),
+          (g0 && glazeShareUrl(g0)) ? h("a", { href: glazeShareUrl(g0), target: "_blank", rel: "noopener" }, "Glazeshare") : null));
+      } else {
+        links.append(h("p", { class: "hint" }, "Välj en färg eller glasyr ovan så dyker genvägar till Pinterest, Google och Mayco upp här."));
+      }
+      results.textContent = "";
+      if (!loaded.combos || !loaded.glazes) { results.append(h("div", { class: "empty" }, h("b", null, "Hämtar biblioteket"), "Det tar en liten stund.")); return; }
+      var shown = 0;
+      var sect = function (title, count, hint, body) {
+        shown++;
+        results.append(h("section", { class: "status-group" }, h("h2", null, title, h("span", { class: "n" }, count)), hint ? h("p", { class: "hint", style: "margin-bottom:10px" }, hint) : null, body));
+      };
+      var comboList = function (items) {
+        var l = h("div", { class: "list clist" });
+        items.forEach(function (c) { l.append(comboCard(c, function () { comboDetail(c.id); })); });
+        return l;
+      };
+      var allCombos = byCreated(combos);
+      var inFam = function (id) { var x = glazes.get(id); return !!x && gGroups(x).indexOf(findFamily) >= 0; };
+      var lastOf = function (c) { var a = c.glazes || []; return a[a.length - 1]; };
+      if (findGlaze && g0) {
+        var base = allCombos.filter(function (c) { return (c.glazes || [])[0] === findGlaze; });
+        var top = allCombos.filter(function (c) { return lastOf(c) === findGlaze && (c.glazes || [])[0] !== findGlaze; });
+        var used = {};
+        allCombos.forEach(function (c) { if ((c.glazes || []).indexOf(findGlaze) >= 0) (c.glazes || []).forEach(function (id) { used[id] = true; }); });
+        if (base.length) sect(g0.name + " först, under en annan glasyr", base.length, "Det här lagret ligger närmast leran.", comboList(base));
+        if (top.length) sect(g0.name + " överst, på en annan glasyr", top.length, "Toppglasyren syns oftast mest.", comboList(top));
+        var rest = glazeList().filter(function (g) { return g.id !== findGlaze && !used[g.id] && g.form !== "bricka" && g.form !== "onskelista"; });
+        if (rest.length) {
+          var box = h("div", { class: "chips" });
+          rest.forEach(function (g) {
+            box.append(h("button", { class: "chip", type: "button", onclick: function () { if (canWrite) comboDialog(null, { glazes: [findGlaze, g.id], coats: 2, status: "idé", rating: 0, note: "" }); } }, swatch(g, "dot"), " " + g.name));
+          });
+          sect("Inte provat än", rest.length, "Dina andra glasyrer som du inte har någon kombination med än. Tryck på en för att lägga in den som idé.", box);
+        }
+      } else if (findFamily) {
+        var word = findFamily.toLowerCase();
+        var fam = glazeList().filter(function (g) { return gGroups(g).indexOf(findFamily) >= 0; });
+        var grid = h("div", { class: "grid" });
+        fam.forEach(function (g) {
+          grid.append(clickable(h("div", { class: "gcard" }, swatch(g),
+            h("div", null, h("div", { class: "gname" }, g.name), h("div", { class: "code" }, [g.code, g.brand].filter(Boolean).join(" · ")))), function () { glazeDialog(g.id); }));
+        });
+        if (fam.length) sect("Dina glasyrer i " + word, fam.length, null, grid);
+        var gives = allCombos.filter(function (c) { return cResults(c).indexOf(findFamily) >= 0; });
+        var topFam = allCombos.filter(function (c) { return cResults(c).indexOf(findFamily) < 0 && inFam(lastOf(c)); });
+        var underFam = allCombos.filter(function (c) { return cResults(c).indexOf(findFamily) < 0 && !inFam(lastOf(c)) && (c.glazes || []).some(inFam); });
+        if (gives.length) sect("Du har markerat som " + word, gives.length, null, comboList(gives));
+        if (topFam.length) sect("Med " + word + " toppglasyr", topFam.length, "Toppglasyren syns oftast mest, så de här ger troligen " + word + ". Öppna en kombination och välj Resultatfärg när du sett hur den blev.", comboList(topFam));
+        if (underFam.length) sect("Med " + word + " glasyr under", underFam.length, "Färgen kan skymta fram under toppglasyren.", comboList(underFam));
+        if (!fam.length && !gives.length && !topFam.length && !underFam.length) sect("Ingen " + word + " glasyr än", 0, "Du har ingen glasyr i den färgen. Öppna Hitta mer inspiration längst ner för genvägar och förslag.", h("span"));
+      } else {
+        var cats = comboCats(), cur = cats[sub] || cats.mine;
+        var byC = byCreated(new Map(cur.map(function (c) { return [c.id, c]; })));
+        var msg = sub === "fav" ? ["Inga favoriter än", "Tryck på hjärtat på en kombination du gillar."] : sub === "insp" ? ["Ingen inspiration än", "Spara förslag som idé eller lägg in egna fynd."] : ["Inga kombinationer än", "Lägg till en kombination på ett projekt eller med Ny kombination."];
+        shown++;
+        results.append(byC.length ? comboList(byC) : h("div", { class: "empty" }, h("b", null, msg[0]), msg[1]));
+      }
+      if (!shown) results.append(h("div", { class: "empty" }, h("b", null, "Inget att visa än"), "Lägg in en kombination med Ny kombination."));
+    }
+    current = { update: paint }; paint(); renderBar();
+  }
+
+  // ---------- learn view ----------
+  var LEARN = [
+    ["Tre byggstenar i en glasyr", [
+      ["p", "En glasyr är ett tunt lager glas på leran. I ugnen smälter pulvret och blir blankt eller matt glas. Nästan alla glasyrer består av:"],
+      ["ul", ["<b>Glasbildare</b> (kiseldioxid/silika): blir själva glaset. Smälter vid hög temperatur.", "<b>Flussmedel</b> (flux): sänker smältpunkten så glasyren blir flytande. Exempel: soda, kalcium, litium, bor.", "<b>Stabilisator</b> (aluminiumoxid): gör glasyren seg så den inte rinner av krukan."]],
+      ["p", "Sen kommer <b>färgoxider</b> (järn, koppar, kobolt, mangan, rutil) och <b>grumlare</b> (tenn, zirkon, titan) som gör glasyren färgad eller täckande."],
+      ["tip", "Mer flux = flytande och blank. Mer alumina = segare och mattare."]
+    ]],
+    ["Honey Flux – en flytande glasyr", [
+      ["p", "Honey Flux (Amaco Potter's Choice) är en genomskinlig, honungsfärgad glasyr som flyter mycket när den bränns."],
+      ["ul", ["<b>Ensam:</b> blank, genomskinlig honung. Mörkare där den är tjock, ljusare på kanter och struktur.", "<b>Överst på en annan glasyr:</b> den löser upp och drar med sig glasyren under. Färgerna mjukas upp, flyter och samlas i fördjupningar. Ofta blir resultatet vackert och oförutsägbart.", "<b>Underst:</b> glasyren ovanpå kan lösa upp den och rinna med.", "<b>Rinner lätt:</b> ta tunna lager och glasera inte ända ner till foten (basen på krukan)."]],
+      ["tip", "Flytande glasyr överst + stabil glasyr underst är en bra start."]
+    ]],
+    ["Mayco: stabila och rinniga", [
+      ["p", "Mayco anger själva att vissa serier beter sig på särskilda sätt:"],
+      ["ul", ["<b>Stabila:</b> Stoneware Gloss (SW-501 till SW-513, t.ex. White Gloss, Orange Gloss, Red Gloss, Blue Gloss). Mayco skriver att de är mycket stabila och inte rör sig eller blandas med glasyren bredvid.", "<b>Rinniga:</b> SW-401 Light Flux och SW-402 Dark Flux. Det är flussglasyrer som ger rörelse när de läggs under eller över en annan glasyr (2–3 lager).", "<b>Flytande:</b> Elements-serien blir ganska flytande och rör sig i bränningen.", "<b>Rörelse:</b> kristallglasyrer (Crystals) och Jungle Gems rör sig mer, särskilt vid högre temperatur."]],
+      ["svg", "<div class=\"gfigs\"><figure class=\"gfig\"><svg viewBox=\"0 0 120 160\" role=\"img\" aria-label=\"Stabil\"><defs><clipPath id=\"pc0\"><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\"/></clipPath></defs><rect x=\"0\" y=\"146\" width=\"120\" height=\"14\" rx=\"3\" fill=\"#9a9187\" opacity=\".35\"/><g clip-path=\"url(#pc0)\"><rect width=\"120\" height=\"160\" fill=\"#d9c9a8\"/><rect width=\"120\" height=\"78\" fill=\"#3c6aa6\"/><rect y=\"77\" width=\"120\" height=\"2\" fill=\"#000\" opacity=\".12\"/></g><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\" fill=\"none\" stroke=\"#000\" stroke-opacity=\".25\" stroke-width=\"1.5\"/></svg><figcaption><b>Stabil</b>Skarp gräns, färgerna stannar där du penslade.</figcaption></figure><figure class=\"gfig\"><svg viewBox=\"0 0 120 160\" role=\"img\" aria-label=\"Rinnig\"><defs><clipPath id=\"pc1\"><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\"/></clipPath></defs><rect x=\"0\" y=\"146\" width=\"120\" height=\"14\" rx=\"3\" fill=\"#9a9187\" opacity=\".35\"/><g clip-path=\"url(#pc1)\"><rect width=\"120\" height=\"160\" fill=\"#d9c9a8\"/><path d=\"M0 0h120v70c-8 10-14 26-20 46-4 14-10 22-16 26-5-6-6-22-12-36-5-10-10-6-16 8-4 10-8 22-14 22-8 0-10-24-16-40-4-10-14-14-26-16z\" fill=\"#3c6aa6\"/><ellipse cx=\"60\" cy=\"146\" rx=\"52\" ry=\"8\" fill=\"#3c6aa6\"/></g><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\" fill=\"none\" stroke=\"#000\" stroke-opacity=\".25\" stroke-width=\"1.5\"/></svg><figcaption><b>Rinnig</b>Rinner nedåt och samlas vid foten.</figcaption></figure><figure class=\"gfig\"><svg viewBox=\"0 0 120 160\" role=\"img\" aria-label=\"Flytande\"><defs><clipPath id=\"pc2\"><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\"/></clipPath></defs><rect x=\"0\" y=\"146\" width=\"120\" height=\"14\" rx=\"3\" fill=\"#9a9187\" opacity=\".35\"/><g clip-path=\"url(#pc2)\"><rect width=\"120\" height=\"160\" fill=\"#d9c9a8\"/><defs><linearGradient id=\"gm\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#3c6aa6\"/><stop offset=\".5\" stop-color=\"#6f9a8c\"/><stop offset=\"1\" stop-color=\"#d9c9a8\"/></linearGradient></defs><rect width=\"120\" height=\"160\" fill=\"#d9c9a8\"/><rect width=\"120\" height=\"112\" fill=\"url(#gm)\"/><path d=\"M30 60q6 20 2 40M62 56q-4 24 4 44M90 62q4 18-2 36\" stroke=\"#2f5686\" stroke-width=\"3\" fill=\"none\" opacity=\".5\"/></g><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\" fill=\"none\" stroke=\"#000\" stroke-opacity=\".25\" stroke-width=\"1.5\"/></svg><figcaption><b>Flytande</b>Färgerna blandas och blir en ny nyans i gränsen.</figcaption></figure></div><p class=\"fine\">Schematiska bilder som visar principen, inte riktiga prover.</p>"],
+      ["links"],
+      ["p", "Mayco säger inget om övriga glasyrer, till exempel Blue Surf, Green Tea eller Sea Salt. Testa dem på en provbricka och skriv ner resultatet."],
+      ["tip", "Stabila Gloss-glasyrer går bra bredvid varandra. Flux-glasyrer ska du ha tunt och inte nära foten."]
+    ]],
+    ["Varför reagerar glasyrer olika med varandra?", [
+      ["p", "I ugnen blir glasyrerna flytande och blandas vid gränsen. Där blir det en ny glasyr med ny kemi."],
+      ["ul", ["<b>Flux sprids:</b> en flytande glasyr sänker smältpunkten i glasyren bredvid. Den kan då börja rinna.", "<b>Färg vandrar:</b> järn ger brunt och honung, koppar blir grönt eller turkost, kobolt blir nästan alltid blått. Rutil ger streck och variation.", "<b>Blank över matt:</b> ytan blir blankare och färgen djupare.", "<b>Genomskinlig över färg:</b> färgen syns genom och får djup. <b>Täckande över färg:</b> den döljer det under.", "<b>Tjocklek:</b> tjockare lager ger mörkare färg, mer flöde och större risk för rinn."]]
+    ]],
+    ["Ordningen spelar roll", [
+      ["p", "Underst eller överst ger olika resultat. Det som ligger överst flyter ner och drar med sig det under."],
+      ["ul", ["Segare glasyr underst håller färgen på plats.", "Flytande glasyr överst ger rörelse och mjuka övergångar.", "Tre flytande glasyrer i tre lager rinner ofta. Blanda segt och flytande.", "Skriv alltid ner ordningen. Lager 1 är det första du penslar."]]
+    ]],
+    ["Rinnig glasyr: färger och ordning", [
+      ["p", "<b>Färgerna när en glasyr rinner</b>"],
+      ["ul", ["<b>Ljusare</b> på kanter och upphöjningar, där glasyren flyter bort (kallas break).", "<b>Mörkare och djupare</b> i fördjupningar, där den samlas (kallas pooling).", "<b>Mjuka övergångar:</b> färgerna blandas vid gränsen och ger en ny nyans, ofta med streck eller marmorering.", "<b>Mer genomskinligt och blankt:</b> färgen får djup och det under syns igenom."]],
+      ["svg", "<div class=\"gfigs\"><figure class=\"gfig\"><svg viewBox=\"0 0 120 160\" role=\"img\" aria-label=\"Rinnig överst\"><defs><clipPath id=\"pc3\"><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\"/></clipPath></defs><rect x=\"0\" y=\"146\" width=\"120\" height=\"14\" rx=\"3\" fill=\"#9a9187\" opacity=\".35\"/><g clip-path=\"url(#pc3)\"><rect width=\"120\" height=\"160\" fill=\"#d9c9a8\"/><rect width=\"120\" height=\"90\" fill=\"#6f8f6a\"/><path d=\"M30 80q-2 30 4 50M60 84q-4 26 2 44M88 78q4 28-2 46\" stroke=\"#6f8f6a\" stroke-width=\"7\" stroke-linecap=\"round\" fill=\"none\" opacity=\".7\"/><path d=\"M0 0h120v70c-10 14-14 30-22 30-8 0-10-12-18-12s-10 18-20 18-10-16-18-16-14 18-24 8c-8-8-10-24-18-30z\" fill=\"#e0a93a\" opacity=\".62\"/></g><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\" fill=\"none\" stroke=\"#000\" stroke-opacity=\".25\" stroke-width=\"1.5\"/></svg><figcaption><b>Rinnig överst</b>Rinner över glasyren under och drar färgen nedåt i streck.</figcaption></figure><figure class=\"gfig\"><svg viewBox=\"0 0 120 160\" role=\"img\" aria-label=\"Rinnig underst\"><defs><clipPath id=\"pc4\"><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\"/></clipPath></defs><rect x=\"0\" y=\"146\" width=\"120\" height=\"14\" rx=\"3\" fill=\"#9a9187\" opacity=\".35\"/><g clip-path=\"url(#pc4)\"><rect width=\"120\" height=\"160\" fill=\"#d9c9a8\"/><rect width=\"120\" height=\"160\" fill=\"url(#gu)\"/><defs><linearGradient id=\"gu\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#3c6aa6\"/><stop offset=\".6\" stop-color=\"#4a7fa0\"/><stop offset=\"1\" stop-color=\"#d9a940\"/></linearGradient></defs><ellipse cx=\"60\" cy=\"146\" rx=\"52\" ry=\"9\" fill=\"#d9a940\"/></g><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\" fill=\"none\" stroke=\"#000\" stroke-opacity=\".25\" stroke-width=\"1.5\"/></svg><figcaption><b>Rinnig underst</b>Toppglasyren sjunker ner och blandas. Mjuk gräns, djupare färg.</figcaption></figure><figure class=\"gfig\"><svg viewBox=\"0 0 120 160\" role=\"img\" aria-label=\"Break och pooling\"><defs><clipPath id=\"pc5\"><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\"/></clipPath></defs><rect x=\"0\" y=\"146\" width=\"120\" height=\"14\" rx=\"3\" fill=\"#9a9187\" opacity=\".35\"/><g clip-path=\"url(#pc5)\"><rect width=\"120\" height=\"160\" fill=\"#d9c9a8\"/><rect width=\"120\" height=\"160\" fill=\"#3c6aa6\"/><g fill=\"#c9d8e8\" opacity=\".8\"><rect x=\"0\" y=\"34\" width=\"120\" height=\"6\"/><rect x=\"0\" y=\"74\" width=\"120\" height=\"6\"/><rect x=\"0\" y=\"114\" width=\"120\" height=\"6\"/></g><g fill=\"#1f3a66\" opacity=\".7\"><rect x=\"0\" y=\"48\" width=\"120\" height=\"10\"/><rect x=\"0\" y=\"88\" width=\"120\" height=\"10\"/><rect x=\"0\" y=\"128\" width=\"120\" height=\"10\"/></g></g><path d=\"M38 18h44c0 14 22 22 22 62 0 34-10 52-10 58H26c0-6-10-24-10-58 0-40 22-48 22-62z\" fill=\"none\" stroke=\"#000\" stroke-opacity=\".25\" stroke-width=\"1.5\"/></svg><figcaption><b>Break och pooling</b>Ljusare på kanter och upphöjningar, mörkare i fördjupningar.</figcaption></figure></div><p class=\"fine\">Schematiska bilder som visar principen, inte riktiga prover.</p>"],
+      ["p", "<b>Rinnig överst</b>"],
+      ["ul", ["Smälter först och löser upp glasyren under.", "Färgen från glasyren under dras nedåt: streck, mjuka övergångar, blandad ton.", "Mer oförutsägbart och större risk att glasyren rinner ner på foten. Ta ett tunt lager och glasera inte ända ner."]],
+      ["p", "<b>Rinnig underst</b>"],
+      ["ul", ["Glasyren ovanpå sjunker ner i den och blandas med den. Ger ofta djupare och jämnare färg.", "Båda kan rinna ihop, även om toppglasyren är tunn.", "Svårare att få en skarp gräns."]],
+      ["tip", "Rinnig överst ger rörelse och streck. Rinnig underst ger blandning och djup, men mindre kontroll."],
+      ["p", "Tumregler. Resultatet varierar med glasyr, lera, tjocklek och bränning.", "fine"]
+    ]],
+    ["Vanliga effekter och fel", [
+      ["ul", ["<b>Break:</b> glasyren blir ljusare på kanter och upphöjningar. Det är oftast något man vill ha.", "<b>Pooling:</b> glasyren samlas i fördjupningar och blir mörkare och djupare.", "<b>Rinnande glasyr:</b> glasyren rinner ner och fastnar på ugnshyllan. Orsak: för tjockt lager eller en glasyr med mycket flussmedel.", "<b>Krypning (crawling):</b> glasyren drar ihop sig i bränningen och lämnar bara fläckar utan glasyr. Orsak: damm eller fett på leran eller för tjockt lager.", "<b>Nålhål (pinholes):</b> små hål i ytan. Orsak: gaser som inte hunnit ut ur leran eller glasyren. Det kan hjälpa att hålla högsta temperaturen en stund.", "<b>Krackelering:</b> fina sprickor i glasyren. Den krymper mer än leran."]]
+    ]],
+    ["Testa så här", [
+      ["ul", ["Testa först på en provbricka, gärna stående så att du ser om glasyren rinner.", "Använd samma lera som i det riktiga arbetet.", "Räkna lagren. 2 lager ger inte samma resultat som 3.", "Ställ provet på en liten skärva eller skål så att ugnshyllan skyddas.", "Spara resultatet i <b>Kombinationer</b> med foto och anteckning."]],
+      ["p", "Det här är tumregler. Resultatet beror på lera, tjocklek, ugn och bränningskurva, så testa alltid själv.", "fine"]
+    ]]
+  ];
+  function mountLearn() {
+    var view = $("#view"); view.textContent = "";
+    var wrap = h("div", { class: "learn" });
+    var mine = h("details", null, h("summary", null, "Dina kombinationer: stabilt och rinnigt"));
+    var mineBody = h("div", { class: "lbody" }); mine.append(mineBody); mine.open = true;
+    var paintMine = function () {
+      mineBody.textContent = "";
+      var kinds = [["Rinnigt: med Honey Flux", function (g) { return /flux/i.test(g.name || ""); }, "Honey Flux flyter och drar med sig glasyren under."],
+        ["Stabilt: Gloss-serien", function (g) { return /^SW-5\d\d$/i.test(g.code || "") || /\bgloss\b/i.test(g.name || ""); }, "Gloss-glasyrerna ligger kvar där du penslar dem."]];
+      var all = Array.from(combos).map(function (e) { return Object.assign({ id: e[0] }, e[1]); });
+      kinds.forEach(function (k) {
+        var items = all.filter(function (c) { return (c.glazes || []).some(function (id) { var g = glazes.get(id); return g && k[1](g); }); });
+        mineBody.append(h("p", { class: "usehead" }, k[0] + " (" + items.length + ")"), h("p", { class: "fine" }, k[2]));
+        if (!items.length) { mineBody.append(h("p", { class: "fine" }, "Inga kombinationer än.")); return; }
+        var l = h("div", { class: "list clist" }), more = null, shown = 4;
+        var draw = function () {
+          l.textContent = "";
+          items.slice(0, shown).forEach(function (c) { l.append(comboCard(c, function () { comboDetail(c.id); })); });
+          if (more) more.remove();
+          if (items.length > shown) { more = h("button", { type: "button", class: "btn soft", onclick: function () { shown += 6; draw(); } }, "Visa fler (" + (items.length - shown) + ")"); l.after(more); }
+        };
+        mineBody.append(l); draw();
+      });
+    };
+    current = { update: paintMine };
+    view.append(h("div", { class: "section-head" }, h("h2", null, "Lär dig")), wrap);
+    wrap.append(h("p", { class: "lead" }, "Kort om hur glasyr fungerar och varför kombinationer blir olika."));
+    LEARN.forEach(function (sec, i) {
+      var d = h("details", null, h("summary", null, sec[0]));
+      if (i < 3) d.open = true;
+      var body = h("div", { class: "lbody" });
+      sec[1].forEach(function (b) {
+        var el;
+        if (b[0] === "svg") { el = h("div"); el.innerHTML = b[1]; }
+        else if (b[0] === "links") { el = h("p"); el.innerHTML = 'Se riktiga bilder hos Mayco: <a href="https://www.maycocolors.com/flux" target="_blank" rel="noopener">Flux</a> · <a href="https://www.maycocolors.com/product/sw-501-white-gloss/" target="_blank" rel="noopener">White Gloss</a>'; }
+        else if (b[0] === "ul") { el = h("ul"); b[1].forEach(function (t) { var li = h("li"); li.innerHTML = t; el.append(li); }); }
+        else { el = h("p", { class: b[0] === "tip" ? "tip" : (b[2] || "") }); el.innerHTML = b[1]; }
+        body.append(el);
+      });
+      d.append(body); wrap.append(d);
+      if (i === 2) wrap.append(mine);
+    });
+    paintMine();
+  }
+
+  // ---------- projects view ----------
+  function blobToDataUrl(b) { return new Promise(function (res) { var f = new FileReader(); f.onload = function () { res(f.result); }; f.readAsDataURL(b); }); }
+  function fetchBlob(id) {
+    return (/^(https?:|data:)/.test(id) ? Promise.resolve(id) : loadImg(id)).then(function (u) { if (!u) throw 0; return fetch(u); }).then(function (r) { return r.blob(); });
+  }
+  function saveFile(name, blob) {
+    return Promise.resolve().then(function () {
+      var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.append(a); a.click(); a.remove();
+    });
+  }
+  function exportProjects() {
+    var docs = {}, ids = new Set();
+    projects.forEach(function (p, pid) {
+      var d = JSON.parse(JSON.stringify(p));
+      if (!d.glazeText) { var t = summarizeUse(d.glazeUse || []).map(function (x) { return x.placeLabel + ": " + x.text; }).join(". "); if (t) d.glazeText = t; }
+      docs["projects/" + pid] = d; (d.images || []).forEach(function (i) { ids.add(i); });
+    });
+    if (!projects.size) { toast("Du har inga projekt att exportera än."); return; }
+    toast("Förbereder filen…");
+    Promise.all(Array.from(ids).map(function (id) { return fetchBlob(id).then(blobToDataUrl).then(function (u) { return [id, u]; }).catch(function () { return null; }); })).then(function (list) {
+      var blobs = {}; list.filter(Boolean).forEach(function (e) { blobs[e[0]] = e[1]; });
+      saveFile("lerhyllan-projekt.json", new Blob([JSON.stringify({ v: 1, docs: docs, blobs: blobs })], { type: "application/json" }));
+    });
+  }
+  function importProjects(file) {
+    if (!canWrite || !db) { toast("Du kan inte importera här."); return; }
+    file.text().then(function (txt) {
+      var j; try { j = JSON.parse(txt); } catch (e) { toast("Filen gick inte att läsa."); return; }
+      var keys = Object.keys(j.docs || {}).filter(function (k) { return k.indexOf("projects/") === 0; });
+      if (!keys.length) { toast("Hittade inga projekt i filen."); return; }
+      toast("Importerar…");
+      var map = {}, bids = Object.keys(j.blobs || {}), chain = Promise.resolve();
+      bids.forEach(function (bid) {
+        chain = chain.then(function () {
+          if (!assets) return;
+          return fetch(j.blobs[bid]).then(function (r) { return r.blob(); }).then(function (b) { return assets.upload(b); }).then(function (r) { map[bid] = r.id; }).catch(function () {});
+        });
+      });
+      chain.then(function () {
+        return Promise.all(keys.map(function (k) {
+          var d = j.docs[k];
+          if (bids.length) { d.images = (d.images || []).map(function (i) { return map[i]; }).filter(Boolean); d.cover = d.cover && map[d.cover] ? map[d.cover] : (d.images.length ? d.images[d.images.length - 1] : ""); }
+          return db.collection("projects").doc(k.slice(9)).set(d);
+        }));
+      }).then(function () { toast("Importerade " + keys.length + (keys.length === 1 ? " projekt" : " projekt")); }, function () { toast("Importen misslyckades."); });
+    });
+  }
+  var collapsed = new Set();
+  try { collapsed = new Set(JSON.parse(localStorage.getItem("lh-collapsed") || "[]")); } catch (e) {}
+  function saveCollapsed() { try { localStorage.setItem("lh-collapsed", JSON.stringify(Array.from(collapsed))); } catch (e) {} }
+  function mountProjects() {
+    var view = $("#view"); view.textContent = "";
+    var head = h("div", { class: "section-head" }, h("h2", null, "Projekt"),
+      canWrite ? h("button", { class: "btn soft", type: "button", onclick: function () { projectDialog(null); } }, "+ Nytt projekt") : null);
+    var wrap = h("div", { id: "plist" });
+    var impFile = h("input", { type: "file", accept: ".json,application/json", hidden: true });
+    impFile.addEventListener("change", function () { var f = impFile.files && impFile.files[0]; impFile.value = ""; if (f) importProjects(f); });
+    var bk = h("div", { style: "margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;align-items:center" },
+      h("button", { type: "button", class: "btn soft", onclick: exportProjects }, "Exportera projekt"),
+      canWrite ? h("button", { type: "button", class: "btn soft", onclick: function () { impFile.click(); } }, "Importera projekt") : null, impFile,
+      h("p", { class: "hint", style: "flex-basis:100%;font-size:14px" }, "Filen med projekt kan läsas in i Lerhyllan-filen, och tvärtom."));
+    view.append(head, wrap);
+    function paint() {
+      wrap.textContent = "";
+      if (!loaded.projects) { wrap.append(h("div", { class: "empty" }, h("b", null, "Hämtar projekt"), "Det tar en liten stund.")); return; }
+      var items = byCreated(projects);
+      if (!items.length) { wrap.append(h("div", { class: "empty" }, h("b", null, "Inget här än"), "Lägg till ett projekt och byt status efter hand: drejat, torkar, beskickat, skröjbränt, glaserad och klar.")); return; }
+      var known = PSTATUS.map(function (x) { return x[0]; });
+      PSTATUS.concat([["", "Utan status"]]).forEach(function (st) {
+        var sub = items.filter(function (p) { return st[0] ? p.status === st[0] : known.indexOf(p.status) < 0; });
+        if (!sub.length) return;
+        var l = h("div", { class: "list plist" });
+        sub.forEach(function (p) {
+          var pimgs = p.images || [];
+          var pc = p.cover && pimgs.indexOf(p.cover) >= 0 ? p.cover : (pimgs.length ? pimgs[pimgs.length - 1] : "");
+          l.append(clickable(h("div", { class: "card" + (pc ? " pcard" : "") },
+            pc ? h("img", { class: "pcover", src: blobUrl(pc), alt: "" }) : null,
+            h("div", { class: "cardbody" },
+              h("h3", null, p.title),
+              h("div", { class: "row" }, h("span", { class: "pill" }, labelOf(TECH, p.technique || "drejat")), p.clay ? h("span", null, p.clay) : null),
+              (p.glazeIds || []).length ? h("div", { class: "gl-chips" }, (p.glazeIds || []).map(glazeChip)) : null,
+              (!(p.glazeIds || []).length && p.glazeText) ? h("p", null, p.glazeText) : null,
+              h("div", { class: "dates" }, "Skapad " + fmtDT(p.createdAt) + (function () {
+                var k = histOf(p).filter(function (e) { return e.status === "klar"; }).pop();
+                return k ? " · Klar " + fmtDT(k.at) : "";
+              })()),
+              p.note ? h("p", null, p.note) : null)), function () { projectDialog(p.id); }));
+        });
+        var key = st[0] || "_none", open = !collapsed.has(key);
+        var hd = h("button", { type: "button", class: "sg-head", "aria-expanded": String(open) },
+          h("span", { class: "sg-title" }, st[1]), h("span", { class: "n" }, sub.length),
+          h("span", { class: "sg-chev", "aria-hidden": "true" }, "▾"));
+        l.hidden = !open;
+        hd.addEventListener("click", function () {
+          var o = hd.getAttribute("aria-expanded") !== "true";
+          hd.setAttribute("aria-expanded", String(o)); l.hidden = !o;
+          if (o) collapsed.delete(key); else collapsed.add(key);
+          saveCollapsed();
+        });
+        wrap.append(h("section", { class: "status-group" }, hd, l));
+      });
+    }
+    current = { update: paint }; paint(); renderBar();
+  }
+
+  // ---------- shell ----------
+  function updateCounts() {
+    if (!loaded.glazes) return;
+    var have = 0; glazes.forEach(function (g) { if (g.form !== "bricka" && g.form !== "onskelista") have++; });
+    $("#counts").textContent = have + " burkar · " + glazes.size + " glasyrer · " + combos.size + " kombinationer · " + projects.size + " projekt";
+  }
+  function comboCats() {
+    var all = Array.from(combos).map(function (e) { return Object.assign({ id: e[0] }, e[1]); });
+    var isMine = function (c) { return !!c.projectId || !c.by; };
+    return { fav: all.filter(function (c) { return c.fav; }), mine: all.filter(isMine), insp: all.filter(function (c) { return !isMine(c); }) };
+  }
+  function drawSeg() {
+    var seg = $("#seg"); seg.hidden = tab !== "glazes"; seg.textContent = "";
+    var have = 0; glazes.forEach(function (g) { if (g.form !== "onskelista") have++; });
+    var cc = comboCats(), ready = loaded.glazes && loaded.combos;
+    [["fav", "Favoriter", cc.fav.length], ["mine", "Mina", cc.mine.length], ["insp", "Inspiration", cc.insp.length], ["glazes", "Sparade glasyrer", have]].forEach(function (x) {
+      seg.append(h("button", { type: "button", "aria-pressed": String(sub === x[0]), onclick: function () { sub = x[0]; setTab("glazes"); } }, x[1], h("span", { class: "n" }, ready ? String(x[2]) : "")));
+    });
+  }
+  function setTab(t) {
+    if (t === "combos") { t = "glazes"; if (sub === "glazes") sub = "mine"; }
+    tab = t;
+    ["projects", "glazes", "learn"].forEach(function (k) { $("#tab-" + k).setAttribute("aria-selected", String(k === t)); });
+    drawSeg();
+    if (t === "glazes") { if (sub !== "glazes") mountCombos(); else mountGlazes(); } else if (t === "learn") mountLearn(); else mountProjects();
+  }
+  ["projects", "glazes", "learn"].forEach(function (k) { $("#tab-" + k).addEventListener("click", function () { setTab(k); }); });
+
+  function refresh() { updateCounts(); drawSeg(); current.update(); }
+  // ---------- Firebase ----------
+  var BLANK = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7#lh=";
+  var imgCache = new Map(), imgCol = null;
+  function blobUrl(id) { return /^(https?:|data:)/.test(id) ? id : BLANK + encodeURIComponent(id); }
+  function loadImg(id) {
+    if (!imgCache.has(id)) imgCache.set(id, imgCol ? imgCol.doc(id).get().then(function (d) { return d.exists ? d.data().data : ""; }).catch(function () { return ""; }) : Promise.resolve(""));
+    return imgCache.get(id);
+  }
+  function fillImgs(root) {
+    (root.querySelectorAll ? root.querySelectorAll("img") : []).forEach(function (im) {
+      var src = im.getAttribute("src") || "";
+      if (src.indexOf(BLANK) !== 0) return;
+      var id = decodeURIComponent(src.slice(BLANK.length));
+      im.setAttribute("src", BLANK.slice(0, BLANK.indexOf("#")));
+      loadImg(id).then(function (u) { if (u) im.src = u; });
+    });
+  }
+  new MutationObserver(function (ms) { ms.forEach(function (m) { m.addedNodes.forEach(function (n) { if (n.nodeType === 1) { if (n.tagName === "IMG") fillImgs(n.parentNode || n); else fillImgs(n); } }); }); }).observe(document.body, { childList: true, subtree: true });
+  function toDataUrl(blob, max, q) {
+    return new Promise(function (res, rej) {
+      var url = URL.createObjectURL(blob), im = new Image();
+      im.onload = function () {
+        var k = Math.min(1, max / Math.max(im.width, im.height)), cv = document.createElement("canvas");
+        cv.width = Math.round(im.width * k); cv.height = Math.round(im.height * k);
+        cv.getContext("2d").drawImage(im, 0, 0, cv.width, cv.height);
+        URL.revokeObjectURL(url); res(cv.toDataURL("image/jpeg", q));
+      };
+      im.onerror = rej; im.src = url;
+    });
+  }
+  function makeAssets() {
+    return {
+      upload: function (blob) {
+        // Bilderna sparas i Firestore (gratisplanen). Ett dokument får vara högst 1 MB.
+        var tries = [[1600, .85], [1280, .8], [1024, .75], [800, .7]], i = 0;
+        function next() {
+          var t = tries[i++];
+          return toDataUrl(blob, t[0], t[1]).then(function (u) { return u.length < 900000 || i >= tries.length ? u : next(); });
+        }
+        return next().then(function (u) {
+          var id = "i-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+          imgCache.set(id, Promise.resolve(u));
+          return imgCol.doc(id).set({ data: u, createdAt: Date.now() }).then(function () { return { id: id }; });
+        });
+      }
+    };
+  }
+  function showLogin(msg) {
+    $("#counts").textContent = msg || "Logga in för att se ditt bibliotek.";
+    var v = $("#view"); v.textContent = "";
+    v.append(h("div", { class: "empty" }, h("b", null, "Biblioteket är privat"), "Logga in med ditt Google-konto.",
+      h("div", { style: "margin-top:16px" }, h("button", { class: "btn", type: "button", onclick: function () {
+        var p = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(p).catch(function (e) {
+          if (e && (e.code === "auth/popup-blocked" || e.code === "auth/operation-not-supported-in-this-environment")) return firebase.auth().signInWithRedirect(p);
+          if (!e || e.code !== "auth/popup-closed-by-user") toast("Inloggningen misslyckades.");
+        });
+      } }, "Logga in med Google"))));
+  }
+  function start() {
+    if (!window.firebase || !window.LERHYLLAN_FIREBASE || !window.LERHYLLAN_FIREBASE.apiKey) { $("#counts").textContent = "Firebase är inte inställt. Fyll i firebase-config.js."; return; }
+    firebase.initializeApp(window.LERHYLLAN_FIREBASE);
+    var fs = firebase.firestore();
+    try { fs.settings({ ignoreUndefinedProperties: true }); } catch (e) {}
+    try { fs.enablePersistence({ synchronizeTabs: true }).catch(function () {}); } catch (e) {}
+    var unsubs = [];
+    firebase.auth().onAuthStateChanged(function (u) {
+      unsubs.forEach(function (f) { f(); }); unsubs = [];
+      if (!u) { db = null; assets = null; showLogin(); return; }
+      var root = fs.collection("users").doc(u.uid);
+      db = { collection: function (n) { return root.collection(n); } };
+      imgCol = root.collection("images"); imgCache = new Map();
+      assets = makeAssets(); sample = null; canWrite = true;
+      loaded = { glazes: false, combos: false, projects: false };
+      setTab(tab);
+      var fail = function (e) {
+        if (e && e.code === "permission-denied") { showLogin("Ditt konto har inte tillgång till biblioteket."); return; }
+        toast("Anslutningen till biblioteket bröts. Ladda om sidan.");
+      };
+      unsubs.push(db.collection("glazes").onSnapshot(function (s) { glazes = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.glazes = true; refresh(); }, fail));
+      unsubs.push(db.collection("combos").onSnapshot(function (s) { combos = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.combos = true; refresh(); }, fail));
+      unsubs.push(db.collection("projects").onSnapshot(function (s) { projects = new Map(s.docs.map(function (d) { return [d.id, d.data()]; })); loaded.projects = true; refresh(); }, fail));
+    });
+    var menu = $(".tools-menu");
+    if (menu) menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { menu.hidden = true; firebase.auth().signOut(); } }, "Logga ut"));
+  }
+  function TOOLS_ITEMS(menu, fileIn, close) {
+    menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); exportProjects(); } }, "Exportera projekt"));
+    if (canWrite) menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); fileIn.click(); } }, "Importera projekt"));
+    fileIn.addEventListener("change", function () { var f = fileIn.files && fileIn.files[0]; fileIn.value = ""; if (f) importProjects(f); });
+  }
+  (function () {
+    var top = $(".top"); if (!top) return;
+    var btn = h("button", { type: "button", class: "tools-btn", "aria-label": "Verktyg", "aria-haspopup": "true", "aria-expanded": "false" });
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>';
+    var menu = h("div", { class: "tools-menu", role: "menu", hidden: true });
+    var fileIn = h("input", { type: "file", accept: ".json,application/json", hidden: true });
+    function close() { menu.hidden = true; btn.setAttribute("aria-expanded", "false"); }
+    TOOLS_ITEMS(menu, fileIn, close);
+    btn.addEventListener("click", function (e) { e.stopPropagation(); var o = menu.hidden; menu.hidden = !o; btn.setAttribute("aria-expanded", String(o)); });
+    document.addEventListener("click", function (e) { if (!menu.contains(e.target)) close(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+    top.append(btn, menu, fileIn);
+  })();
+  setTab("projects");
+  start();
+})();
+</script>
+
+</body></html>
