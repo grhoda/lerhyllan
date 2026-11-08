@@ -1,10 +1,9 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Inget inlogg. Ett bibliotek nås bara med sin hemliga nyckel (minst 20 tecken),
-    // och ingen kan lista alla bibliotek.
-    match /libraries/{lib}/{document=**} {
-      allow read, write: if lib.size() >= 20;
+    // Varje användare ser och ändrar bara sitt eget bibliotek.
+    match /users/{uid}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
     }
   }
 }
