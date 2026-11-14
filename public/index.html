@@ -474,7 +474,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
   var GROUPS = ["Blå", "Turkos", "Grön", "Gul", "Orange", "Röd", "Rosa", "Lila", "Brun", "Beige", "Vit", "Grå", "Svart"];
   var FORMS = [["burk", "Burk"], ["pulver", "Pulver"], ["flytande", "Flytande"], ["bricka", "Bara bricka"], ["onskelista", "Finns ej"]];
   var CSTATUS = [["idé", "Att testa"], ["testad", "Testad"]];
-  var TECH = [["drejat", "Drejat"], ["kavlat", "Kavlat/ringlat"]];
+  var TECH = [["drejat", "Drejat"], ["kavlat", "Kavlat"], ["ringlat", "Ringlat"], ["tummat", "Tummat"]];
   var LAYERS = [["underst", "Lager 1"], ["mellan", "Lager 2"], ["overst", "Lager 3"]];
   var KINDS = [["glasyr", "Glasyr"], ["dekor", "Dekor"]];
   var TYPES = [["dopp", "Doppglasyr"], ["pensel", "Penselglasyr"], ["engobe", "Engobe"], ["ovrigt", "Övrigt"]];
@@ -541,6 +541,21 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     return el;
   }
   function fldDiv(text, control) { return h("div", { class: "fld" }, h("span", null, text), control); }
+  function pTechs(p) { return p.techniques && p.techniques.length ? p.techniques : [p.technique || "drejat"]; }
+  function techPicker(selected) {
+    var sel = new Set(selected);
+    var el = h("div", { class: "picker" });
+    TECH.forEach(function (o) {
+      var b = h("button", { type: "button", class: "chip", "aria-pressed": String(sel.has(o[0])) }, o[1]);
+      b.addEventListener("click", function () {
+        if (sel.has(o[0])) { if (sel.size > 1) sel.delete(o[0]); } else sel.add(o[0]);
+        Array.prototype.forEach.call(el.children, function (x, i) { x.setAttribute("aria-pressed", String(sel.has(TECH[i][0]))); });
+      });
+      el.append(b);
+    });
+    Object.defineProperty(el, "value", { get: function () { return TECH.map(function (o) { return o[0]; }).filter(function (k) { return sel.has(k); }); } });
+    return el;
+  }
   function multiPicker(options, selected) {
     var sel = new Set(selected || []);
     var el = h("div", { class: "picker" });
@@ -831,7 +846,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
   function projectDialog(id) {
     var p = id ? projects.get(id) : { title: "", technique: "drejat", clay: "", status: "drejat", glazeIds: [], note: "" };
     var title = h("input", { id: "p-title", type: "text", value: p.title, required: true });
-    var tech = singlePicker(TECH, p.technique || "drejat");
+    var tech = techPicker(pTechs(p));
     var clay = h("input", { id: "p-clay", type: "text", value: p.clay || "", placeholder: "Vilken lera?" });
     var status = singlePicker(PSTATUS, p.status || "drejat");
     var sel = new Set(p.glazeIds || []);
@@ -980,7 +995,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
         var hist = (p.history || []).slice();
         if (!hist.length && id && p.status) hist.push({ status: p.status, at: p.createdAt || now });
         if (!hist.length || hist[hist.length - 1].status !== status.value) hist.push({ status: status.value, at: now });
-        var data = { title: title.value.trim(), technique: tech.value, clay: clay.value.trim(), status: status.value, history: hist, glazeText: sel.size ? "" : (p.glazeText || ""), glazeIds: Array.from(sel), glazeUse: uses.filter(function (x) { return sel.has(x.id); }).map(function (u) { return { id: u.id, layer: u.layer, place: u.place, kind: u.kind }; }), images: imgs, cover: cover, note: note.value.trim(), createdAt: (p && p.createdAt) || now };
+        var data = { title: title.value.trim(), technique: tech.value[0], techniques: tech.value, clay: clay.value.trim(), status: status.value, history: hist, glazeText: sel.size ? "" : (p.glazeText || ""), glazeIds: Array.from(sel), glazeUse: uses.filter(function (x) { return sel.has(x.id); }).map(function (u) { return { id: u.id, layer: u.layer, place: u.place, kind: u.kind }; }), images: imgs, cover: cover, note: note.value.trim(), createdAt: (p && p.createdAt) || now };
         var pid = id || "p-" + Date.now().toString(36);
         var cimgs = cover ? [cover].concat(imgs.filter(function (x) { return x !== cover; })) : imgs.slice();
         var groups = summarizeUse(data.glazeUse);
@@ -1596,7 +1611,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
             pc ? h("img", { class: "pcover", src: blobUrl(pc), alt: "" }) : null,
             h("div", { class: "cardbody" },
               h("h3", null, p.title),
-              h("div", { class: "row" }, h("span", { class: "pill" }, labelOf(TECH, p.technique || "drejat")), p.clay ? h("span", null, p.clay) : null),
+              h("div", { class: "row" }, h("span", { class: "pill" }, pTechs(p).map(function (k) { return labelOf(TECH, k); }).join(" + ")), p.clay ? h("span", null, p.clay) : null),
               (p.glazeIds || []).length ? h("div", { class: "gl-chips" }, (p.glazeIds || []).map(glazeChip)) : null,
               (!(p.glazeIds || []).length && p.glazeText) ? h("p", null, p.glazeText) : null,
               h("div", { class: "dates" }, "Skapad " + fmtDT(p.createdAt) + (function () {
