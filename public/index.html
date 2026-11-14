@@ -445,6 +445,19 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
 .start .start-hint { font-size: 15px; }
 .start-art { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); box-shadow: var(--shadow); }
 .start-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+.tools-btn.avatar img { width: 40px; height: 40px; display: block; }
+.tools-menu .avpick { display: grid; grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); gap: 6px; padding: 6px 10px 10px; }
+.tools-menu .avpick button { padding: 2px; border-radius: 12px; display: grid; place-items: center; line-height: 0; background: none; border: 2px solid transparent; }
+.tools-menu .avpick button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.tools-menu .avpick img { width: 36px; height: 36px; }
+.tools-btn.avatar { top: calc(28px + max(44px, clamp(34px, 8vw, 48px)) / 2 - 20px); }
+.tools-menu { top: calc(28px + max(44px, clamp(34px, 8vw, 48px)) / 2 + 28px); }
+.tools-btn.avatar { width: 40px; height: 40px; border-radius: 11px; }
+.tools-btn.avatar img { width: 48px; height: 48px; margin: -4px; max-width: none; }
+.tools-menu .avpick button { border-radius: 12px; padding: 0; overflow: hidden; }
+.tools-menu .avpick img { width: 44px; height: 44px; margin: -3px; max-width: none; }
+.tools-menu .avpick button { width: 38px; height: 38px; justify-self: center; border-radius: 10px; box-shadow: 0 0 0 2px transparent; border: 0; }
+.tools-menu .avpick button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); background: none; }
 </style>
 
 <div class="wrap">
@@ -488,6 +501,10 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
   var loaded = { glazes: false, combos: false, projects: false };
   var tab = "projects", sub = "mine", group = "Alla", typeFilter = "Alla", query = "";
   var picked = [];
+  var AVATARS = [["dog", "Hund"], ["cat", "Katt"], ["fox", "Räv"], ["frog", "Groda"], ["koala", "Koala"], ["panda", "Panda"], ["ghost", "Spöke"]];
+  var avatarId = "dog", settingsDoc = null;
+  try { var _a = localStorage.getItem("lh-avatar"); if (_a && AVATARS.some(function (x) { return x[0] === _a; })) avatarId = _a; } catch (e) {}
+  function avatarImg(id, size) { return h("img", { src: "avatars/" + id + ".svg", alt: "", width: String(size), height: String(size), draggable: "false" }); }
   var meEmail = null, authUser = null, startDismissed = false, startChecked = false;
   var current = { update: function () {} };
   var toastTimer = null;
@@ -1767,6 +1784,11 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       authUser = u || null; meEmail = u && u.email ? u.email : null; drawAvatar();
       if (!u) { db = null; assets = null; showLogin(); return; }
       var root = fs.collection("users").doc(u.uid);
+      settingsDoc = root.collection("settings").doc("profile");
+      settingsDoc.get().then(function (d) {
+        var a = d.exists && d.data().avatar;
+        if (a && AVATARS.some(function (x) { return x[0] === a; }) && a !== avatarId) { avatarId = a; try { localStorage.setItem("lh-avatar", a); } catch (e) {} drawAvatar(); }
+      }).catch(function () {});
       db = { collection: function (n) { return root.collection(n); } };
       imgCol = root.collection("images"); imgCache = new Map();
       assets = makeAssets(); sample = null; canWrite = true;
@@ -1792,7 +1814,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
   var avatar = null;
   function drawAvatar() {
     if (!avatar) return;
-    avatar.btn.innerHTML = isIn() ? AV_IN : AV_OUT;
+    avatar.btn.textContent = ""; if (isIn()) avatar.btn.append(avatarImg(avatarId, 40)); else avatar.btn.innerHTML = AV_OUT;
     avatar.btn.setAttribute("aria-label", isIn() ? "Konto, inloggad" : "Konto, utloggad");
   }
   function fillMenu() {
@@ -1801,6 +1823,19 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     avatar.close = close;
     if (isIn()) {
       m.append(h("div", { class: "who" }, h("small", null, "Inloggad som"), h("b", null, meEmail || "din hylla")));
+      m.append(h("div", { class: "mhead" }, "Välj avatar"));
+      var grid = h("div", { class: "avpick" });
+      AVATARS.forEach(function (a) {
+        var b = h("button", { type: "button", "aria-label": a[1], "aria-pressed": String(a[0] === avatarId), onclick: function (e) {
+          e.stopPropagation(); avatarId = a[0];
+          try { localStorage.setItem("lh-avatar", a[0]); } catch (x) {}
+          if (settingsDoc) settingsDoc.set({ avatar: a[0] }, { merge: true }).catch(function () {});
+          Array.prototype.forEach.call(grid.children, function (c, i) { c.setAttribute("aria-pressed", String(AVATARS[i][0] === avatarId)); });
+          drawAvatar();
+        } }, avatarImg(a[0], 36));
+        grid.append(b);
+      });
+      m.append(grid);
       m.append(h("div", { class: "mhead" }, "Verktyg"));
       TOOLS_ITEMS(m, fileIn, close);
       m.append(h("div", { class: "msep" }));
@@ -1815,7 +1850,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     $("#counts").textContent = "";
     showTabs(false);
     var view = $("#view"); view.textContent = "";
-    var art = h("div", { class: "start-art" }); art.innerHTML = AV_IN.replace('width="40" height="40"', 'width="72" height="72"');
+    var art = h("div", { class: "start-art" }, avatarImg(avatarId, 72));
     view.append(h("section", { class: "start" }, art, h("h2", null, "Välkommen till din lerhylla!"),
       h("p", null, "Här får burkar, glasyrer och experiment ett eget hem. Ställ dit det du gjort, spara det du vill testa och kom tillbaka när du undrar vad som blev så fint den där gången."),
       h("div", { class: "start-btns" },
