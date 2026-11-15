@@ -257,6 +257,13 @@ a.btn { display: inline-block; text-decoration: none; text-align: center; }
 .learn .lbody ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
 .learn .tip { background: var(--accent-soft); color: var(--accent); border-radius: 14px; padding: 10px 14px; font-weight: 600; }
 .learn .fine { font-size: 14px; opacity: .65; }
+.learn .jumps { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 4px; }
+.learn .jump { border: 0; font: inherit; font-weight: 600; font-size: 15px; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 9px 16px; cursor: pointer; }
+.learn .group { margin: 14px 6px 0; padding-top: 4px; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); scroll-margin-top: 76px; }
+.learn .glossary { display: flex; flex-direction: column; gap: 10px; margin: 0; }
+.learn .glossary div { display: flex; flex-direction: column; gap: 2px; }
+.learn .glossary dt { font-weight: 700; }
+.learn .glossary dd { margin: 0; }
 .gfigs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .gfig { margin: 0; background: var(--surface-2); border-radius: 16px; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
 .gfig svg { width: 100%; height: auto; max-height: 150px; }
@@ -1649,6 +1656,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
 
   // ---------- learn view ----------
   var LEARN = [
+    "Glasyr och kombinationer",
     ["Tre byggstenar i en glasyr", [
       ["p", "En glasyr är ett tunt lager glas på leran. I ugnen smälter pulvret och blir blankt eller matt glas. Nästan alla glasyrer består av:"],
       ["ul", ["<b>Glasbildare</b> (kiseldioxid/silika): blir själva glaset. Smälter vid hög temperatur.", "<b>Flussmedel</b> (flux): sänker smältpunkten så glasyren blir flytande. Exempel: soda, kalcium, litium, bor.", "<b>Stabilisator</b> (aluminiumoxid): gör glasyren seg så den inte rinner av krukan."]],
@@ -1693,6 +1701,45 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     ["Testa så här", [
       ["ul", ["Testa först på en provbricka, gärna stående så att du ser om glasyren rinner.", "Använd samma lera som i det riktiga arbetet.", "Räkna lagren. 2 lager ger inte samma resultat som 3.", "Ställ provet på en liten skärva eller skål så att ugnshyllan skyddas.", "Spara resultatet i <b>Kombinationer</b> med foto och anteckning."]],
       ["p", "Det här är tumregler. Resultatet beror på lera, tjocklek, ugn och bränningskurva, så testa alltid själv.", "fine"]
+    ]],
+    "Lera och bränning",
+    ["Lerasorter", [
+      ["ul", ["<b>Lergods</b> (earthenware): bränns ca 1000–1100 °C. Porös och ofta rödaktig.", "<b>Stengods</b> (stoneware): bränns ca 1200–1300 °C. Tätt och starkt, ofta bra för bruksföremål.", "<b>Porslin:</b> bränns ca 1250–1300 °C. Vitt och finkornigt, men kräver mer av dig.", "<b>Schamott</b> (malet bränt lergods) i leran ger styrka och gör stora former säkrare, men leran känns grövre."]],
+      ["tip", "Lera och glasyr måste passa samma temperatur."]
+    ]],
+    ["Bränning steg för steg", [
+      ["ul", ["<b>1. Torka</b> leran helt innan den bränns.", "<b>2. Skröjbränning</b> (råbränning), ca 900–1000 °C. Leran blir hård men fortfarande porös, så den tar emot glasyr.", "<b>3. Glasera</b> den skröjbrända pjäsen. Torka av foten.", "<b>4. Glasyrbränning</b> vid den temperatur som lera och glasyr är gjorda för."]],
+      ["p", "Leran krymper totalt ungefär 10–13 % (stengods). Det varierar mellan leror, så kolla på leran du använder.", "fine"]
+    ]],
+    ["Temperatur och kägla", [
+      ["p", "Temperaturen anges ofta som <b>cone</b> (kägla) på glasyrburkar. Ungefärliga värden:"],
+      ["ul", ["Cone 5 ≈ 1190 °C", "Cone 6 ≈ 1220 °C", "Cone 10 ≈ 1285 °C"]],
+      ["p", "Cone på amerikanska burkar (t.ex. Mayco) är Orton-kägla. <b>Segerkäglor</b> är det europeiska systemet och har annan numrering, så jämför inte siffrorna rakt av. Exakt temperatur beror också på hur snabbt ugnen värms upp.", "fine"]
+    ]],
+    "Dina glasyrer",
+    ["Läs burken", [
+      ["ul", ["<b>Mayco Stoneware</b> (SW) är märkta <b>cone 5–10</b>, alltså stengodstemperatur. Penselglasyrer, redo att pensla.", "<b>Andra märken:</b> temperaturen står på burken (ofta i °C). Kolla den innan du blandar med andra glasyrer.", "Glasyrer med lägre temperatur än leran kan rinna för mycket. Glasyrer med högre temperatur kan bli matta och osmälta."]],
+      ["tip", "Samma bränntemperatur på burkarna = säkrast att kombinera."]
+    ]],
+    ["Bra att veta", [
+      ["ul", ["<b>Tjocklek</b> spelar stor roll. Tunt blir ofta ljusare och mattare, tjockt djupare och mer flytande.", "<b>Mayco</b> är gjorda för 2–3 strykningar. Sträva efter jämna lager.", "<b>Rinner:</b> ställ pjäsen på en skärva eller bränd platta, och glasera inte ända ner till foten.", "<b>Mat- och diskmaskinssäkert</b> gäller bara om glasyren är rätt bränd och tillverkaren anger det.", "<b>Koppar</b> i en glasyr kan färga grannglasyrer och pjäser i samma ugn.", "<b>Skriv ner</b> ordning, antal lager och bränntemperatur. Annars kommer du inte ihåg resultatet."]]
+    ]],
+    "Ordlista",
+    ["Begrepp", [
+      ["dl", [
+        ["Skröjbränning (råbränning)", "Första bränningen, ca 900–1000 °C. Leran blir hård men porös."],
+        ["Glasyrbränning", "Bränningen efter glasering, vid temperatur som passar lera och glasyr."],
+        ["Lergods", "Lera som bränns lågt, ca 1000–1100 °C. Porös."],
+        ["Stengods", "Lera som bränns högt, ca 1200–1300 °C. Tät och stark."],
+        ["Porslin", "Vit, finkornig lera som bränns högt."],
+        ["Schamott", "Malet bränt lergods som blandas i leran för styrka."],
+        ["Krympning", "Att leran blir mindre när den torkar och bränns."],
+        ["Cone / kägla", "Mått på hur mycket värme bränningen fått. Orton-kägla (USA)."],
+        ["Segerkägla", "Europeisk kägla med annan numrering än Orton."],
+        ["Penselglasyr", "Glasyr som penslas på, till skillnad från doppglasyr."],
+        ["Provbricka", "Liten testbit där du provar glasyr och kombinationer."],
+        ["Foten", "Pjäsens understa kant, där glasyr lätt rinner ner och fastnar."]
+      ]]
     ]]
   ];
   function mountLearn() {
@@ -1721,14 +1768,23 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     };
     current = { update: paintMine };
     view.append(h("div", { class: "section-head" }, h("h2", null, "Lär dig")), wrap);
-    wrap.append(h("p", { class: "lead" }, "Kort om hur glasyr fungerar och varför kombinationer blir olika."));
-    LEARN.forEach(function (sec, i) {
+    wrap.append(h("p", { class: "lead" }, "Kort om glasyr, lera och bränning, och varför kombinationer blir olika."));
+    var jumps = h("div", { class: "jumps" }); wrap.append(jumps);
+    var si = 0;
+    LEARN.forEach(function (sec) {
+      if (typeof sec === "string") {
+        var gh = h("h3", { class: "group" }, sec);
+        jumps.append(h("button", { type: "button", class: "jump", onclick: function () { gh.scrollIntoView({ behavior: "smooth", block: "start" }); } }, sec));
+        wrap.append(gh); return;
+      }
+      var i = si++;
       var d = h("details", null, h("summary", null, sec[0]));
       if (i < 3) d.open = true;
       var body = h("div", { class: "lbody" });
       sec[1].forEach(function (b) {
         var el;
-        if (b[0] === "svg") { el = h("div"); el.innerHTML = b[1]; }
+        if (b[0] === "dl") { el = h("dl", { class: "glossary" }); b[1].forEach(function (t) { el.append(h("div", null, h("dt", null, t[0]), h("dd", null, t[1]))); }); }
+        else if (b[0] === "svg") { el = h("div"); el.innerHTML = b[1]; }
         else if (b[0] === "links") { el = h("p"); el.innerHTML = 'Se riktiga bilder hos Mayco: <a href="https://www.maycocolors.com/flux" target="_blank" rel="noopener">Flux</a> · <a href="https://www.maycocolors.com/product/sw-501-white-gloss/" target="_blank" rel="noopener">White Gloss</a>'; }
         else if (b[0] === "ul") { el = h("ul"); b[1].forEach(function (t) { var li = h("li"); li.innerHTML = t; el.append(li); }); }
         else { el = h("p", { class: b[0] === "tip" ? "tip" : (b[2] || "") }); el.innerHTML = b[1]; }
