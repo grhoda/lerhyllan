@@ -2017,6 +2017,18 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     var m = avatar.menu, fileIn = avatar.fileIn; m.textContent = "";
     function close() { m.hidden = true; avatar.btn.setAttribute("aria-expanded", "false"); }
     avatar.close = close;
+    function addPalette() {
+      var cur = document.documentElement.getAttribute("data-palette") === "ny" ? "ny" : "";
+      m.append(h("div", { class: "mhead" }, "Palett"));
+      [["", "Blue moon"], ["ny", "Fuchsia"]].forEach(function (p) {
+        m.append(h("button", { type: "button", role: "menuitemradio", "aria-checked": String(cur === p[0]), onclick: function () {
+          if (p[0]) document.documentElement.setAttribute("data-palette", p[0]); else document.documentElement.removeAttribute("data-palette");
+          try { localStorage.setItem("lh-palette", p[0]); } catch (e) {}
+          var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute("content", p[0] ? "#1e555c" : "#2b4de0");
+          close();
+        } }, (cur === p[0] ? "\u2713 " : "") + p[1]));
+      });
+    }
     if (isIn()) {
       m.append(h("div", { class: "who" }, h("small", null, "Inloggad som"), h("b", null, meEmail || "din hylla")));
       m.append(h("div", { class: "mhead" }, "Välj avatar"));
@@ -2032,24 +2044,18 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
         grid.append(b);
       });
       m.append(grid);
+      m.append(h("div", { class: "msep" }));
+      addPalette();
+      m.append(h("div", { class: "msep" }));
       m.append(h("div", { class: "mhead" }, "Verktyg"));
       TOOLS_ITEMS(m, fileIn, close);
       m.append(h("div", { class: "msep" }));
       m.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); firebase.auth().signOut(); } }, "Logga ut"));
     } else {
       m.append(h("div", { class: "who" }, h("b", null, "Utloggad")));
+      m.append(h("div", { class: "msep" }));
+      addPalette();
     }
-    var cur = document.documentElement.getAttribute("data-palette") === "ny" ? "ny" : "";
-    m.append(h("div", { class: "msep" }));
-    m.append(h("div", { class: "mhead" }, "Palett"));
-    [["", "Blue moon"], ["ny", "Fuchsia"]].forEach(function (p) {
-      m.append(h("button", { type: "button", role: "menuitemradio", "aria-checked": String(cur === p[0]), onclick: function () {
-        if (p[0]) document.documentElement.setAttribute("data-palette", p[0]); else document.documentElement.removeAttribute("data-palette");
-        try { localStorage.setItem("lh-palette", p[0]); } catch (e) {}
-        var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute("content", p[0] ? "#1e555c" : "#2b4de0");
-        close();
-      } }, (cur === p[0] ? "\u2713 " : "") + p[1]));
-    });
   }
   function showTabs(v) { $(".tabs").hidden = !v; $("#seg").hidden = !v || tab !== "glazes"; if (!v) $("#seg2").hidden = true; if (v) drawSeg(); }
   function renderStart() {
