@@ -796,7 +796,20 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
   function comboDialog(id, preset) {
     var c = id ? combos.get(id) : (preset || { glazes: picked.slice(), coats: 2, status: "idé", rating: 0, note: "" });
     var gl = c.glazes || [];
-    var s1 = glazeSelect("c-g1", gl[0], false), s2 = glazeSelect("c-g2", gl[1], true), s3 = glazeSelect("c-g3", gl[2], true);
+    var MAXG = 6, ORD = ["Första lagret (närmast leran)", "Andra lagret", "Tredje lagret", "Fjärde lagret", "Femte lagret", "Sjätte lagret"];
+    var sels = [], nG = Math.max(2, Math.min(MAXG, gl.length));
+    for (var gi = 0; gi < nG; gi++) sels.push(glazeSelect("c-g" + (gi + 1), gl[gi], gi > 0));
+    var layers = h("div", { style: "display:flex;flex-direction:column;gap:16px" });
+    var addBtn = h("button", { type: "button", class: "btn soft", style: "align-self:flex-start", onclick: function () { if (sels.length < MAXG) { sels.push(glazeSelect("c-g" + (sels.length + 1), "", false)); drawLayers(); } } }, "+ Lägg till glasyr");
+    function drawLayers() {
+      layers.textContent = "";
+      sels.forEach(function (sel, i) {
+        layers.append(h("div", { style: "display:flex;flex-direction:column;gap:2px" }, fld(ORD[i] || "Lager " + (i + 1), sel),
+          i >= 2 ? h("button", { type: "button", class: "link", style: "align-self:flex-start", onclick: function () { sels.splice(i, 1); drawLayers(); } }, "Ta bort lagret") : null));
+      });
+      addBtn.hidden = sels.length >= MAXG;
+    }
+    drawLayers();
     var cname = h("input", { id: "c-name", type: "text", value: c.name || "", placeholder: "Valfritt, till exempel Djuphav" });
     var coats = h("input", { id: "c-coats", type: "number", min: "1", max: "6", value: c.coats || 2 });
     var status = singlePicker(CSTATUS, c.status || "idé");
@@ -832,7 +845,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     var note = h("textarea", { id: "c-note", placeholder: "Hur blev det? Bränning, lera, antal strykningar…" }); note.value = c.note || "";
     var body = h("div", { class: "dlg-in", style: "padding:0" },
       fld("Namn (valfritt)", cname),
-      fld("Första lagret (närmast leran)", s1), fld("Andra lagret", s2), fld("Tredje lagret", s3),
+      layers, addBtn,
       fld("Strykningar per lager", coats),
       fldDiv("Status", status),
       fldDiv("Betyg", rating),
@@ -842,7 +855,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     openDlg(id ? "Kombination" : "Ny kombination", body, {
       onDelete: id && canWrite ? function () { return write(db.collection("combos").doc(id).delete(), "Kombinationen raderades"); } : null,
       onSave: canWrite ? function () {
-        var ids = [s1.value, s2.value, s3.value].filter(Boolean);
+        var ids = sels.map(function (x) { return x.value; }).filter(Boolean);
         if (ids.length < 2) { toast("Välj minst två glasyrer."); return false; }
         var data = { glazes: ids, name: cname.value.trim(), coats: Math.max(1, Number(coats.value) || 2), status: status.value, rating: Number(rating.value) || 0, result: resPick.get()[0] || "", results: resPick.get(), images: imgs, note: note.value.trim(), createdAt: (c && c.createdAt) || Date.now() };
         ["by", "projectId", "place", "url", "srcLabel", "fav"].forEach(function (k) { if (c && c[k] !== undefined && c[k] !== "") data[k] = c[k]; });
@@ -1364,7 +1377,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
         var sub = [g.form === "bricka" ? "Bara bricka" : g.form === "onskelista" ? "Finns ej" : (g.brand || labelOf(FORMS, g.form)), g.code, g.cone ? "kon " + g.cone : ""].filter(Boolean).join(" · ");
         function toggle() {
           var i = picked.indexOf(g.id);
-          if (i >= 0) picked.splice(i, 1); else if (picked.length < 3) picked.push(g.id); else toast("Max tre lager.");
+          if (i >= 0) picked.splice(i, 1); else if (picked.length < 6) picked.push(g.id); else toast("Max sex lager.");
           paint(); renderBar();
         }
         grid.append(h("div", { class: "grow", "data-on": pos >= 0 ? "1" : "0" },
