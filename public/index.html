@@ -496,7 +496,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
 
   var FAMILY_HEX = { "Blå": "#3c6aa6", "Turkos": "#3fa7a0", "Grön": "#6c9a52", "Gul": "#e0b83a", "Orange": "#e0762a", "Röd": "#bf2f35", "Rosa": "#e58aa8", "Lila": "#8a6fb0", "Brun": "#7a5232", "Beige": "#d3bf98", "Vit": "#f1efe9", "Grå": "#8b8f94", "Svart": "#25252a" };
   function fdot(name) { return FAMILY_HEX[name] ? h("span", { class: "fdot", style: "--c:" + FAMILY_HEX[name] }) : null; }
-  var db = null, canWrite = true, sample = null, assets = null;
+  var db = null, canWrite = true, sample = null, assets = null, aiChecked = false;
   var glazes = new Map(), combos = new Map(), projects = new Map();
   var loaded = { glazes: false, combos: false, projects: false };
   var tab = "projects", sub = "mine", group = "Alla", typeFilter = "Alla", query = "";
@@ -757,6 +757,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     var c = id ? combos.get(id) : (preset || { glazes: picked.slice(), coats: 2, status: "idé", rating: 0, note: "" });
     var gl = c.glazes || [];
     var s1 = glazeSelect("c-g1", gl[0], false), s2 = glazeSelect("c-g2", gl[1], true), s3 = glazeSelect("c-g3", gl[2], true);
+    var cname = h("input", { id: "c-name", type: "text", value: c.name || "", placeholder: "Valfritt, till exempel Djuphav" });
     var coats = h("input", { id: "c-coats", type: "number", min: "1", max: "6", value: c.coats || 2 });
     var status = singlePicker(CSTATUS, c.status || "idé");
     var rating = singlePicker([["0", "Inget"], ["1", "★"], ["2", "★★"], ["3", "★★★"], ["4", "★★★★"], ["5", "★★★★★"]], String(c.rating || 0));
@@ -790,6 +791,8 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     });
     var note = h("textarea", { id: "c-note", placeholder: "Hur blev det? Bränning, lera, antal strykningar…" }); note.value = c.note || "";
     var body = h("div", { class: "dlg-in", style: "padding:0" },
+      c.hint ? h("p", { class: "hint" }, c.hint) : null,
+      fld("Namn (valfritt)", cname),
       fld("Första lagret (närmast leran)", s1), fld("Andra lagret", s2), fld("Tredje lagret", s3),
       fld("Strykningar per lager", coats),
       fldDiv("Status", status),
@@ -802,7 +805,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       onSave: canWrite ? function () {
         var ids = [s1.value, s2.value, s3.value].filter(Boolean);
         if (ids.length < 2) { toast("Välj minst två glasyrer."); return false; }
-        var data = { glazes: ids, coats: Math.max(1, Number(coats.value) || 2), status: status.value, rating: Number(rating.value) || 0, result: resPick.get()[0] || "", results: resPick.get(), images: imgs, note: note.value.trim(), createdAt: (c && c.createdAt) || Date.now() };
+        var data = { glazes: ids, name: cname.value.trim(), coats: Math.max(1, Number(coats.value) || 2), status: status.value, rating: Number(rating.value) || 0, result: resPick.get()[0] || "", results: resPick.get(), images: imgs, note: note.value.trim(), createdAt: (c && c.createdAt) || Date.now() };
         ["by", "projectId", "place", "url", "srcLabel", "fav"].forEach(function (k) { if (c && c[k] !== undefined && c[k] !== "") data[k] = c[k]; });
         if (c && c.by) data.by = c.by;
         if (c && c.url) { data.url = c.url; if (c.srcLabel) data.srcLabel = c.srcLabel; }
@@ -811,6 +814,88 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
         return write(ref.set(data), "Sparad");
       } : null
     });
+  }
+
+  // ---------- add: choose glaze or combination ----------
+  function addDialog(first) {
+    function go(fn) { return function () { $("#dlg").close(); fn(); }; }
+    function group(title, sub, btns) { return h("div", { class: "usebox" }, h("b", null, title), h("p", { class: "hint" }, sub), h("div", { class: "row", style: "gap:10px;flex-wrap:wrap" }, btns)); }
+    var ai = !!sample;
+    var glaze = group("Ny glasyr", "En burk, eller flera burkar i samma bild. Claude läser etiketterna och du kollar innan det sparas.", [
+      ai ? h("button", { class: "btn", type: "button", onclick: go(photoDialog) }, "Från bild") : null,
+      h("button", { class: ai ? "btn soft" : "btn", type: "button", onclick: go(function () { glazeDialog(null); }) }, "Fyll i själv")]);
+    var combo = group("Ny kombination", "En bild på ett provbrick eller en sak, gärna med en lapp. Claude föreslår glasyrer, ordning och antal lager.", [
+      ai ? h("button", { class: "btn", type: "button", onclick: go(comboPhotoDialog) }, "Från bild") : null,
+      h("button", { class: ai ? "btn soft" : "btn", type: "button", onclick: go(function () { comboDialog(null, { glazes: picked.slice(), coats: 2, status: "idé", rating: 0, note: "" }); }) }, "Fyll i själv")]);
+    openDlg("Lägg till", h("div", { class: "dlg-in", style: "padding:0" },
+      first === "kombination" ? combo : glaze, first === "kombination" ? glaze : combo,
+      ai ? null : h("p", { class: "hint" }, "Att läsa från bild är inte påslaget än. Du kan fylla i för hand.")), {});
+  }
+  function comboPhotoDialog() {
+    var file = h("input", { id: "cp-file", type: "file", accept: "image/*" });
+    var preview = h("div", { style: "margin-top:12px" });
+    var text = h("textarea", { id: "cp-text", placeholder: "Valfritt. Till exempel: Norse Blue över Black Walnut, två lager, kon 6" });
+    var status = h("p", { class: "hint" });
+    var photo = null, ctl = null;
+    var go = h("button", { type: "button", class: "btn" }, "Skapa förslag");
+    file.addEventListener("change", function () {
+      var f = file.files && file.files[0]; file.value = "";
+      if (!f) return;
+      photo = f; preview.textContent = "";
+      preview.append(h("img", { src: URL.createObjectURL(f), alt: "Vald bild", style: "max-width:100%;max-height:260px;border-radius:14px" }));
+      status.textContent = "";
+    });
+    function copyFor(code) {
+      return ({ rate_limited: "För många förfrågningar just nu. Vänta en stund och försök igen.", image_rejected: "Bilden gick inte att läsa. Prova en JPEG eller PNG.", refused: "Claude kunde inte läsa bilden. Prova en annan bild.", invalid_json: "Svaret gick inte att tolka. Försök igen.", not_configured: "Bildläsning är inte påslagen än.", session_expired: "Logga in igen och försök på nytt.", not_granted: "Du har inte tillgång till bildläsning." })[code] || "Det gick inte att skapa ett förslag. Försök igen.";
+    }
+    go.addEventListener("click", function () {
+      var t = text.value.trim();
+      if (!photo && !t) { status.textContent = "Lägg till en bild eller skriv något först."; return; }
+      var lib = glazeList();
+      if (lib.length < 2) { status.textContent = "Lägg in glasyrer i biblioteket först, så att förslaget kan välja bland dem."; return; }
+      var lines = lib.map(function (g) { return g.id + " | " + g.name + " | " + (g.code || "") + " | " + (g.brand || ""); }).join("\n");
+      var prompt = "Du hjälper en keramiker att fylla i en glasyrkombination i sin keramikapp. Svara på svenska.\n" +
+        (photo ? "Bilden visar ett provbrick eller en sak, kanske med en lapp eller etikett. Läs av all text i bilden: etiketter, handskrift, siffror och pilar.\n" : "Ingen bild, bara text.\n") +
+        "Användarens text: " + (t || "(ingen)") + "\n\n" +
+        "Glasyrer i hennes bibliotek (id | namn | kod | märke):\n" + lines + "\n\n" +
+        "Svara ENDAST med ett JSON-objekt med fälten:\n" +
+        "name: kombinationens namn. Ta det ur texten i bilden eller användarens text om det finns ett, annars föreslå ett kort namn,\n" +
+        "glazes: en lista med id:n från biblioteket, i den ordning glasyrerna läggs på, understa lagret först. Siffror 1, 2, 3 eller pilar i texten visar ordningen. Ta bara med glasyrer som finns i biblioteket,\n" +
+        "unmatched: namn på glasyrer du ser eller läser som inte finns i biblioteket, annars tom lista,\n" +
+        "coats: antal strykningar per lager som ett heltal om det framgår, annars null,\n" +
+        "results: en eller två av [" + GROUPS.join(", ") + "] som beskriver färgen efter bränning,\n" +
+        "note: en kort mening om ytan, och sådant i texten som inte får plats i andra fält, till exempel bränning eller lera, annars \"\",\n" +
+        "doubt: en lista med korta saker du gissat eller inte kunde läsa, annars tom lista.\n" +
+        "Hitta inte på. Stämmer text i bilden och användarens text inte överens, gå på användarens text och skriv det i doubt.";
+      ctl = new AbortController(); go.disabled = true; status.textContent = "Claude läser bilden. Det kan ta en halv minut…";
+      var blobP = photo ? shrink(photo) : Promise.resolve(null);
+      blobP.then(function (blob) {
+        return sample.json(prompt, { images: blob ? [blob] : undefined, signal: ctl.signal }).then(function (res) { return { res: res, blob: blob }; });
+      }).then(function (o) {
+        var res = o.res && typeof o.res === "object" && !Array.isArray(o.res) ? o.res : {};
+        var ids = (Array.isArray(res.glazes) ? res.glazes : []).filter(function (id) { return glazes.has(id); });
+        ids = ids.filter(function (id, i) { return ids.indexOf(id) === i; });
+        var extra = ids.slice(3); ids = ids.slice(0, 3);
+        var notes = [];
+        if (res.note) notes.push(String(res.note).trim());
+        var un = (Array.isArray(res.unmatched) ? res.unmatched : []).map(String).filter(Boolean);
+        if (un.length) notes.push("Finns inte i biblioteket: " + un.join(", ") + ".");
+        if (extra.length) notes.push("Fler lager: " + extra.map(label).join(", ") + ".");
+        var coats = Math.round(Number(res.coats)); if (!(coats >= 1 && coats <= 6)) coats = 2;
+        var results = (Array.isArray(res.results) ? res.results : []).filter(function (x) { return GROUPS.indexOf(x) >= 0; }).slice(0, 2);
+        var doubt = (Array.isArray(res.doubt) ? res.doubt : []).map(String).filter(Boolean);
+        var preset = { name: String(res.name || "").trim(), glazes: ids, coats: coats, status: o.blob ? "testad" : "idé", rating: 0, results: results, result: results[0] || "", images: [], note: notes.join(" "),
+          hint: "Förslag från " + (o.blob ? "bilden" : "texten") + ". Kolla och rätta innan du sparar." + (doubt.length ? " Dubbelkolla: " + doubt.join(", ") + "." : "") };
+        var up = o.blob && assets ? assets.upload(o.blob).then(function (r) { preset.images = [r.id]; }, function () {}) : Promise.resolve();
+        return up.then(function () { $("#dlg").close(); comboDialog(null, preset); });
+      }).catch(function (e) {
+        status.textContent = e && e.code === "cancelled" ? "Stoppad." : copyFor(e && e.code);
+      }).then(function () { go.disabled = false; ctl = null; });
+    });
+    openDlg("Ny kombination från bild", h("div", { class: "dlg-in", style: "padding:0" },
+      h("p", { class: "hint" }, "Lägg till en bild, och skriv gärna vad du vet. Du får ett förifyllt formulär att ändra eller spara."),
+      dropzone(file, "Tryck här eller dra in en bild"), preview,
+      fldDiv("Text (valfritt)", text), status), { actions: go });
   }
 
   // ---------- project dialog ----------
@@ -1059,7 +1144,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       stage.append(h("p", { class: "hint" }, "Ta en bild på en burk, eller på flera burkar bredvid varandra. Claude läser etiketterna och föreslår glasyrerna. Du får kolla innan något sparas."), dropzone(file, "Tryck här eller dra in bilder"), status);
     }
     function copyFor(code) {
-      return ({ not_granted: "Du har inte gett sidan tillåtelse att använda Claude.", rate_limited: "För många förfrågningar just nu. Vänta en stund och försök igen.", image_rejected: "Bilden gick inte att läsa. Prova en JPEG eller PNG.", refused: "Claude kunde inte läsa bilden. Prova en annan bild.", invalid_json: "Svaret gick inte att tolka. Försök igen.", images_unavailable: "Bildläsning fungerar inte här. Lägg till glasyren för hand." })[code] || "Det gick inte att läsa bilden. Försök igen.";
+      return ({ not_granted: "Du har inte gett sidan tillåtelse att använda Claude.", rate_limited: "För många förfrågningar just nu. Vänta en stund och försök igen.", image_rejected: "Bilden gick inte att läsa. Prova en JPEG eller PNG.", refused: "Claude kunde inte läsa bilden. Prova en annan bild.", invalid_json: "Svaret gick inte att tolka. Försök igen.", images_unavailable: "Bildläsning fungerar inte här. Lägg till glasyren för hand.", not_configured: "Bildläsning är inte påslagen än.", session_expired: "Logga in igen och försök på nytt." })[code] || "Det gick inte att läsa bilden. Försök igen.";
     }
     function norm(r) {
       var name = String(r && r.name || "").trim(); if (!name) return null;
@@ -1147,8 +1232,8 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     var search = h("input", { id: "search", class: "search", type: "text", placeholder: "Sök namn eller kod", value: query, "aria-label": "Sök glasyr" });
     var chips = h("div", { class: "chips", id: "chips" });
     var tchips = h("div", { class: "chips", id: "tchips" });
-    var photoBtn = canWrite && sample ? h("button", { class: "btn soft", type: "button", onclick: function () { photoDialog(); } }, "+ Lägg till från bild") : null;
-    var add = canWrite ? h("button", { class: "btn soft", type: "button", onclick: function () { glazeDialog(null); } }, "+ Lägg till glasyr") : null;
+    var photoBtn = null;
+    var add = canWrite ? h("button", { class: "btn soft", type: "button", onclick: function () { addDialog("glasyr"); } }, "+ Lägg till") : null;
     var grid = h("div", { class: "glist", id: "grid" });
     view.append(h("div", { class: "section-head" }, h("h2", null, "Glasyrer"), h("div", { style: "display:flex;gap:8px;flex-wrap:wrap" }, photoBtn, add)), h("div", { class: "toolbar" }, search, chips, tchips), grid);
     search.addEventListener("input", function () { query = search.value; paint(); });
@@ -1241,7 +1326,8 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     var card = h("div", { class: "card ccard cm" },
       photo,
       h("div", { class: "cmbody" },
-        h("h3", null, (c.glazes || []).map(label).join(" + ")),
+        h("h3", null, c.name ? c.name : (c.glazes || []).map(label).join(" + ")),
+        c.name ? h("span", { class: "fine" }, (c.glazes || []).map(label).join(" + ")) : null,
         h("div", { class: "row" },
           c.rating ? dots(c.rating) : null,
           res.length ? h("span", { class: "pill" }, res.map(function (x) { return x.toLowerCase(); }).join(" / ")) : null,
@@ -1364,7 +1450,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     finderEl.addEventListener("toggle", function () { finderOpen = finderEl.open; });
     view.append(
       h("div", { class: "section-head" }, h("h2", null, sub === "fav" ? "Favoriter" : sub === "insp" ? "Inspiration" : "Mina kombinationer"),
-        canWrite ? h("button", { class: "btn soft", type: "button", onclick: function () { comboDialog(null, { glazes: [], coats: 2, status: "idé", rating: 0, note: "" }); } }, "+ Ny kombination") : null),
+        canWrite ? h("button", { class: "btn soft", type: "button", onclick: function () { addDialog("kombination"); } }, "+ Lägg till") : null),
       finderEl,
       results);
     if (sub === "insp") view.append(more);
@@ -1720,6 +1806,61 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       im.onerror = rej; im.src = url;
     });
   }
+  // ---------- Claude via Cloudflare ----------
+  // Bildläsning och förslag går via /api/sample i src/worker.js (kräver inloggning och ANTHROPIC_API_KEY).
+  function makeSample() {
+    var MAX = 6;
+    function toB64(b) {
+      return new Promise(function (res, rej) {
+        var f = new FileReader();
+        f.onload = function () { var u = String(f.result); res({ media_type: /^image\/(jpeg|png|webp|gif)$/.test(b.type) ? b.type : "image/jpeg", data: u.slice(u.indexOf(",") + 1) }); };
+        f.onerror = rej; f.readAsDataURL(b);
+      });
+    }
+    function parse(t) {
+      t = String(t || "").trim();
+      try { return JSON.parse(t); } catch (e) {}
+      var m = /```(?:json)?\s*([\s\S]*?)```/.exec(t);
+      if (m) { try { return JSON.parse(m[1]); } catch (e) {} }
+      var a = t.search(/[\[{]/), b = Math.max(t.lastIndexOf("]"), t.lastIndexOf("}"));
+      if (a >= 0 && b > a) { try { return JSON.parse(t.slice(a, b + 1)); } catch (e) {} }
+      return undefined;
+    }
+    function call(prompt, o) {
+      o = o || {};
+      var imgs = o.images ? [].concat(o.images) : [];
+      if (imgs.length > MAX) return Promise.reject({ code: "image_rejected" });
+      return Promise.all(imgs.map(toB64)).then(function (list) {
+        var u = firebase.auth().currentUser;
+        if (!u) throw { code: "session_expired" };
+        return u.getIdToken().then(function (tok) {
+          return fetch("/api/sample", { method: "POST", headers: { "content-type": "application/json", authorization: "Bearer " + tok }, body: JSON.stringify({ prompt: prompt, images: list }), signal: o.signal });
+        });
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw { code: j.code || "upstream_error" }; return j; });
+      }).catch(function (e) {
+        if (e && e.name === "AbortError") throw { code: "cancelled" };
+        if (e && e.code) throw e;
+        throw { code: "upstream_error" };
+      });
+    }
+    return {
+      limits: function () { return Promise.resolve({ images: { maxCount: MAX, maxInputBytes: 10 * 1024 * 1024, mediaTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"] } }); },
+      json: function (prompt, o) {
+        return call(prompt, o).then(function (r) { var v = parse(r.text); if (v === undefined) throw { code: "invalid_json", text: r.text }; return v; });
+      }
+    };
+  }
+  function enableAI(u) {
+    aiChecked = false;
+    fetch("/api/sample/status", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (authUser !== u) return;
+      aiChecked = true;
+      if (!j || !j.enabled) return;
+      sample = makeSample();
+      if (tab === "glazes" && !$("#dlg").open) setTab(tab);
+    }).catch(function () {});
+  }
   function makeAssets() {
     return {
       upload: function (blob) {
@@ -1791,7 +1932,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       }).catch(function () {});
       db = { collection: function (n) { return root.collection(n); } };
       imgCol = root.collection("images"); imgCache = new Map();
-      assets = makeAssets(); sample = null; canWrite = true;
+      assets = makeAssets(); sample = null; canWrite = true; enableAI(u);
       loaded = { glazes: false, combos: false, projects: false }; startChecked = false;
       showTabs(true); setTab(tab);
       var fail = function (e) {

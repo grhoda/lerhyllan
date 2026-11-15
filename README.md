@@ -29,4 +29,21 @@ users/{uid}/images/{id}   bilder som data-URL (≤ 1 MB)
 
 Bilderna ligger i Firestore så att gratisplanen (Spark) räcker.
 
-AI-funktionerna från Claude-artefakten (läsa glasyrer från bild, förslag på kombinationer) finns inte i den här versionen.
+## Läsa från bild och få förslag (Claude)
+
+Knappen **+ Lägg till** (under Glasyrer och Kombinationer) låter dig välja *Ny glasyr* eller *Ny kombination*, och sedan *Från bild* eller *Fyll i själv*.
+
+- **Ny glasyr från bild:** en eller flera burkar i samma bild. Claude läser etiketterna och du kollar innan det sparas.
+- **Ny kombination från bild:** bild (och gärna text) på ett provbrick eller en sak. Claude läser texten i bilden och föreslår namn, glasyrer från ditt bibliotek i lagerordning, antal strykningar och färg. Du får ett förifyllt formulär att ändra eller spara.
+- **Få förslag** under Inspiration använder samma funktion.
+
+Bilden och texten skickas från sidan till `/api/sample` i `src/worker.js`, som kontrollerar inloggningen (Firebase ID-token) och anropar Claudes API. Sidan använder inte funktionen förrän den är påslagen.
+
+Slå på den så här:
+
+1. Skapa en API-nyckel på https://console.anthropic.com.
+2. Cloudflare → Workers & Pages → lerhyllan → Settings → Variables and secrets → lägg till hemligheten **`ANTHROPIC_API_KEY`**.
+3. (Rekommenderas) Lägg till variabeln **`ALLOWED_EMAILS`** med din e-postadress, flera skiljs med komma. Utan den kan alla som skapar ett konto i appen använda funktionen på din nyckel.
+4. (Valfritt) **`ANTHROPIC_MODEL`** byter modell. Standard är `claude-sonnet-5-5`.
+
+Utan nyckeln fungerar allt annat som vanligt, och *Från bild* döljs med en förklaring.
