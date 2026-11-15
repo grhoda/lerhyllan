@@ -6,6 +6,7 @@
 <meta name="apple-mobile-web-app-title" content="Lerhyllan">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#2b4de0">
+<script>try{if(localStorage.getItem("lh-palette")==="ny")document.documentElement.setAttribute("data-palette","ny")}catch(e){}</script>
 </head><body>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -458,6 +459,15 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
 .tools-menu .avpick img { width: 44px; height: 44px; margin: -3px; max-width: none; }
 .tools-menu .avpick button { width: 38px; height: 38px; justify-self: center; border-radius: 10px; box-shadow: 0 0 0 2px transparent; border: 0; }
 .tools-menu .avpick button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); background: none; }
+/* Palett "Ny": Shadow Grey, Dark Teal, Peach Glow, Alabaster Grey, Fuchsia Plum. Väljs i avatarmenyn. */
+:root[data-palette="ny"] { --bg:#e0e1dd;--surface:#f3f3f0;--surface-2:#e9eae6;--ink:#3a2e39;--muted:#5a4e58;--line:#b9bab5;--accent:#1e555c;--accent-ink:#ffffff;--accent-soft:#ffdcc8;--warn:#962062;--seg-bg:#d3d4cf;--m1:rgba(30,85,92,.12);--m2:rgba(255,185,151,.45);--m3:rgba(216,71,151,.12);--m4:rgba(30,85,92,.12);--m5:rgba(58,46,57,.10); }
+@media (prefers-color-scheme: dark) { :root[data-palette="ny"]:not([data-theme="light"]) { --bg:#241c23;--surface:#3a2e39;--surface-2:#463a45;--ink:#e0e1dd;--muted:#c0bbbd;--line:#6a5d69;--accent:#ffb997;--accent-ink:#3a2e39;--accent-soft:#1e555c;--warn:#ff8dc4;--seg-bg:#463a45;--m1:rgba(255,185,151,.12);--m2:rgba(216,71,151,.14);--m3:rgba(30,85,92,.35);--m4:rgba(30,85,92,.25);--m5:rgba(255,185,151,.08); color-scheme: dark; } }
+:root[data-palette="ny"][data-theme="dark"] { --bg:#241c23;--surface:#3a2e39;--surface-2:#463a45;--ink:#e0e1dd;--muted:#c0bbbd;--line:#6a5d69;--accent:#ffb997;--accent-ink:#3a2e39;--accent-soft:#1e555c;--warn:#ff8dc4;--seg-bg:#463a45;--m1:rgba(255,185,151,.12);--m2:rgba(216,71,151,.14);--m3:rgba(30,85,92,.35);--m4:rgba(30,85,92,.25);--m5:rgba(255,185,151,.08); color-scheme: dark; }
+:root[data-palette="ny"] .logo > rect:first-child { fill: var(--accent); }
+:root[data-palette="ny"] .logo [fill="#fff"] { fill: var(--accent-ink); }
+:root[data-palette="ny"] .logo [stroke="#2b4de0"] { stroke: var(--accent); }
+:root[data-palette="ny"] .logo [fill="#dfe4ff"] { fill: var(--accent-soft); }
+:root[data-palette="ny"] .logo [stroke="#93a8ff"] { stroke: #d84797; }
 </style>
 
 <div class="wrap">
@@ -2026,6 +2036,17 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     } else {
       m.append(h("div", { class: "who" }, h("b", null, "Utloggad")));
     }
+    var cur = document.documentElement.getAttribute("data-palette") === "ny" ? "ny" : "";
+    m.append(h("div", { class: "msep" }));
+    m.append(h("div", { class: "mhead" }, "Palett"));
+    [["", "Nuvarande"], ["ny", "Ny"]].forEach(function (p) {
+      m.append(h("button", { type: "button", role: "menuitemradio", "aria-checked": String(cur === p[0]), onclick: function () {
+        if (p[0]) document.documentElement.setAttribute("data-palette", p[0]); else document.documentElement.removeAttribute("data-palette");
+        try { localStorage.setItem("lh-palette", p[0]); } catch (e) {}
+        var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute("content", p[0] ? "#1e555c" : "#2b4de0");
+        close();
+      } }, (cur === p[0] ? "\u2713 " : "") + p[1]));
+    });
   }
   function showTabs(v) { $(".tabs").hidden = !v; $("#seg").hidden = !v || tab !== "glazes"; if (!v) $("#seg2").hidden = true; if (v) drawSeg(); }
   function renderStart() {
