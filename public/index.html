@@ -1625,7 +1625,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       } else {
         var cats = comboCats(), cur = cats[sub] || cats.mine;
         var byC = byCreated(new Map(cur.map(function (c) { return [c.id, c]; })));
-        var msg = sub === "fav" ? ["Inga favoriter än", "Tryck på hjärtat på en kombination du gillar."] : sub === "all" ? ["Inga kombinationer än", "Lägg till en med knappen + Lägg till."] : ["Inga kombinationer än", "Lägg till en kombination på ett projekt eller med Ny kombination."];
+        var msg = sub === "fav" ? ["Inga favoriter än", "Tryck på hjärtat på en kombination du gillar."] : sub === "all" ? ["Inga kombinationer än", "Lägg till en med knappen + Lägg till."] : ["Inga testade kombinationer än", "Kombinationer du markerar som Testad visas här. De med status Att testa finns under Alla."];
         shown++;
         results.append(byC.length ? comboList(byC) : h("div", { class: "empty" }, h("b", null, msg[0]), msg[1]));
       }
@@ -1850,7 +1850,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
   }
   function comboCats() {
     var all = Array.from(combos).map(function (e) { return Object.assign({ id: e[0] }, e[1]); });
-    var isMine = function (c) { return !!c.projectId || !c.by; };
+    var isMine = function (c) { return c.status === "testad"; };
     return { fav: all.filter(function (c) { return c.fav; }), mine: all.filter(isMine), all: all };
   }
   var lastCombo = "mine";
