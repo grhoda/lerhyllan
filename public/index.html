@@ -1744,11 +1744,17 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
       if (!d.glazeText) { var t = summarizeUse(d.glazeUse || []).map(function (x) { return x.placeLabel + ": " + x.text; }).join(". "); if (t) d.glazeText = t; }
       docs["projects/" + pid] = d; (d.images || []).forEach(function (i) { ids.add(i); });
     });
-    if (!projects.size) { toast("Du har inga projekt att exportera än."); return; }
+    [["glazes", glazes], ["combos", combos]].forEach(function (col) {
+      col[1].forEach(function (v, did) {
+        var d = JSON.parse(JSON.stringify(v));
+        docs[col[0] + "/" + did] = d; (d.images || []).forEach(function (i) { ids.add(i); });
+      });
+    });
+    if (!projects.size && !glazes.size && !combos.size) { toast("Du har inget att exportera än."); return; }
     toast("Förbereder filen…");
     Promise.all(Array.from(ids).map(function (id) { return fetchBlob(id).then(blobToDataUrl).then(function (u) { return [id, u]; }).catch(function () { return null; }); })).then(function (list) {
       var blobs = {}; list.filter(Boolean).forEach(function (e) { blobs[e[0]] = e[1]; });
-      saveFile("lerhyllan-projekt.json", new Blob([JSON.stringify({ v: 1, docs: docs, blobs: blobs })], { type: "application/json" }));
+      saveFile("lerhyllan-allt.json", new Blob([JSON.stringify({ v: 1, docs: docs, blobs: blobs })], { type: "application/json" }));
     });
   }
   function importProjects(file) {
@@ -1795,8 +1801,8 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     var impFile = h("input", { type: "file", accept: ".json,application/json", hidden: true });
     impFile.addEventListener("change", function () { var f = impFile.files && impFile.files[0]; impFile.value = ""; if (f) importProjects(f); });
     var bk = h("div", { style: "margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;align-items:center" },
-      h("button", { type: "button", class: "btn soft", onclick: exportProjects }, "Exportera projekt"),
-      canWrite ? h("button", { type: "button", class: "btn soft", onclick: function () { impFile.click(); } }, "Importera projekt") : null, impFile,
+      h("button", { type: "button", class: "btn soft", onclick: exportProjects }, "Exportera allt"),
+      canWrite ? h("button", { type: "button", class: "btn soft", onclick: function () { impFile.click(); } }, "Importera från fil") : null, impFile,
       h("p", { class: "hint", style: "flex-basis:100%;font-size:14px" }, "Filen med projekt kan läsas in i Lerhyllan-filen, och tvärtom."));
     view.append(head, wrap);
     function paint() {
@@ -2000,7 +2006,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -.015em; }
     });
   }
   function TOOLS_ITEMS(menu, fileIn, close) {
-    menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); exportProjects(); } }, "Exportera projekt"));
+    menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); exportProjects(); } }, "Exportera allt"));
     if (canWrite) menu.append(h("button", { type: "button", role: "menuitem", onclick: function () { close(); fileIn.click(); } }, "Importera från fil"));
     fileIn.addEventListener("change", function () { var f = fileIn.files && fileIn.files[0]; fileIn.value = ""; if (f) importProjects(f); });
   }
